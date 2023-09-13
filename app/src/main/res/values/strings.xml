@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Bangabandhu Play</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="recently_added">Recently Added</string>
+    <string name="video_thumbnail">Video Thumbnail</string>
+    <string name="play">play</string>
+    <string name="slider_description">When the love of his life is compelled to wed another, a gifted yet volatile young surgeon spirals into self-destruction. His brilliance in the operating room is matched only by the chaos of his personal life.</string>
+</resources>
