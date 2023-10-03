@@ -21,5 +21,10 @@
 #-renamesourcefileattribute SourceFile
 -keep class com.durbar.bangabandhuplay.data.model.*
 -keep class com.durbar.bangabandhuplay.data.repository.*
+-keep class com.google.gson.** { *; }
+-keep class retrofit.** { *; }
+-keep class com.google.appengine.** { *; }
+-keepattributes *Annotation*
+-keepattributes Signature
 
 
