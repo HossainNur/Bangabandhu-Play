@@ -1,6 +1,6 @@
 package com.durbar.bangabandhuplay;
 
-import static com.durbar.bangabandhuplay.R.id.drawer_family_member;
+import static com.durbar.bangabandhuplay.R.id.familyMemberFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import com.google.android.material.navigation.NavigationView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
@@ -58,11 +59,13 @@ public class MainActivity extends AppCompatActivity {
 
         //NAVIGATION DRAWER ITEM SELECTED LISTENER
         binding.navDrawer.setNavigationItemSelectedListener(item -> {
-            if (item.getItemId() == drawer_family_member) {
+            if (item.getItemId() == familyMemberFragment) {
                 Toast.makeText(this, "family member", Toast.LENGTH_SHORT).show();
+                navController.navigate(R.id.familyMemberFragment);
             } else {
                 Toast.makeText(this, "photo gallery", Toast.LENGTH_SHORT).show();
             }
+            binding.drawerLayout.closeDrawer(GravityCompat.START);
             return true;
         });
 
