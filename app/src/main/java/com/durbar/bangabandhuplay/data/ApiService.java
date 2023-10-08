@@ -36,9 +36,7 @@ public interface ApiService {
     Call<GetRelatedContent> getRelatedOttContents(@Path("UUID") String UUID);
 
     @GET("ott-content/search")
-    Call<SearchResultRes> getSearchContents(
-            @Query("keyword") String keyword
-    );
+    Call<SearchResultRes> getSearchContents(@Query("keyword") String keyword);
 }
 
 

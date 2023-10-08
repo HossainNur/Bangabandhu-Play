@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/drawer_family_member"
+        android:title="@string/family_member" />
+    <item
+        android:id="@+id/drawer_photo_gallery"
+        android:title="@string/photo_gallery"
+        />
+</menu>

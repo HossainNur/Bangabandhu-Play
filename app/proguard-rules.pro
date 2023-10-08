@@ -20,6 +20,8 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 -keep class com.durbar.bangabandhuplay.data.model.*
+-keep class com.durbar.bangabandhuplay.data.Api
+-keep class com.durbar.bangabandhuplay.data.ApiService
 -keep class com.durbar.bangabandhuplay.data.repository.*
 -keep class com.google.gson.** { *; }
 -keep class retrofit.** { *; }
