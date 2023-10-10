@@ -1,13 +1,17 @@
 package com.durbar.bangabandhuplay.ui.family_members
 
-import android.R
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.durbar.bangabandhuplay.MainActivity
+import com.durbar.bangabandhuplay.R
 import com.durbar.bangabandhuplay.databinding.FragmentFamilyMemberBinding
 
 
@@ -21,7 +25,6 @@ class FamilyMemberFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentFamilyMemberBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -47,17 +50,37 @@ class FamilyMemberFragment : Fragment() {
         val adapter = FamilyMemberAdapter(requireContext(), imageResIds)
         binding.rcvFamilyMember.adapter = adapter*/
 
+        getDatAndNavigation()
+
+    }
+    private fun getDatAndNavigation(){
+        // getting adapter data & sending to another fragment through call back
+        val callback : (Int, Int, String, String, String, String) -> Unit = {position, id, imageUrl, name, shortTitle, description  ->
+
+            val bundle= Bundle()   //bundle
+            bundle.putInt("ID",id)
+            bundle.putString("imageUrl",imageUrl)
+            bundle.putString("name",name)
+            bundle.putString("shortTitle",shortTitle)
+            bundle.putString("description",description)
+
+            findNavController().navigate(R.id.action_familyMemberFragment_to_familyMemberDetailsFragment, bundle)
+        }
+
+
         familyMemberViewModel = ViewModelProvider(this).get(FamilyMemberViewModel::class.java)
 
         familyMemberViewModel.getPhotos()?.observe(viewLifecycleOwner) { data ->
             data?.let {
                 binding.rcvFamilyMember.layoutManager = GridLayoutManager(requireContext(), 3)
-                adapter = FamilyMemberAdapter(it)
+                // adapter = FamilyMemberAdapter(it)
+                adapter = FamilyMemberAdapter(it, callback)
                 binding.rcvFamilyMember.adapter = adapter
+
             }
         }
 
-        familyMemberViewModel.getPhotos()
+       // familyMemberViewModel.getPhotos()
     }
 
     override fun onResume() {

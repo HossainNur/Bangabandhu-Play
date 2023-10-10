@@ -53,12 +53,26 @@
         android:label="fragment_family_member"
         tools:layout="@layout/fragment_family_member" >
 
+        <action
+            android:id="@+id/action_familyMemberFragment_to_familyMemberDetailsFragment"
+            app:destination="@id/familyMemberDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/photoGalleryFragment"
         android:name="com.durbar.bangabandhuplay.ui.photo_gallery.PhotoGalleryFragment"
         android:label="fragment_photo_gallery"
         tools:layout="@layout/fragment_photo_gallery" />
+    <fragment
+        android:id="@+id/familyMemberDetailsFragment"
+        android:name="com.durbar.bangabandhuplay.ui.family_members.family_member_details.FamilyMemberDetailsFragment"
+        android:label="fragment_family_member_details"
+        tools:layout="@layout/fragment_family_member_details" >
+        <action
+            android:id="@+id/action_familyMemberDetailsFragment_to_familyMemberFragment2"
+            app:popUpTo="@id/familyMemberFragment" />
+    </fragment>
+
+
 
 
 </navigation>
