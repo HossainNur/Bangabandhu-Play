@@ -18,12 +18,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private boolean doubleBackToExitPressedOnce = false;
+
+    private AppBarConfiguration appBarConfiguration;
+
+    private NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +56,27 @@ public class MainActivity extends AppCompatActivity {
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
         NavController navController = navHostFragment.getNavController();
-        NavigationUI.setupWithNavController(binding.navView, navController);
+        //NavigationUI.setupWithNavController(binding.navView, navController);
+
+        /*appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.navigation_home, R.id.navigation_movies, R.id.navigation_tvShows, R.id.familyMemberFragment, R.id.photoGalleryFragment)
+                //.setDrawerLayout(binding.drawerLayout)
+                .setOpenableLayout(binding.drawerLayout)
+                .build();*/
+
+       // NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(binding.navDrawer, navController);
+        NavigationUI.setupWithNavController(binding.navView,navController);
+
+        //for unselecting/unchecking bottomNavigation item
+        binding.navView.getMenu().setGroupCheckable(0,false, true);
 
         binding.ivSearch.setOnClickListener(v -> {
             startActivity(new Intent(getApplicationContext(), SearchResultActivity.class));
         });
 
         //NAVIGATION DRAWER ITEM SELECTED LISTENER
-        binding.navDrawer.setNavigationItemSelectedListener(item -> {
+       /* binding.navDrawer.setNavigationItemSelectedListener(item -> {
             if (item.getItemId() == familyMemberFragment) {
                 Toast.makeText(this, "family member", Toast.LENGTH_SHORT).show();
                 navController.navigate(R.id.familyMemberFragment);
@@ -67,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             }
             binding.drawerLayout.closeDrawer(GravityCompat.START);
             return true;
-        });
+        });*/
 
     }
 

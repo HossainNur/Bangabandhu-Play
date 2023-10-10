@@ -10,18 +10,11 @@
         android:name="com.durbar.bangabandhuplay.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_navigation_home_to_navigation_movies"
-            app:destination="@id/navigation_movies" />
+
         <action
             android:id="@+id/action_navigation_home_to_navigation_setting"
             app:destination="@id/navigation_setting" />
-        <action
-            android:id="@+id/action_navigation_home_to_navigation_tvShows"
-            app:destination="@id/navigation_tvShows" />
-        <action
-            android:id="@+id/action_navigation_home_self"
-            app:destination="@id/navigation_home" />
+
 
     </fragment>
 
@@ -30,54 +23,29 @@
         android:name="com.durbar.bangabandhuplay.ui.movies.MoviesFragment"
         android:label="fragment_movies"
         tools:layout="@layout/fragment_movies" >
-        <action
-            android:id="@+id/action_navigation_movies_to_navigation_home"
-            app:destination="@id/navigation_home" />
-        <action
-            android:id="@+id/action_navigation_movies_to_navigation_tvShows"
-            app:destination="@id/navigation_tvShows" />
+
         <action
             android:id="@+id/action_navigation_movies_to_navigation_setting"
             app:destination="@id/navigation_setting" />
-        <action
-            android:id="@+id/action_navigation_movies_self"
-            app:destination="@id/navigation_movies" />
+
     </fragment>
     <fragment
         android:id="@+id/navigation_tvShows"
         android:name="com.durbar.bangabandhuplay.ui.documentary.TvShowsFragment"
         android:label="fragment_tv_shows"
         tools:layout="@layout/fragment_tv_shows" >
-        <action
-            android:id="@+id/action_navigation_tvShows_to_navigation_home"
-            app:destination="@id/navigation_home" />
-        <action
-            android:id="@+id/action_navigation_tvShows_to_navigation_movies"
-            app:destination="@id/navigation_movies" />
+
         <action
             android:id="@+id/action_navigation_tvShows_to_navigation_setting"
             app:destination="@id/navigation_setting" />
-        <action
-            android:id="@+id/action_navigation_tvShows_self"
-            app:destination="@id/navigation_tvShows" />
+
     </fragment>
     <fragment
         android:id="@+id/navigation_setting"
         android:name="com.durbar.bangabandhuplay.SettingFragment"
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting" >
-        <action
-            android:id="@+id/action_navigation_setting_to_navigation_movies"
-            app:destination="@id/navigation_movies" />
-        <action
-            android:id="@+id/action_navigation_setting_to_navigation_home"
-            app:destination="@id/navigation_home" />
-        <action
-            android:id="@+id/action_navigation_setting_to_navigation_tvShows"
-            app:destination="@id/navigation_tvShows" />
-        <action
-            android:id="@+id/action_navigation_setting_self"
-            app:destination="@id/navigation_setting" />
+
     </fragment>
     <fragment
         android:id="@+id/familyMemberFragment"
