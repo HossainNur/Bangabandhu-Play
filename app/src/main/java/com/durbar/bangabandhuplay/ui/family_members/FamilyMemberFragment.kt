@@ -1,16 +1,15 @@
 package com.durbar.bangabandhuplay.ui.family_members
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.durbar.bangabandhuplay.MainActivity
 import com.durbar.bangabandhuplay.R
 import com.durbar.bangabandhuplay.databinding.FragmentFamilyMemberBinding
 
@@ -79,8 +78,6 @@ class FamilyMemberFragment : Fragment() {
 
             }
         }
-
-       // familyMemberViewModel.getPhotos()
     }
 
     override fun onResume() {

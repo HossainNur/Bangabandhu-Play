@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/transparent_gradient"
+    android:background="@drawable/transparent_gradient_family_member"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.family_members.FamilyMemberFragment">
 
@@ -14,9 +14,20 @@
         android:layout_height="0dp"
         android:src="@drawable/family"
         android:scaleType="fitXY"
+
+        android:background="@drawable/transparent_gradient_family_member"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/guide_line_center"/>
+
+  <!--  <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/transparent_gradient_family_member"
+        app:layout_constraintTop_toTopOf="@id/ivBackgroundImage"
+        app:layout_constraintBottom_toBottomOf="@id/ivBackgroundImage"
+        app:layout_constraintStart_toStartOf="@id/ivBackgroundImage"/>
+-->
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guide_line_center"

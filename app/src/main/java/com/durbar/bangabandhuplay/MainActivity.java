@@ -1,6 +1,10 @@
 package com.durbar.bangabandhuplay;
 
 import static com.durbar.bangabandhuplay.R.id.familyMemberFragment;
+import static com.durbar.bangabandhuplay.R.id.navigation_home;
+import static com.durbar.bangabandhuplay.R.id.navigation_movies;
+import static com.durbar.bangabandhuplay.R.id.navigation_tvShows;
+import static com.durbar.bangabandhuplay.R.id.photoGalleryFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -25,10 +30,6 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private boolean doubleBackToExitPressedOnce = false;
-
-    private AppBarConfiguration appBarConfiguration;
-
-    private NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,37 +57,62 @@ public class MainActivity extends AppCompatActivity {
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
         NavController navController = navHostFragment.getNavController();
-        //NavigationUI.setupWithNavController(binding.navView, navController);
 
-        /*appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_movies, R.id.navigation_tvShows, R.id.familyMemberFragment, R.id.photoGalleryFragment)
-                //.setDrawerLayout(binding.drawerLayout)
-                .setOpenableLayout(binding.drawerLayout)
-                .build();*/
-
-       // NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+     /*   //These two lines can perform drawer menu & bottom navigation automatically. There will be no need to manually setting 'setNavigationItemSelectedListener' done below
+        // here we are doing manually below to achieve some of our design and functionality goals which is not possible in automatic process.
         NavigationUI.setupWithNavController(binding.navDrawer, navController);
         NavigationUI.setupWithNavController(binding.navView,navController);
+        */
 
-        //for unselecting/unchecking bottomNavigation item
-        binding.navView.getMenu().setGroupCheckable(0,false, true);
+        binding.navDrawer.setNavigationItemSelectedListener(item -> {
+
+            //for unselecting/unchecking bottomNavigation item when drawer menu item is clicked
+            binding.navView.getMenu().setGroupCheckable(0,false, true);
+
+            binding.drawerLayout.closeDrawer(GravityCompat.START);   //close drawer
+
+            if (item.getItemId() == familyMemberFragment) {
+                Toast.makeText(this, "family member", Toast.LENGTH_SHORT).show();
+                navController.navigate(R.id.familyMemberFragment);
+
+                // this will clear the back stack and send to the declared fragment
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.popBackStackImmediate("FamilyMemberFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
+            if (item.getItemId() == photoGalleryFragment) {
+                navController.navigate(R.id.photoGalleryFragment);
+
+                // this will clear the back stack and send to the declared fragment
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.popBackStackImmediate("photoGalleryFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
+
+            return true;
+        });
+
+        binding.navView.setOnNavigationItemSelectedListener( item ->{
+            // for enabling selecting/checking bottomNavigation item again when bottom navigation item is clicked again
+            binding.navView.getMenu().setGroupCheckable(0,true, true);
+
+            if (item.getItemId() == navigation_home){
+                navController.navigate(R.id.navigation_home);
+            }
+            if (item.getItemId() == navigation_movies){
+
+                navController.navigate(R.id.navigation_movies);
+            }
+            if (item.getItemId() == navigation_tvShows){
+                navController.navigate(R.id.navigation_tvShows);
+            }
+
+            return  true;
+        });
+
+
 
         binding.ivSearch.setOnClickListener(v -> {
             startActivity(new Intent(getApplicationContext(), SearchResultActivity.class));
         });
-
-        //NAVIGATION DRAWER ITEM SELECTED LISTENER
-       /* binding.navDrawer.setNavigationItemSelectedListener(item -> {
-            if (item.getItemId() == familyMemberFragment) {
-                Toast.makeText(this, "family member", Toast.LENGTH_SHORT).show();
-                navController.navigate(R.id.familyMemberFragment);
-            } else {
-                Toast.makeText(this, "photo gallery", Toast.LENGTH_SHORT).show();
-            }
-            binding.drawerLayout.closeDrawer(GravityCompat.START);
-            return true;
-        });*/
-
     }
 
 

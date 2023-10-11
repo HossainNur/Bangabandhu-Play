@@ -2,10 +2,12 @@ package com.durbar.bangabandhuplay.ui.family_members.family_member_details
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.durbar.bangabandhuplay.R
 import com.durbar.bangabandhuplay.databinding.FragmentFamilyMemberDetailsBinding
 import com.squareup.picasso.Picasso
@@ -14,7 +16,6 @@ import com.squareup.picasso.Picasso
 class FamilyMemberDetailsFragment : Fragment() {
 
     private lateinit var binding: FragmentFamilyMemberDetailsBinding
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,13 +29,13 @@ class FamilyMemberDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Hide previous Toolbar
-        (requireActivity() as AppCompatActivity).supportActionBar?.hide()
+       // (requireActivity() as AppCompatActivity).supportActionBar?.hide()
 
         // Set the Toolbar as the ActionBar for the fragment's hosting activity
-        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar2FamilyDetails)
+        /*(requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar2FamilyDetails)
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         (requireActivity() as AppCompatActivity).supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_ios_24)
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = "Family Member's"
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = "Family Member's"*/
 
        /* (activity as AppCompatActivity).setSupportActionBar(binding.toolbar2FamilyDetails)
 
@@ -56,6 +57,9 @@ class FamilyMemberDetailsFragment : Fragment() {
         binding.tvFamilyMemberName.text = name
         binding.tvFamilyMemTitle.text = shortTitle
         binding.tvFamilyMemDescription.text = description
+
+        requireActivity().supportFragmentManager.popBackStackImmediate("FamilyMemberFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE)
+
 
     }
 
