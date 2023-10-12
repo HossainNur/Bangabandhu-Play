@@ -1,6 +1,8 @@
 package com.durbar.bangabandhuplay.data;
 
 import com.durbar.bangabandhuplay.data.model.category.root.single.SingleRootCategory;
+import com.durbar.bangabandhuplay.data.model.family_member.FamilyMemberResponse;
+import com.durbar.bangabandhuplay.data.model.photo_gallery.PhotoGalleryResponse;
 import com.durbar.bangabandhuplay.data.model.sliders.Sliders;
 import com.durbar.bangabandhuplay.data.model.category.single_sub.SingleSubCategoryRes;
 import com.durbar.bangabandhuplay.data.model.frontend_custom_content.custom_content_by_slug.CustomContentBySlug;
@@ -37,6 +39,12 @@ public interface ApiService {
 
     @GET("ott-content/search")
     Call<SearchResultRes> getSearchContents(@Query("keyword") String keyword);
+
+    @GET("family-members")
+    Call<FamilyMemberResponse> getFamilyMemberPhotos();
+
+    @GET("photo-gallery")
+    Call<PhotoGalleryResponse> getPhotoGalleryPhotos();
 }
 
 

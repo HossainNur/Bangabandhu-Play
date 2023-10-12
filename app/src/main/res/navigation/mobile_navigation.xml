@@ -78,4 +78,15 @@
             android:id="@+id/action_navigation_setting_self"
             app:destination="@id/navigation_setting" />
     </fragment>
+    <fragment
+        android:id="@+id/familyMemberFragment"
+        android:name="com.durbar.bangabandhuplay.ui.family_member.FamilyMemberFragment"
+        android:label="fragment_family_member"
+        tools:layout="@layout/fragment_family_member" />
+    <fragment
+        android:id="@+id/photoGalleryFragment"
+        android:name="com.durbar.bangabandhuplay.ui.photo_gallery.PhotoGalleryFragment"
+        android:label="fragment_photo_gallery"
+        tools:layout="@layout/fragment_photo_gallery" />
+
 </navigation>

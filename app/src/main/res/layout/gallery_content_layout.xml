@@ -10,8 +10,9 @@
     <ImageView
         android:id="@+id/main_product_card_thumbnail_iv"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_170sdp"
+        android:layout_height="@dimen/_140sdp"
         android:scaleType="fitXY"
+        android:clipToOutline="true"
         android:background="@drawable/rounded_corner_for_iv"
         android:contentDescription="@string/video_thumbnail"
         app:layout_constraintEnd_toEndOf="parent"
