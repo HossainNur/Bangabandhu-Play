@@ -56,6 +56,9 @@
         <action
             android:id="@+id/action_familyMemberFragment_to_familyMemberDetailsFragment"
             app:destination="@id/familyMemberDetailsFragment" />
+        <action
+            android:id="@+id/action_familyMemberFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
     </fragment>
     <fragment
         android:id="@+id/photoGalleryFragment"

@@ -16,6 +16,7 @@ import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.durbar.bangabandhuplay.MainActivity;
 import com.durbar.bangabandhuplay.data.model.sliders.Original;
 import com.durbar.bangabandhuplay.data.model.frontend_custom_content.custom_contents.Data;
 import com.durbar.bangabandhuplay.databinding.FragmentHomeBinding;
@@ -37,8 +38,11 @@ public class HomeFragment extends Fragment {
     private boolean slider = false, frontendSection = false;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        MainActivity.checkAppBarVisibility();  //to check AppBar visibility is Visible or Gone
+
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 

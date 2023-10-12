@@ -8,4 +8,5 @@ public class Constants {
     public static final String CONTENT_UUID = "CONTENT_UUID";
     public static final String CONTENT_SECTION_TITLE = "CONTENT_SECTION_TITLE";
     public static final String CONTENT_IS_HOME = "CONTENT_IS_HOME";
+    public static boolean MainToolBarVisibility = true;
 }

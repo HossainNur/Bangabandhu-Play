@@ -3,10 +3,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/transparent_gradient_family_member"
+    android:background="@color/black"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.family_members.FamilyMemberFragment">
 
+  <!--  <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/consLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/ivBackArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_arrow_back_ios_24"
+            android:layout_marginStart="@dimen/_10sdp"
+            app:layout_constraintTop_toTopOf="@id/consLayout1"
+            app:layout_constraintBottom_toBottomOf="@id/consLayout1"
+            app:layout_constraintStart_toStartOf="@id/consLayout1"/>
+
+        <TextView
+            android:id="@+id/tvFamilyFragmentTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="Family Members"
+            android:textSize="@dimen/_12ssp"
+            android:layout_marginStart="@dimen/_15sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivBackArrow"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
     <ImageView
         android:id="@+id/ivBackgroundImage"
@@ -20,14 +51,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/guide_line_center"/>
 
-  <!--  <View
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/transparent_gradient_family_member"
+        android:background="@drawable/transparent_gradient_family_background_image"
         app:layout_constraintTop_toTopOf="@id/ivBackgroundImage"
         app:layout_constraintBottom_toBottomOf="@id/ivBackgroundImage"
-        app:layout_constraintStart_toStartOf="@id/ivBackgroundImage"/>
--->
+        app:layout_constraintStart_toStartOf="parent"/>
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guide_line_center"
@@ -40,13 +71,22 @@
         android:id="@+id/rcvFamilyMember"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:elevation="@dimen/_100ssp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="3"
         android:padding="@dimen/_20ssp"
-        android:layout_marginTop="110dp"
+        android:layout_marginTop="100dp"
         tools:listitem="@layout/item_family_member_rcv"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/transparent_gradient_family_bottom_view"
+        app:layout_constraintTop_toBottomOf="@id/ivBackgroundImage"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

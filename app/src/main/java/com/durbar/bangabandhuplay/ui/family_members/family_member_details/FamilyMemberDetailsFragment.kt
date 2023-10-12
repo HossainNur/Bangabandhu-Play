@@ -8,8 +8,11 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.fragment.findNavController
+import com.durbar.bangabandhuplay.MainActivity
 import com.durbar.bangabandhuplay.R
 import com.durbar.bangabandhuplay.databinding.FragmentFamilyMemberDetailsBinding
+import com.durbar.bangabandhuplay.utils.Constants
 import com.squareup.picasso.Picasso
 
 
@@ -21,12 +24,20 @@ class FamilyMemberDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        MainActivity.checkAppBarVisibility()
+
         binding = FragmentFamilyMemberDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.ivBackArrow.setOnClickListener {
+            Constants.MainToolBarVisibility = true
+            findNavController().navigate(R.id.familyMemberFragment)
+        }
 
         // Hide previous Toolbar
        // (requireActivity() as AppCompatActivity).supportActionBar?.hide()

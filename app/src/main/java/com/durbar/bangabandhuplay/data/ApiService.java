@@ -39,7 +39,7 @@ public interface ApiService {
     @GET("ott-content/search")
     Call<SearchResultRes> getSearchContents(@Query("keyword") String keyword);
 
-    @GET("photo-gallery")
+    @GET("family-members")
     Call<PhotoGallery> getPhotos();
 }
 

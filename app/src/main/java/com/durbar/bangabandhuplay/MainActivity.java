@@ -9,11 +9,14 @@ import static com.durbar.bangabandhuplay.R.id.photoGalleryFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.durbar.bangabandhuplay.databinding.ActivityMainBinding;
 import com.durbar.bangabandhuplay.ui.search.SearchResultActivity;
+import com.durbar.bangabandhuplay.utils.Constants;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -27,7 +30,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity {
-    private ActivityMainBinding binding;
+    private static ActivityMainBinding binding;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private boolean doubleBackToExitPressedOnce = false;
 
@@ -37,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        checkAppBarVisibility();   //to check AppBar visibility is Visible or Gone
 
         /*BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -58,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
         NavController navController = navHostFragment.getNavController();
 
+
      /*   //These two lines can perform drawer menu & bottom navigation automatically. There will be no need to manually setting 'setNavigationItemSelectedListener' done below
         // here we are doing manually below to achieve some of our design and functionality goals which is not possible in automatic process.
         NavigationUI.setupWithNavController(binding.navDrawer, navController);
@@ -66,13 +72,16 @@ public class MainActivity extends AppCompatActivity {
 
         binding.navDrawer.setNavigationItemSelectedListener(item -> {
 
-            //for unselecting/unchecking bottomNavigation item when drawer menu item is clicked
-            binding.navView.getMenu().setGroupCheckable(0,false, true);
+            /*Constants.MainToolBarVisibility = false;  //  binding.appTopBarLayout.setVisibility(View.GONE)
+            checkAppBarVisibility();*/
+
+           // checkAppBarVisibility();   //  binding.appTopBarLayout.setVisibility(View.GONE)
+
+            binding.navView.getMenu().setGroupCheckable(0,false, true);  //for unselecting/unchecking bottomNavigation item when drawer menu item is clicked
 
             binding.drawerLayout.closeDrawer(GravityCompat.START);   //close drawer
 
             if (item.getItemId() == familyMemberFragment) {
-                Toast.makeText(this, "family member", Toast.LENGTH_SHORT).show();
                 navController.navigate(R.id.familyMemberFragment);
 
                 // this will clear the back stack and send to the declared fragment
@@ -91,8 +100,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         binding.navView.setOnNavigationItemSelectedListener( item ->{
-            // for enabling selecting/checking bottomNavigation item again when bottom navigation item is clicked again
-            binding.navView.getMenu().setGroupCheckable(0,true, true);
+
+            binding.navView.getMenu().setGroupCheckable(0,true, true);  // for enabling selecting/checking bottomNavigation item again when bottom navigation item is clicked again
+
+            Constants.MainToolBarVisibility = true;  // binding.appTopBarLayout.setVisibility(View.VISIBLE)
+           // checkAppBarVisibility();
 
             if (item.getItemId() == navigation_home){
                 navController.navigate(R.id.navigation_home);
@@ -107,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
 
             return  true;
         });
-
 
 
         binding.ivSearch.setOnClickListener(v -> {
@@ -143,4 +154,14 @@ public class MainActivity extends AppCompatActivity {
         }, 2000);
 
     }
+
+     public static void checkAppBarVisibility(){   //As activity is same when we navigate between fragments, ocCreate here will be called once. So, took method outside onCreate, called in onCreate here & in fragments too
+        if (Constants.MainToolBarVisibility) {
+            binding.appTopBarLayout.setVisibility(View.VISIBLE);
+        } else {
+            binding.appTopBarLayout.setVisibility(View.GONE);
+        }
+        // binding.navView.getMenu().setGroupCheckable(0,true, true);   // for enabling selecting/checking bottomNavigation item again when coming back to home fragment
+
+     }
 }

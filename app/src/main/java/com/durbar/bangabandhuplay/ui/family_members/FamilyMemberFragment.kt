@@ -1,17 +1,18 @@
 package com.durbar.bangabandhuplay.ui.family_members
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.durbar.bangabandhuplay.MainActivity
 import com.durbar.bangabandhuplay.R
 import com.durbar.bangabandhuplay.databinding.FragmentFamilyMemberBinding
+import com.durbar.bangabandhuplay.utils.Constants
 
 
 class FamilyMemberFragment : Fragment() {
@@ -24,6 +25,9 @@ class FamilyMemberFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+       MainActivity.checkAppBarVisibility()
+
         binding = FragmentFamilyMemberBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -31,7 +35,15 @@ class FamilyMemberFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        Log.d("toolbar", "toolbar in  Family member before navigate " + Constants.MainToolBarVisibility)
 
+
+       /* binding.ivBackArrow.setOnClickListener {
+            Constants.MainToolBarVisibility = true
+            findNavController().navigate(R.id.navigation_home)
+            Log.d("toolbar", "toolbar in  Family member when navigate to home again clicked" + Constants.MainToolBarVisibility)
+
+        }*/
 
        /* binding.rcvFamilyMember.layoutManager = GridLayoutManager(requireContext(),3)
         val imageResIds = listOf(
@@ -62,6 +74,8 @@ class FamilyMemberFragment : Fragment() {
             bundle.putString("name",name)
             bundle.putString("shortTitle",shortTitle)
             bundle.putString("description",description)
+
+            Constants.MainToolBarVisibility = false
 
             findNavController().navigate(R.id.action_familyMemberFragment_to_familyMemberDetailsFragment, bundle)
         }
