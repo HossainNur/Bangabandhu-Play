@@ -15,7 +15,6 @@ import com.squareup.picasso.Picasso
 
 class PhotoGalleryAdapter(
     private val dataList: List<Data>?,
-    private val context: Context,
     private val callBack: CallBack? = null
 ) : RecyclerView.Adapter<PhotoGalleryAdapter.mViewHolder>() {
 
@@ -34,8 +33,6 @@ class PhotoGalleryAdapter(
         val current = dataList?.get(position)
         val image = current?.image
         val title = current?.title
-        val shortTitle = current?.shortTitle
-        val description = current?.description
 
         if (image != null) {
             holder.binding.mainProductCardThumbnailIv.clipToOutline = true
@@ -43,8 +40,8 @@ class PhotoGalleryAdapter(
         }
 
         holder.binding.root.setOnClickListener {
-            if (title != null && image != null && shortTitle != null && description != null) {
-                callBack?.photoGalleryDetails(title, shortTitle, description, image)
+            if (title != null && image != null) {
+                callBack?.photoGalleryDetails(title,image)
             }
         }
 
@@ -54,6 +51,6 @@ class PhotoGalleryAdapter(
         RecyclerView.ViewHolder(binding.root)
 
     interface CallBack {
-        fun photoGalleryDetails(title: String, shortTitle: String, description: String, image: String)
+        fun photoGalleryDetails(title: String,image: String)
     }
 }

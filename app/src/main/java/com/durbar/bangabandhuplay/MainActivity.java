@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         binding.navDrawer.setNavigationItemSelectedListener(item -> {
             if (item.getItemId() == familyMemberFragment) {
                 navController.navigate(R.id.familyMemberFragment);
+                NavigationHelper.getINSTANCE().setAppBarLayout(binding.appTopBarLayout);
                 unCheckableBottomNavigation();
             } else {
                 navController.navigate(R.id.photoGalleryFragment);

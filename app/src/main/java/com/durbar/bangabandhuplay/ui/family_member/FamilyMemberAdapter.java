@@ -42,6 +42,7 @@ public class FamilyMemberAdapter extends RecyclerView.Adapter<FamilyMemberAdapte
         String description = current.getDescription();
 
         if (image != null) {
+            holder.binding.mainProductCardThumbnailIv.setClipToOutline(true);
             Picasso.get().load(image).fit().into(holder.binding.mainProductCardThumbnailIv);
         }
 
