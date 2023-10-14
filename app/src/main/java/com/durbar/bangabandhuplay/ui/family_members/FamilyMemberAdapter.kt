@@ -7,6 +7,8 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.RectF
 import android.graphics.Shader
+import android.os.Build
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,8 +50,15 @@ class FamilyMemberAdapter( private val dataList: List<Data>, private val callbac
 
         val id = data.id ?: 0
         val name = data.title ?: ""
-        val shortTitle = data.shortTitle.toString() ?: ""
-        val description = data.description.toString() ?: ""
+        val shortTitle = data.shortTitle.toString()
+
+        val htmlDescription = data.description.toString()        //Getting description in in html format & converting to to text.toString(()
+        val description = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Html.fromHtml(htmlDescription, Html.FROM_HTML_MODE_LEGACY).toString()
+        } else {
+            data.description.toString()
+        }
+
 
 
         holder.itemView.setOnClickListener {

@@ -51,6 +51,7 @@
             android:id="@+id/ivFamilyMemberDetails"
             android:layout_width="@dimen/_96ssp"
             android:layout_height="@dimen/_151sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:scaleType="fitXY"
             android:src="@drawable/family"
             app:layout_constraintTop_toTopOf="parent"
