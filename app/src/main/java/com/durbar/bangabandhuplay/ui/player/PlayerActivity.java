@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.durbar.bangabandhuplay.MainActivity;
 import com.durbar.bangabandhuplay.R;
 import com.durbar.bangabandhuplay.databinding.ActivityPlayerBinding;
 import com.durbar.bangabandhuplay.utils.TrackSelectionDialog;
@@ -197,15 +198,21 @@ public class PlayerActivity extends AppCompatActivity {
                 contentTopSection.setVisibility(View.VISIBLE);
                 getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
                 binding.videoPlayer.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIT);
+
+                isFullScreen = true;
             } else {
                 videoFullScreen();
+                isFullScreen = false;
             }
-            isFullScreen = !isFullScreen;
         });
 
         btnBack.setOnClickListener(view -> {
-            videoFullScreen();
-            isFullScreen = !isFullScreen;
+            if(isFullScreen){
+                videoFullScreen();   //exit full screen
+                isFullScreen = false;
+            }else {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            }
         });
 
         btnLockscreen.setOnClickListener(view -> {
@@ -252,7 +259,7 @@ public class PlayerActivity extends AppCompatActivity {
         }
     }
 
-    private void videoFullScreen() {
+    private void videoFullScreen() {   // for exiting full screen mode
         btnFullScreen.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.baseline_fullscreen_24));
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) playerView.getLayoutParams();
@@ -304,5 +311,18 @@ public class PlayerActivity extends AppCompatActivity {
         super.onDestroy();
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         if (exoPlayer != null) exoPlayer.release();
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        if (isFullScreen){
+            videoFullScreen();
+            isFullScreen = false;
+        }else {
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            finish();
+        }
+
     }
 }
