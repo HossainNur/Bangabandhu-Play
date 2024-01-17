@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@android:string/cancel"
-            android:textColor="@color/black"
+            android:textColor="@color/yellow"
             style="?android:attr/borderlessButtonStyle"/>
 
         <Button
@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@android:string/ok"
-            android:textColor="@color/black"
+            android:textColor="@color/yellow"
             style="?android:attr/borderlessButtonStyle"/>
 
     </LinearLayout>

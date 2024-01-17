@@ -54,6 +54,13 @@ public class SearchContentsAdapter extends RecyclerView.Adapter<SearchContentsAd
         return dataList != null ? dataList.size() : 0;
     }
 
+    public void clearListItem(){
+        if (dataList != null){
+            dataList.clear();
+            notifyDataSetChanged();
+        }
+    }
+
     public class mViewHolder extends RecyclerView.ViewHolder {
         SearchResultLayoutBinding binding;
         public mViewHolder(@NonNull SearchResultLayoutBinding itemView) {

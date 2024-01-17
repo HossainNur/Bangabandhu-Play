@@ -1,9 +1,10 @@
 package com.durbar.bangabandhuplay.data.model.sliders;
 
+import androidx.annotation.Keep;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-public class Original {
+ public class Original {
     @SerializedName("id")
     @Expose
     public Integer id;

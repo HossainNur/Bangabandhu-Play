@@ -1,21 +1,13 @@
 package com.durbar.bangabandhuplay.ui.photo_gallery
 
 import android.app.Dialog
-import android.graphics.Color
-import android.graphics.RenderEffect
-import android.graphics.Shader
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
-import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.durbar.bangabandhuplay.R
@@ -26,6 +18,7 @@ import com.squareup.picasso.Picasso
 class PhotoGalleryFragment : Fragment(), PhotoGalleryAdapter.CallBack {
     private lateinit var binding: FragmentPhotoGalleryBinding
     private lateinit var viewModel: PhotoGalleryViewModel
+    private var photoGallery : Boolean = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -41,12 +34,21 @@ class PhotoGalleryFragment : Fragment(), PhotoGalleryAdapter.CallBack {
         viewModel.fetchGalleryPhotos().observe(viewLifecycleOwner) { data ->
             try {
                 if (data != null && !data.isNullOrEmpty()) {
+                    photoGallery = true
                     binding.photoGalleryRv.layoutManager = GridLayoutManager(requireContext(), 3)
                     binding.photoGalleryRv.adapter = PhotoGalleryAdapter(data, this)
+                    hideProgressBar()
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
+        }
+    }
+
+    private fun hideProgressBar() {
+        if (photoGallery){
+            binding.photoGalleryRv.visibility = View.VISIBLE
+            binding.progressBar.visibility = View.GONE
         }
     }
 

@@ -14,7 +14,7 @@ import retrofit2.Response
 class PhotoGalleryRepository {
     private lateinit var application : Application
     private lateinit var apiService: ApiService
-    private val dataList: MutableLiveData<List<Data>> = MutableLiveData();
+    private val dataList: MutableLiveData<List<Data>> = MutableLiveData()
 
     constructor(application: Application){
         this.application = application
@@ -38,6 +38,6 @@ class PhotoGalleryRepository {
             }
         })
 
-        return dataList;
+        return dataList
     }
 }

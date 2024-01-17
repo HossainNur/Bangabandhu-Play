@@ -22,6 +22,7 @@ public class FamilyMemberFragment extends Fragment implements FamilyMemberAdapte
     private FragmentFamilyMemberBinding binding;
     private FamilyMemberViewModel viewModel;
     private NavController navController;
+    private boolean familyMember = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,14 +40,23 @@ public class FamilyMemberFragment extends Fragment implements FamilyMemberAdapte
         viewModel.fetchFamilyMemberPhotos().observe(requireActivity(),data -> {
             try {
                 if (data != null && !data.isEmpty()){
+                    familyMember = true;
                     binding.familyMemberRv.setLayoutManager(new GridLayoutManager(requireContext(),3));
                     binding.familyMemberRv.setAdapter(new FamilyMemberAdapter(data,requireContext(),this));
+                    hideProgressBar();
                 }
             }catch (Exception e){
                 e.printStackTrace();
             }
         });
 
+    }
+
+    private void hideProgressBar() {
+        if (familyMember){
+            binding.familyMemberRv.setVisibility(View.VISIBLE);
+            binding.progressBar.setVisibility(View.GONE);
+        }
 
     }
 
@@ -59,13 +69,5 @@ public class FamilyMemberFragment extends Fragment implements FamilyMemberAdapte
             NavigationHelper.getINSTANCE().setDescription(description);
             NavigationHelper.getINSTANCE().setImage(image);
         }
-        /*binding.familyMemberRv.setVisibility(View.GONE);
-        binding.familyDetailsContainer.setVisibility(View.VISIBLE);
-        if (title != null) binding.familyDetailsTitle.setText(title);
-        if (shortTitle != null) binding.familyDetailsShortTitle.setText(shortTitle);
-        if (image != null) Picasso.get().load(image).fit().into(binding.familyDetailsImage);
-        if (description != null){
-            binding.familyDetailsDesc.setText(Html.fromHtml(description));
-        }*/
     }
 }

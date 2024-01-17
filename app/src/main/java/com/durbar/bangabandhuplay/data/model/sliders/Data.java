@@ -1,11 +1,12 @@
 package com.durbar.bangabandhuplay.data.model.sliders;
 
+import androidx.annotation.Keep;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
-
-public class Data {
+ public class Data {
     @SerializedName("headers")
     @Expose
     private Headers headers;

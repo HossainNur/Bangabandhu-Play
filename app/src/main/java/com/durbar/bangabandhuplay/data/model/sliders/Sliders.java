@@ -1,9 +1,11 @@
 package com.durbar.bangabandhuplay.data.model.sliders;
 
+import androidx.annotation.Keep;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Sliders {
+ public class Sliders {
     @SerializedName("status")
     @Expose
     private Boolean status;

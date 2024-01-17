@@ -326,7 +326,7 @@ public final class TrackSelectionDialog extends DialogFragment {
             TrackSelectionView trackSelectionView = rootView.findViewById(R.id.exo_track_selection_view);
             trackSelectionView.setShowDisableOption(true);
             trackSelectionView.setAllowMultipleOverrides(allowMultipleOverrides);
-            trackSelectionView.setAllowAdaptiveSelections(allowAdaptiveSelections);
+            //trackSelectionView.setAllowAdaptiveSelections(allowAdaptiveSelections);
             trackSelectionView.init(
                     trackGroups,
                     isDisabled,

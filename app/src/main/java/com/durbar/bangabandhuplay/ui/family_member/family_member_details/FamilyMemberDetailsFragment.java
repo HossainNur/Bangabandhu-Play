@@ -1,6 +1,7 @@
 package com.durbar.bangabandhuplay.ui.family_member.family_member_details;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -28,6 +29,7 @@ public class FamilyMemberDetailsFragment extends Fragment {
     private AppBarLayout appBarLayout;
     private FragmentFamilyMemberDeatilsBinding binding;
     private NavController navController;
+    private String htmlDescription;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -50,7 +52,12 @@ public class FamilyMemberDetailsFragment extends Fragment {
         if (shortTitle != null) binding.familyDetailsShortTitle.setText(shortTitle);
         if (image != null) Picasso.get().load(image).fit().into(binding.familyDetailsImage);
         if (description != null){
-            binding.familyDetailsDesc.setText(Html.fromHtml(description));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                htmlDescription = Html.fromHtml(description, Html.FROM_HTML_MODE_LEGACY).toString();
+            } else {
+                htmlDescription = description.toString();
+            }
+            binding.familyDetailsDesc.setText(htmlDescription);
         }
 
         binding.ivSearch.setOnClickListener(v -> {
