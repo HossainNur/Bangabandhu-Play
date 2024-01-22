@@ -1,12 +1,14 @@
 package com.durbar.bangabandhuplay.data;
 
 
+import androidx.annotation.Keep;
+
 import com.durbar.bangabandhuplay.utils.Constants;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Api {
+@Keep public class Api {
     private static volatile Api instance = null;
 
     private final ApiService apiService;

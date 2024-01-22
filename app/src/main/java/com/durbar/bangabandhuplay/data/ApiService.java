@@ -1,5 +1,7 @@
 package com.durbar.bangabandhuplay.data;
 
+import androidx.annotation.Keep;
+
 import com.durbar.bangabandhuplay.data.model.category.root.single.SingleRootCategory;
 import com.durbar.bangabandhuplay.data.model.family_member.FamilyMemberResponse;
 import com.durbar.bangabandhuplay.data.model.photo_gallery.PhotoGalleryResponse;
@@ -16,7 +18,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-public interface ApiService {
+@Keep public interface ApiService {
     @GET("frontend/custom/sections")
     Call<CustomContent> getFrontendCustomContent();
 
@@ -25,6 +27,7 @@ public interface ApiService {
 
     @GET("frontend/custom/section/slug/{slug}")
     Call<CustomContentBySlug> getCustomContentBySlug(@Path("slug") String slug);
+
     @GET("category/{slug}")
     Call<SingleRootCategory> getMoviesCategory(@Path("slug") String slug);
 

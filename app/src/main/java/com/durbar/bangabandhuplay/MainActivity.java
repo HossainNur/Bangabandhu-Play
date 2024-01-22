@@ -8,11 +8,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.Toast;
 
 import com.durbar.bangabandhuplay.databinding.ActivityMainBinding;
-import com.durbar.bangabandhuplay.ui.family_member.FamilyMemberFragment;
 import com.durbar.bangabandhuplay.ui.search.SearchResultActivity;
 import com.durbar.bangabandhuplay.utils.Constants;
 import com.durbar.bangabandhuplay.utils.NavigationHelper;
@@ -29,7 +27,6 @@ import androidx.navigation.ui.NavigationUI;
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private ActionBarDrawerToggle actionBarDrawerToggle;
-    private FamilyMemberFragment familyFragment;
     private boolean doubleBackToExitPressedOnce = false;
 
     @Override

@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,7 +19,6 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.durbar.bangabandhuplay.data.model.sliders.Original;
 import com.durbar.bangabandhuplay.data.model.frontend_custom_content.custom_contents.Data;
 import com.durbar.bangabandhuplay.databinding.FragmentHomeBinding;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,7 +95,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void setSlider(List<Original> originals) {
-        homeSliderAdapter = new HomeSliderAdapter(originals,requireActivity());
+        homeSliderAdapter = new HomeSliderAdapter(originals, requireActivity());
         binding.homeSliderVp.setAdapter(homeSliderAdapter);
         binding.homeSliderVp.setClipToPadding(false);
         binding.homeSliderVp.setClipChildren(false);

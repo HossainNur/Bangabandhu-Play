@@ -77,7 +77,7 @@ public class MoviesFragment extends Fragment {
             }
         });
 
-        moviesViewModel.fetchMoviesCategory("movies").observe(requireActivity(), data -> {
+        moviesViewModel.fetchMoviesCategory("biography").observe(requireActivity(), data -> {
             try {
                 if (data != null && !data.isEmpty()) {
                     moviesSection = true;

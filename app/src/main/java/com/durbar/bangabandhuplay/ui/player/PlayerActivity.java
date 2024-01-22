@@ -18,7 +18,9 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.durbar.bangabandhuplay.MainActivity;
 import com.durbar.bangabandhuplay.R;
 import com.durbar.bangabandhuplay.databinding.ActivityPlayerBinding;
 import com.durbar.bangabandhuplay.utils.TrackSelectionDialog;
@@ -89,8 +91,11 @@ public class PlayerActivity extends AppCompatActivity {
                     }
                     if (description != null) binding.moviesDescription.setText(description);
 
-                    binding.castCrewRv.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-                    binding.castCrewRv.setAdapter(new CastCrewSliderAdapter(singleOttContent.getData().getContentData().getCastAndCrews()));
+                    if (singleOttContent.getData().getContentData().getCastAndCrews() != null && !singleOttContent.getData().getContentData().getCastAndCrews().isEmpty()){
+                        binding.castCrewText.setVisibility(View.VISIBLE);
+                        binding.castCrewRv.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+                        binding.castCrewRv.setAdapter(new CastCrewSliderAdapter(singleOttContent.getData().getContentData().getCastAndCrews()));
+                    }else binding.castCrewText.setVisibility(View.GONE);
 
                     if (contentSourceList != null && !contentSourceList.isEmpty()) {
                         for (ContentSource c : contentSourceList) {
@@ -283,7 +288,6 @@ public class PlayerActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         onBackPressed();
-        finish();
         return super.onOptionsItemSelected(item);
     }
 
@@ -304,5 +308,12 @@ public class PlayerActivity extends AppCompatActivity {
         super.onDestroy();
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         if (exoPlayer != null) exoPlayer.release();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        finish();
     }
 }
