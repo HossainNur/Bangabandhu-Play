@@ -307,7 +307,7 @@ public class PlayerActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        if (exoPlayer != null) exoPlayer.release();
+        if (exoPlayer != null&& exoPlayer.isPlaying()) exoPlayer.release();
     }
 
     @Override
