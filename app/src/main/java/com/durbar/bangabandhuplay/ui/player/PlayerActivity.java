@@ -41,7 +41,7 @@ import java.util.List;
 public class PlayerActivity extends AppCompatActivity {
 
     private ActivityPlayerBinding binding;
-    private String toolbarTitle = "Movies";
+    private String title;
     private PlayerViewModel viewModel;
     private String uuid, videoPath;
     private PlayerView playerView;
@@ -60,10 +60,11 @@ public class PlayerActivity extends AppCompatActivity {
         uuid = getIntent().getStringExtra(Constants.CONTENT_UUID);
         setContentView(binding.getRoot());
 
+        title = getIntent().getStringExtra(Constants.CONTENT_SECTION_TITLE);
         setSupportActionBar(binding.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.baseline_arrow_back_ios_24);
-        getSupportActionBar().setTitle(toolbarTitle);
+        getSupportActionBar().setTitle(title);
 
         playerView = findViewById(R.id.video_player);
         btnFullScreen = findViewById(R.id.bt_fullscreen);
@@ -74,6 +75,8 @@ public class PlayerActivity extends AppCompatActivity {
         btnLockscreen = findViewById(R.id.exo_lock);
         btnSetting = findViewById(R.id.iv_setting);
         contentTopSection = findViewById(R.id.top_movies_section_container);
+
+
 
         viewModel.fetchContent(uuid).observe(this, singleOttContent -> {
             try {

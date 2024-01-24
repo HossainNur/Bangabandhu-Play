@@ -9,8 +9,8 @@
         />
     <item
         android:id="@+id/navigation_movies"
-        android:icon="@drawable/icon_movies"
-        android:title="Movie"
+        android:icon="@drawable/group_18576"
+        android:title="Biography"
         />
     <item
         android:id="@+id/navigation_tvShows"

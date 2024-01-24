@@ -39,13 +39,14 @@ public class ParentItemAdapter extends RecyclerView.Adapter<ParentItemAdapter.Pa
 
         Data current = dataList.get(position);
 
+        String title = current.getContentTypeTitle();
+        String id = current.getId().toString();
         List<FrontendCustomContent> frontendCustomContents = current.getFrontendCustomContent();
 
         holder.binding.itemRv.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
-        holder.binding.itemRv.setAdapter(new ChildItemAdapter(frontendCustomContents, context));
+        holder.binding.itemRv.setAdapter(new ChildItemAdapter(frontendCustomContents, context,title));
 
-        String title = current.getContentTypeTitle();
-        String id = current.getId().toString();
+
 
 
         if (title != null) {

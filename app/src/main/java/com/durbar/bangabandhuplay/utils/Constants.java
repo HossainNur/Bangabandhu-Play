@@ -8,6 +8,8 @@ public class Constants {
     public static final String CONTENT_UUID = "CONTENT_UUID";
     public static final String CONTENT_SECTION_TITLE = "CONTENT_SECTION_TITLE";
     public static final String CONTENT_IS_HOME = "CONTENT_IS_HOME";
+    public static final String APP_ID = "71e0f92db4ca450c9443831e9d24cb2c";
+    public static final String TOKEN = "007eJxTYHgRwKw99zHjn+v8ShUhc8oNAjfd3flqb0PGjZp1U29trslWYDA3TDVIszRKSTJJTjQxNUi2NDExtjA2TLVMMTJJTjJKnp25LrUhkJHh91dxBkYoBPG5GPJKi5IzEvPyUnMYGACfWSQm";
     public static final Integer HOME = 0;
     public static final Integer MOVIES = 1;
     public static final Integer DOCUMENTARY = 2;

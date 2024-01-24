@@ -24,10 +24,12 @@ public class ChildItemAdapter extends RecyclerView.Adapter<ChildItemAdapter.Chil
 
     private List<FrontendCustomContent> frontendCustomContentList;
     private Context context;
+    private String title;
 
-    public ChildItemAdapter(List<FrontendCustomContent> frontendCustomContentList, Context context) {
+    public ChildItemAdapter(List<FrontendCustomContent> frontendCustomContentList, Context context,String title) {
         this.frontendCustomContentList = frontendCustomContentList;
         this.context = context;
+        this.title = title;
     }
 
     @NonNull
@@ -52,7 +54,7 @@ public class ChildItemAdapter extends RecyclerView.Adapter<ChildItemAdapter.Chil
 
         holder.binding.getRoot().setOnClickListener(view -> {
             if (uuid != null && !uuid.isEmpty())
-                context.startActivity(new Intent(context, PlayerActivity.class).putExtra(Constants.CONTENT_UUID, uuid));
+                context.startActivity(new Intent(context, PlayerActivity.class).putExtra(Constants.CONTENT_UUID, uuid).putExtra(Constants.CONTENT_SECTION_TITLE, title));
         });
 
         holder.binding.contentImage.startAnimation(AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.slide_up_animation));

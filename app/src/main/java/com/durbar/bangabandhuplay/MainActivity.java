@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.durbar.bangabandhuplay.databinding.ActivityMainBinding;
+import com.durbar.bangabandhuplay.ui.live.VideoActivity;
 import com.durbar.bangabandhuplay.ui.search.SearchResultActivity;
 import com.durbar.bangabandhuplay.utils.Constants;
 import com.durbar.bangabandhuplay.utils.NavigationHelper;
@@ -68,10 +69,15 @@ public class MainActivity extends AppCompatActivity {
                 navController.navigate(R.id.familyMemberFragment);
                 NavigationHelper.getINSTANCE().setAppBarLayout(binding.appTopBarLayout);
                 unCheckableBottomNavigation();
-            } else {
+            }else if (item.getItemId() == R.id.live){
+                startActivity(new Intent(getApplicationContext(), VideoActivity.class));
+            }
+            else {
                 navController.navigate(R.id.photoGalleryFragment);
                 unCheckableBottomNavigation();
             }
+
+
             binding.drawerLayout.closeDrawer(GravityCompat.START);
             return true;
         });

@@ -7,4 +7,9 @@
         android:id="@+id/photoGalleryFragment"
         android:title="@string/photo_gallery"
         />
+    <item
+        android:id="@+id/live"
+        android:title="@string/live"
+        />
+
 </menu>
