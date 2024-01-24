@@ -11,5 +11,13 @@
         android:id="@+id/live"
         android:title="@string/live"
         />
+    <item
+        android:id="@+id/pathshala"
+        android:title="@string/pathshala"
+        />
+    <item
+        android:id="@+id/tunes"
+        android:title="@string/tunes"
+        />
 
 </menu>
