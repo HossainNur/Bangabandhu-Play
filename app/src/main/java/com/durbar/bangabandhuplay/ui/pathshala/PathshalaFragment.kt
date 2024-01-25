@@ -6,16 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.durbar.bangabandhuplay.R
+import com.durbar.bangabandhuplay.databinding.FragmentPathshalaBinding
 
 
 class PathshalaFragment : Fragment() {
 
+    private lateinit var binding: FragmentPathshalaBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pathshala, container, false)
+        binding = FragmentPathshalaBinding.inflate(layoutInflater)
+        return binding.root
     }
 
 }

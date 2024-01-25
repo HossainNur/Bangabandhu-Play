@@ -13,4 +13,5 @@ public class Constants {
     public static final Integer HOME = 0;
     public static final Integer MOVIES = 1;
     public static final Integer DOCUMENTARY = 2;
+
 }

@@ -1,5 +1,6 @@
 package com.durbar.bangabandhuplay.ui.live
 
+import android.content.Intent
 import android.graphics.PorterDuff
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,7 +9,10 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.lifecycle.ViewModelProvider
+import com.durbar.bangabandhuplay.MainActivity
 import com.durbar.bangabandhuplay.R
+import com.durbar.bangabandhuplay.databinding.ActivityVideoBinding
 import com.durbar.bangabandhuplay.utils.Constants.APP_ID
 import com.durbar.bangabandhuplay.utils.Constants.TOKEN
 import io.agora.rtc.Constants
@@ -19,12 +23,22 @@ import java.lang.Exception
 
 class VideoActivity : AppCompatActivity() {
     private var mRtcEngine: RtcEngine? = null
-    private var channelName: String? = "nurchannel"
-    private var userRole = 0
+    private var userRole = 1
+    private var token : String? = null
+    private var appId: String? = null
+    private var channelName : String? = null
+    private lateinit var binding : ActivityVideoBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_video)
+        binding = ActivityVideoBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        userRole = intent.getIntExtra("UserRole", -1)
+        channelName = intent.getStringExtra("channel_name")
+        appId = intent.getStringExtra("appId")
+        token = intent.getStringExtra("token")
         initAgoraEngineAndJoinChannel()
     }
 
@@ -34,6 +48,7 @@ class VideoActivity : AppCompatActivity() {
         mRtcEngine!!.leaveChannel()
         RtcEngine.destroy()
         mRtcEngine = null
+        //endCall(CHANNEL_NAME)
     }
 
     private fun initAgoraEngineAndJoinChannel() {
@@ -43,14 +58,11 @@ class VideoActivity : AppCompatActivity() {
         mRtcEngine!!.setClientRole(userRole)
 
         mRtcEngine!!.enableVideo()
-        if (userRole == 1){
+        if (userRole == 1)
             setupLocalVideo()
-            Toast.makeText(applicationContext, "role 1 boardcast", Toast.LENGTH_SHORT).show()
-        }
         else {
             val localVideoCanvas = findViewById<View>(R.id.local_video_view_container)
             localVideoCanvas.isVisible = false
-            Toast.makeText(applicationContext, "audiance ", Toast.LENGTH_SHORT).show()
         }
 
         joinChannel()
@@ -72,7 +84,7 @@ class VideoActivity : AppCompatActivity() {
 
     private fun initializeAgoraEngine() {
         try {
-            mRtcEngine = RtcEngine.create(baseContext, APP_ID, mRtcEventHandler)
+            mRtcEngine = RtcEngine.create(baseContext, appId, mRtcEventHandler)
         } catch (e: Exception) {
             println("Exception: ${e.message}")
         }
@@ -84,6 +96,7 @@ class VideoActivity : AppCompatActivity() {
     }
 
     fun onEndCalledClicked(view: View) {
+        startActivity(Intent(applicationContext,MainActivity::class.java))
         finish()
     }
 
@@ -107,7 +120,7 @@ class VideoActivity : AppCompatActivity() {
         mRtcEngine!!.setupLocalVideo(VideoCanvas(surfaceView, VideoCanvas.RENDER_MODE_FIT, 0))
     }
     private fun joinChannel(){
-        mRtcEngine!!.joinChannel(TOKEN, channelName, null, 0)
+        mRtcEngine!!.joinChannel(token, channelName, null, 0)
     }
     private fun setupRemoteVideo(uid: Int){
         val container = findViewById<View>(R.id.remote_video_view_container) as FrameLayout

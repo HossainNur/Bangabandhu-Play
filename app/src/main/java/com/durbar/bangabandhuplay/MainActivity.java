@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.durbar.bangabandhuplay.databinding.ActivityMainBinding;
+import com.durbar.bangabandhuplay.ui.family_member.FamilyMemberFragment;
+import com.durbar.bangabandhuplay.ui.live.StreamingActivity;
 import com.durbar.bangabandhuplay.ui.live.VideoActivity;
 import com.durbar.bangabandhuplay.ui.search.SearchResultActivity;
 import com.durbar.bangabandhuplay.utils.Constants;
@@ -21,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
@@ -70,7 +73,15 @@ public class MainActivity extends AppCompatActivity {
                 NavigationHelper.getINSTANCE().setAppBarLayout(binding.appTopBarLayout);
                 unCheckableBottomNavigation();
             }else if (item.getItemId() == R.id.live){
-                startActivity(new Intent(getApplicationContext(), VideoActivity.class));
+                startActivity(new Intent(getApplicationContext(), StreamingActivity.class));
+            }
+            else if (item.getItemId() == R.id.pathshala){
+                navController.navigate(R.id.pathshala);
+                unCheckableBottomNavigation();
+            }
+            else if (item.getItemId() == R.id.tunes){
+                navController.navigate(R.id.tunes);
+                unCheckableBottomNavigation();
             }
             else {
                 navController.navigate(R.id.photoGalleryFragment);
@@ -119,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
+        /*if (doubleBackToExitPressedOnce) {
             Intent a = new Intent(Intent.ACTION_MAIN);
             a.addCategory(Intent.CATEGORY_HOME);
             a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -132,7 +143,27 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 doubleBackToExitPressedOnce = false;
             }
-        }, 2000);
+        }, 2000);*/
 
+        // Check if there are fragments in the back stack
+        /*if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+            // Pop the back stack to go back to the previous fragment
+            getSupportFragmentManager().popBackStack();
+        } else {
+            // If there is only one fragment, handle the back press as usual
+            super.onBackPressed();
+        }*/
+
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_family);
+
+        // Check if the fragment is an instance of YourFragment
+        if (fragment instanceof FamilyMemberFragment) {
+            // Call onBackPressed() method in YourFragment
+            ((FamilyMemberFragment) fragment).onBackPressed();
+        } else {
+            // Handle back press as usual
+            super.onBackPressed();
+        }
     }
+
 }

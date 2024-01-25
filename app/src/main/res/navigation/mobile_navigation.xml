@@ -88,10 +88,22 @@
         android:name="com.durbar.bangabandhuplay.ui.photo_gallery.PhotoGalleryFragment"
         android:label="fragment_photo_gallery"
         tools:layout="@layout/fragment_photo_gallery" />
+
     <fragment
         android:id="@+id/familyMemberDeatilsFragment"
         android:name="com.durbar.bangabandhuplay.ui.family_member.family_member_details.FamilyMemberDetailsFragment"
         android:label="fragment_family_member_deatils"
         tools:layout="@layout/fragment_family_member_deatils" />
+
+    <fragment
+        android:id="@+id/pathshala"
+        android:name="com.durbar.bangabandhuplay.ui.pathshala.PathshalaFragment"
+        android:label="fragment_pathshala"
+        tools:layout="@layout/fragment_pathshala" />
+    <fragment
+        android:id="@+id/tunes"
+        android:name="com.durbar.bangabandhuplay.ui.tunes.TunesFragment"
+        android:label="fragment_tunes"
+        tools:layout="@layout/fragment_tunes" />
 
 </navigation>

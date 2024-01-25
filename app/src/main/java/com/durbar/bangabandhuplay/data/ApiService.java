@@ -4,6 +4,7 @@ import androidx.annotation.Keep;
 
 import com.durbar.bangabandhuplay.data.model.category.root.single.SingleRootCategory;
 import com.durbar.bangabandhuplay.data.model.family_member.FamilyMemberResponse;
+import com.durbar.bangabandhuplay.data.model.live.LiveStreamingResponse;
 import com.durbar.bangabandhuplay.data.model.photo_gallery.PhotoGalleryResponse;
 import com.durbar.bangabandhuplay.data.model.sliders.Sliders;
 import com.durbar.bangabandhuplay.data.model.category.single_sub.SingleSubCategoryRes;
@@ -48,6 +49,10 @@ import retrofit2.http.Query;
 
     @GET("photo-gallery")
     Call<PhotoGalleryResponse> getPhotoGalleryPhotos();
+
+    @GET("get-live-streaming-list")
+    Call<LiveStreamingResponse> getLiveStreaming();
+
 }
 
 

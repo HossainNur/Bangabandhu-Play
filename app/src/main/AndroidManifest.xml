@@ -22,10 +22,13 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ui.live.VideoActivity"
+            android:name=".ui.live.StreamingActivity"
             android:exported="false" />
         <activity
             android:name=".ui.live.LiveActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.live.VideoActivity"
             android:exported="false" />
         <activity
             android:name=".ui.search.SearchResultActivity"
