@@ -22,10 +22,12 @@ import java.util.List;
 public class MoreHomeAdapter extends RecyclerView.Adapter<MoreHomeAdapter.mViewHolder> {
     private List<Content> contentList;
     private Context context;
+    private String title;
 
-    public MoreHomeAdapter(List<Content> contentList, Context context) {
+    public MoreHomeAdapter(List<Content> contentList, Context context,String title) {
         this.contentList = contentList;
         this.context = context;
+        this.title = title;
     }
 
     @NonNull
@@ -46,7 +48,7 @@ public class MoreHomeAdapter extends RecyclerView.Adapter<MoreHomeAdapter.mViewH
             Picasso.get().load(image).fit().into(holder.binding.mainProductCardThumbnailIv);
         }
         holder.binding.getRoot().setOnClickListener(v -> {
-            if (uuid != null && !uuid.isEmpty()) context.startActivity(new Intent(context, PlayerActivity.class).putExtra(Constants.CONTENT_UUID,uuid));
+            if (uuid != null && !uuid.isEmpty()) context.startActivity(new Intent(context, PlayerActivity.class).putExtra(Constants.CONTENT_UUID,uuid).putExtra(Constants.CONTENT_SECTION_TITLE,title));
         });
 
         holder.binding.mainProductCardThumbnailIv.startAnimation(AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.fall_down));

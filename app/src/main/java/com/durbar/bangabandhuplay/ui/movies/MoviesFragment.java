@@ -77,7 +77,7 @@ public class MoviesFragment extends Fragment {
             }
         });
 
-        moviesViewModel.fetchMoviesCategory("biography").observe(requireActivity(), data -> {
+        moviesViewModel.fetchMoviesCategory("speech-of-bangabandhu").observe(requireActivity(), data -> {
             try {
                 if (data != null && !data.isEmpty()) {
                     moviesSection = true;

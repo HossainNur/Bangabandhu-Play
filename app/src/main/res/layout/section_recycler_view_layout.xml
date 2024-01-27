@@ -10,10 +10,11 @@
     <TextView
         android:id="@+id/title_tv"
         style="@style/recyclerViewTitleTextViewStyle"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/more_click_selector"
         android:text="@string/recently_added"
+        app:layout_constraintEnd_toStartOf="@+id/more_tv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

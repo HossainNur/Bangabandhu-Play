@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:startColor="#11100000"
+        android:centerColor="#AA000000"
+        android:endColor="#EF000000"
+        android:type="linear"
+        android:angle="120"/>
+
+    <!--   <gradient
+           android:startColor="#11100000"
+           android:centerColor="#AA000000"
+           android:endColor="#EF000000"
+           android:type="linear"
+           android:angle="120"/>
+       &lt;!&ndash; Set the alpha (opacity) value. 00 is fully transparent, FF is fully opaque. Adjust as needed. &ndash;&gt;
+       <alpha android:fromAlpha="0.5" android:toAlpha="0.5"/>-->
+</shape>

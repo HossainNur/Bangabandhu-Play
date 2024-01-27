@@ -165,7 +165,7 @@ public class PlayerActivity extends AppCompatActivity {
                 if (singleContentRelatedContents != null && !singleContentRelatedContents.isEmpty()) {
                     relatedContent = true;
                     binding.rvMoreLikeThis.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-                    binding.rvMoreLikeThis.setAdapter(new GetRelatedContentsAdapter(singleContentRelatedContents, this));
+                    binding.rvMoreLikeThis.setAdapter(new GetRelatedContentsAdapter(singleContentRelatedContents, this,title));
                     hideProgressBar();
                 }
             } catch (Exception e) {
@@ -294,23 +294,38 @@ public class PlayerActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
     @Override
     protected void onPause() {
         super.onPause();
-        if (exoPlayer != null && exoPlayer.isPlaying()) exoPlayer.pause();
+        if (exoPlayer != null && exoPlayer.isPlaying()) {
+            exoPlayer.pause();
+            exoPlayer.release();
+            exoPlayer.setPlayWhenReady(false);
+            exoPlayer = null;
+        }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if (exoPlayer != null && exoPlayer.isPlaying()) exoPlayer.stop();
+        if (exoPlayer != null && exoPlayer.isPlaying()){
+            exoPlayer.stop();
+            exoPlayer.release();
+            exoPlayer.setPlayWhenReady(false);
+            exoPlayer = null;
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        if (exoPlayer != null&& exoPlayer.isPlaying()) exoPlayer.release();
+        if (exoPlayer != null && exoPlayer.isPlaying()){
+            exoPlayer.release();
+            exoPlayer.setPlayWhenReady(false);
+            exoPlayer = null;
+        }
     }
 
     @Override

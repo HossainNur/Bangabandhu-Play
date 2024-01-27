@@ -18,10 +18,12 @@ import java.util.List;
 public class GetRelatedContentsAdapter extends RecyclerView.Adapter<GetRelatedContentsAdapter.mViewHolder> {
     private List<SingleContentRelatedContent> singleContentRelatedContentList;
     private Context context;
+    private String title;
 
-    public GetRelatedContentsAdapter(List<SingleContentRelatedContent> singleContentRelatedContentList, Context context) {
+    public GetRelatedContentsAdapter(List<SingleContentRelatedContent> singleContentRelatedContentList, Context context,String title) {
         this.singleContentRelatedContentList = singleContentRelatedContentList;
         this.context = context;
+        this.title = title;
     }
 
     @NonNull
@@ -40,7 +42,7 @@ public class GetRelatedContentsAdapter extends RecyclerView.Adapter<GetRelatedCo
         if (image != null) Picasso.get().load(image).fit().into(holder.binding.mainProductCardThumbnailIv);
 
         holder.binding.getRoot().setOnClickListener(view -> {
-            if (uuid != null && !uuid.isEmpty()) context.startActivity(new Intent(context, PlayerActivity.class).putExtra(Constants.CONTENT_UUID, uuid));
+            if (uuid != null && !uuid.isEmpty()) context.startActivity(new Intent(context, PlayerActivity.class).putExtra(Constants.CONTENT_UUID, uuid).putExtra(Constants.CONTENT_SECTION_TITLE,title));
         });
     }
 

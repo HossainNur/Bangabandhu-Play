@@ -46,7 +46,7 @@ public class MoreActivity extends AppCompatActivity {
                     if (customContentBySlug.getData().getContents() != null) {
                         moreSection = true;
                         binding.watchTrailerRv.setLayoutManager(new GridLayoutManager(this, 2));
-                        binding.watchTrailerRv.setAdapter(new MoreHomeAdapter(customContentBySlug.getData().getContents(), this));
+                        binding.watchTrailerRv.setAdapter(new MoreHomeAdapter(customContentBySlug.getData().getContents(), this,title));
                         hideProgressBar();
                     }
 

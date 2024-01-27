@@ -6,6 +6,7 @@ import static com.durbar.bangabandhuplay.R.id.familyMemberFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -24,7 +25,10 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
@@ -32,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private boolean doubleBackToExitPressedOnce = false;
+    private NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
-        NavController navController = navHostFragment.getNavController();
+        navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(binding.navView, navController);
 
         binding.ivSearch.setOnClickListener(v -> {
@@ -128,9 +133,9 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
+   /* @Override
     public void onBackPressed() {
-        /*if (doubleBackToExitPressedOnce) {
+        if (doubleBackToExitPressedOnce) {
             Intent a = new Intent(Intent.ACTION_MAIN);
             a.addCategory(Intent.CATEGORY_HOME);
             a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -143,27 +148,56 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 doubleBackToExitPressedOnce = false;
             }
-        }, 2000);*/
+        }, 2000);
+    }*/
 
-        // Check if there are fragments in the back stack
-        /*if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
-            // Pop the back stack to go back to the previous fragment
-            getSupportFragmentManager().popBackStack();
-        } else {
-            // If there is only one fragment, handle the back press as usual
+    @Override
+    public void onBackPressed() {
+
+        final String[] currentFragment = {""};
+        NavController navControllerBack = Navigation.findNavController((FragmentActivity) this, R.id.nav_host_fragment_activity_main);
+        navControllerBack.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(NavController controller, NavDestination destination, Bundle arguments) {
+                Log.e("onDestinationChanged", "onDestinationChanged: " + destination.getLabel());
+                Log.e("onDestinationChanged", "onDestinationChanged: " + destination.getId());
+                currentFragment[0] = destination.getLabel().toString();
+            }
+        });
+
+        if ("fragment_pdf_view".equals(currentFragment[0])){
             super.onBackPressed();
-        }*/
-
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_family);
-
-        // Check if the fragment is an instance of YourFragment
-        if (fragment instanceof FamilyMemberFragment) {
-            // Call onBackPressed() method in YourFragment
-            ((FamilyMemberFragment) fragment).onBackPressed();
-        } else {
-            // Handle back press as usual
+        } else if ("fragment_family_member".equals(currentFragment[0])) {
             super.onBackPressed();
+            binding.navView.getMenu().getItem(Constants.HOME).setCheckable(true);
         }
-    }
+        else if ("fragment_photo_gallery".equals(currentFragment[0])) {
+            super.onBackPressed();
+            binding.navView.getMenu().getItem(Constants.HOME).setCheckable(true);
+        } else if ("fragment_pathshala".equals(currentFragment[0])) {
+            super.onBackPressed();
+            binding.navView.getMenu().getItem(Constants.HOME).setCheckable(true);
+        }
+        else if ("fragment_tunes".equals(currentFragment[0])) {
+            super.onBackPressed();
+            binding.navView.getMenu().getItem(Constants.HOME).setCheckable(true);
+        }
+        else {
+            if (doubleBackToExitPressedOnce) {
+                Intent a = new Intent(Intent.ACTION_MAIN);
+                a.addCategory(Intent.CATEGORY_HOME);
+                a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(a);
+            }
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Click twice to exit", Toast.LENGTH_SHORT).show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
+        }
 
+    }
 }

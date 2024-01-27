@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.durbar.bangabandhuplay.R;
+import com.durbar.bangabandhuplay.data.OnBackPressedListener;
 import com.durbar.bangabandhuplay.databinding.FragmentFamilyMemberBinding;
 import com.durbar.bangabandhuplay.utils.NavigationHelper;
 import com.squareup.picasso.Picasso;
@@ -54,15 +55,6 @@ public class FamilyMemberFragment extends Fragment implements FamilyMemberAdapte
             }
         });
 
-        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                Toast.makeText(requireActivity(),"family",Toast.LENGTH_SHORT).show();
-                // Your code to handle the back button press in the fragment
-                // For example, pop the back stack or perform some custom logic
-                // Don't forget to call isEnabled() to check if the callback is enabled before handling the back press
-            }
-        });
     }
 
     private void hideProgressBar() {
@@ -82,9 +74,5 @@ public class FamilyMemberFragment extends Fragment implements FamilyMemberAdapte
             NavigationHelper.getINSTANCE().setDescription(description);
             NavigationHelper.getINSTANCE().setImage(image);
         }
-    }
-    public void onBackPressed() {
-        // Your code to handle the back button press in the fragment
-        // For example, pop the back stack or perform some custom logic
     }
 }
