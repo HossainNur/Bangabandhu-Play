@@ -15,6 +15,10 @@ import androidx.navigation.Navigation
 import com.durbar.bangabandhuplay.R
 import com.durbar.bangabandhuplay.databinding.FragmentPdfViewBinding
 import com.github.barteksc.pdfviewer.PDFView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.io.BufferedInputStream
 import java.io.InputStream
 import java.net.HttpURLConnection
@@ -53,7 +57,8 @@ class PdfViewFragment : Fragment() {
         if (!pdfUrl.isNullOrEmpty()) {
             LoadPdfTask(pdfView, binding.progressBar).execute(pdfUrl)
         } else {
-            Toast.makeText(requireContext(), "Sorry! Something went wrong!!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Sorry! File not available", Toast.LENGTH_SHORT).show()
+            binding.progressBar.visibility = View.GONE
         }
 
         // for getting the current fragment, erase if not needed
@@ -97,7 +102,16 @@ class PdfViewFragment : Fragment() {
             // Load the PDF into the PDFView
             pdfView.fromStream(result).load()
             // Hide the progress bar after loading the PDF
-            progressBar.visibility = View.GONE
+
+           // progressBar.visibility = View.GONE
+
+            CoroutineScope(Dispatchers.Main).launch {
+                // Delay for 5 seconds
+                delay(5000)
+
+                // Hide the progress bar after 5 seconds
+                progressBar.visibility = View.GONE
+            }
 
         }
     }

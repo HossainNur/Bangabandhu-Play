@@ -2,6 +2,7 @@ package com.durbar.bangabandhuplay.ui.home;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,13 +10,18 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.durbar.bangabandhuplay.R;
 import com.durbar.bangabandhuplay.data.model.sliders.Original;
 import com.durbar.bangabandhuplay.data.model.frontend_custom_content.custom_contents.Data;
 import com.durbar.bangabandhuplay.databinding.FragmentHomeBinding;
@@ -44,6 +50,16 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        final String[] currentFragment = {""};
+        NavController navControllerBack = Navigation.findNavController((FragmentActivity) requireActivity(), R.id.nav_host_fragment_activity_main);
+        navControllerBack.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(NavController controller, NavDestination destination, Bundle arguments) {
+                Log.e("onDestinationChanged", "onDestinationChanged home: " + destination.getLabel());
+                currentFragment[0] = destination.getLabel().toString();
+            }
+        });
 
 
         homeViewModel.getSliders().observe(requireActivity(), originals -> {

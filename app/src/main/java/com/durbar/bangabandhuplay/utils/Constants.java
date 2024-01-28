@@ -15,4 +15,6 @@ public class Constants {
     public static final Integer MOVIES = 1;
     public static final Integer DOCUMENTARY = 2;
 
+    public static Integer CURRENT_FRAGMENT_BOTTOM = -1;
+
 }

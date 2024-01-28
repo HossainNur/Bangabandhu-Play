@@ -65,7 +65,9 @@ public class FamilyMemberDetailsFragment extends Fragment {
         });
 
         binding.ivBack.setOnClickListener(v -> {
-            navController.navigate(R.id.familyMemberFragment);
+           // navController.navigate(R.id.familyMemberFragment);
+            navController.popBackStack();
+
         });
     }
 
