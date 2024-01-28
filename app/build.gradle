@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace 'com.durbar.bangabandhuplay'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.durbar.bangabandhuplay"
@@ -108,6 +108,8 @@ dependencies {
     implementation 'io.agora.rtc:full-sdk:3.5.0'
 
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
+
+    implementation 'com.github.afreakyelf:Pdf-Viewer:v2.0.5'
 
 
 }

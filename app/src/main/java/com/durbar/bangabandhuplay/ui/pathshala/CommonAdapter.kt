@@ -69,7 +69,9 @@ class CategoryItemAdapter(private val list: List<Ebook> ) : RecyclerView.Adapter
             }
 
             // Assuming you are in a Fragment and can use findNavController directly
-            it.findNavController().navigate(R.id.pdfViewFragment, bundle)
+           // it.findNavController().navigate(R.id.pdfViewFragment, bundle)
+           // it.findNavController().navigate(R.id.pdfViewFragmentNew, bundle)
+            it.findNavController().navigate(R.id.pdfWebViewFragment, bundle)
         }
     }
 

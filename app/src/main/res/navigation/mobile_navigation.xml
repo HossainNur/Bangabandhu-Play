@@ -110,5 +110,16 @@
         android:name="com.durbar.bangabandhuplay.ui.pathshala.PdfViewFragment"
         android:label="fragment_pdf_view"
         tools:layout="@layout/fragment_pdf_view" />
+    <fragment
+        android:id="@+id/pdfViewFragmentNew"
+        android:name="com.durbar.bangabandhuplay.ui.pathshala.PdfViewFragmentNew"
+        android:label="fragment_pdf_view_new"
+        tools:layout="@layout/fragment_pdf_view_new" />
+    <fragment
+        android:id="@+id/pdfWebViewFragment"
+        android:name="com.durbar.bangabandhuplay.ui.pathshala.PdfWebViewFragment"
+        android:label="fragment_pdf_web_view"
+        tools:layout="@layout/fragment_pdf_web_view" />
+
 
 </navigation>

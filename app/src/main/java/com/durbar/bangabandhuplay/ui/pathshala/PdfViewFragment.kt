@@ -25,15 +25,8 @@ import java.net.HttpURLConnection
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 /**
- * A simple [Fragment] subclass.
- * Use the [PdfViewFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * PDF using 'com.github.barteksc:android-pdf-viewer:2.8.2'
  */
 class PdfViewFragment : Fragment() {
     lateinit var pdfView: PDFView
@@ -52,25 +45,14 @@ class PdfViewFragment : Fragment() {
 
         val pdfUrl = arguments?.getString("pdfurl")
 
-        pdfView = binding.idPDFView
+      //  pdfView = binding.idPDFView
 
         if (!pdfUrl.isNullOrEmpty()) {
-            LoadPdfTask(pdfView, binding.progressBar).execute(pdfUrl)
+          //  LoadPdfTask(pdfView, binding.progressBar).execute(pdfUrl)
         } else {
             Toast.makeText(requireContext(), "Sorry! File not available", Toast.LENGTH_SHORT).show()
             binding.progressBar.visibility = View.GONE
         }
-
-        // for getting the current fragment, erase if not needed
-        val navController =
-            Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main)
-
-        navController.addOnDestinationChangedListener(object : NavController.OnDestinationChangedListener {
-            override fun onDestinationChanged(controller: NavController, destination: NavDestination, arguments: Bundle?) {
-                Log.e("onDestinationChanged", "onDestinationChanged: " + destination.label)
-
-            }
-        })
     }
 
     class LoadPdfTask(private val pdfView: PDFView, private val progressBar: ProgressBar) :
