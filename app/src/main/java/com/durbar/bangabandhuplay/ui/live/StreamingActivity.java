@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -35,17 +36,22 @@ public class StreamingActivity extends AppCompatActivity {
 
     private void fetchActiveLive() {
         viewModel.getLiveStreaming().observe(this,data -> {
-            if (data != null && data.getStatus() == 1){
-                String channelName = data.getChannelName();
-                String token = data.getToken();
-                String appId = data.getAppId();
-                startActivity(new Intent(getApplicationContext(), VideoActivity.class)
-                        .putExtra("UserRole", userRole)
-                        .putExtra("appId",appId).putExtra("channel_name",channelName).putExtra("token",token));
-            }else {
-                Toast.makeText(getApplicationContext(),"No live Right now ",Toast.LENGTH_SHORT).show();
-                finish();
+            try {
+                if (data != null && data.getStatus() == 1){
+                    String channelName = data.getChannelName();
+                    String token = data.getToken();
+                    String appId = data.getAppId();
+                   startActivity(new Intent(getApplicationContext(), VideoActivity.class)
+                            .putExtra("UserRole", userRole)
+                            .putExtra("appId",appId).putExtra("channel_name",channelName).putExtra("token",token));
+                }else {
+                    Toast.makeText(getApplicationContext(),"No live Right now ",Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+            }catch (Exception e){
+                e.printStackTrace();
             }
+
         });
     }
 }

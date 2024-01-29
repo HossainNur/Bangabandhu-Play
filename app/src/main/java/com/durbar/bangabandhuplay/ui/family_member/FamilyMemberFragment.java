@@ -1,28 +1,27 @@
 package com.durbar.bangabandhuplay.ui.family_member;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import android.text.Html;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.durbar.bangabandhuplay.R;
-import com.durbar.bangabandhuplay.data.OnBackPressedListener;
 import com.durbar.bangabandhuplay.databinding.FragmentFamilyMemberBinding;
 import com.durbar.bangabandhuplay.utils.NavigationHelper;
-import com.squareup.picasso.Picasso;
+
 public class FamilyMemberFragment extends Fragment implements FamilyMemberAdapter.CallBack{
     private FragmentFamilyMemberBinding binding;
     private FamilyMemberViewModel viewModel;
@@ -65,6 +64,7 @@ public class FamilyMemberFragment extends Fragment implements FamilyMemberAdapte
 
     }
 
+
     @Override
     public void familyMemberDetails(String title, String shortTitle, String description, String image) {
         if (title != null && shortTitle != null && description != null && image != null){
@@ -75,4 +75,5 @@ public class FamilyMemberFragment extends Fragment implements FamilyMemberAdapte
             NavigationHelper.getINSTANCE().setImage(image);
         }
     }
+
 }

@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.durbar.bangabandhuplay.R;
 import com.durbar.bangabandhuplay.data.model.category.root.single.SubCategory;
@@ -26,6 +27,8 @@ import com.durbar.bangabandhuplay.databinding.FragmentTvShowsBinding;
 import com.durbar.bangabandhuplay.ui.movies.MoviesContentAdapter;
 import com.durbar.bangabandhuplay.ui.movies.MoviesSliderAdapter;
 import com.durbar.bangabandhuplay.ui.movies.MoviesViewModel;
+import com.durbar.bangabandhuplay.utils.Constants;
+import com.durbar.bangabandhuplay.utils.NavigationHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,7 +88,7 @@ public class TvShowsFragment extends Fragment {
                     documentarySection = true;
                     List<SubCategory> subCategories = new ArrayList<>();
                     for (SubCategory c: data.get(0).getSubCategories()){
-                        if (c.getOttContents() !=null && !c.getOttContents().isEmpty()){
+                        if (c.getOttContents() != null && !c.getOttContents().isEmpty()){
                             subCategories.add(c);
                         }
                     }
@@ -99,6 +102,12 @@ public class TvShowsFragment extends Fragment {
                 e.printStackTrace();
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        NavigationHelper.getINSTANCE().setCurrentFragment(Constants.DOCUMENTARY_FRAGMENT);
     }
 
     private void setSlider(List<Original> originals) {

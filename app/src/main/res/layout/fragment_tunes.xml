@@ -7,48 +7,52 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.tunes.TunesFragment">
 
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@drawable/bangabandhu_tunes"
-        android:scaleType="fitXY"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/guide_line"
-        />
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/_70ssp">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guide_line"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".6"
-        />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/tunes_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/tunes_rv"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:padding="@dimen/_10sdp"
-        android:visibility="gone"
-        android:layout_marginTop="@dimen/_60sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="@dimen/_60sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/tunes_slider_vp"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_320sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
-    <ProgressBar
-        android:id="@+id/progress_bar"
+            <LinearLayout
+                android:id="@+id/indicator_container_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/tunes_slider_vp"
+                android:gravity="center"
+                android:orientation="horizontal" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/tunes_rv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tunes_slider_vp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!--<ProgressBar
+        android:id="@+id/progressBar"
         style="@style/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="visible"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,4 +15,8 @@ public class Constants {
     public static final Integer MOVIES = 1;
     public static final Integer DOCUMENTARY = 2;
 
+    public static final String HOME_FRAGMENT = "HOME_FRAGMENT";
+    public static final String MOVIES_FRAGMENT = "MOVIES_FRAGMENT";
+    public static final String DOCUMENTARY_FRAGMENT = "DOCUMENTARY_FRAGMENT";
+
 }

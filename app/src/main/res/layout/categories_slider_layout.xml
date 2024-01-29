@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
-        android:id="@+id/movies_slider_image"
+        android:id="@+id/categories_slider_image"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="fitXY"
@@ -19,7 +19,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
-        android:layout_height="@dimen/_40sdp"
+        android:layout_height="@dimen/_60sdp"
         android:background="@drawable/black_transparent_gradient"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -65,7 +65,7 @@
         android:textSize="@dimen/_20ssp"
         android:maxLines="2"
         android:ellipsize="end"
-        android:layout_marginBottom="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
         app:layout_constraintBottom_toTopOf="@+id/slider_desc"
         app:layout_constraintStart_toStartOf="@+id/guide_line_left"
         />
@@ -74,14 +74,14 @@
         android:id="@+id/slider_desc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text=""
+        android:text="@string/slider_description"
         android:textColor="@color/white"
-        android:textSize="@dimen/_12ssp"
-        android:maxLines="3"
+        android:textSize="@dimen/_10ssp"
+        android:maxLines="4"
         android:ellipsize="end"
         app:layout_constraintEnd_toEndOf="@+id/slider_title"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_15sdp"
         app:layout_constraintStart_toStartOf="@+id/slider_title"
         />
 
@@ -97,6 +97,5 @@
         app:layout_constraintBottom_toBottomOf="@+id/slider_desc"
         app:layout_constraintStart_toEndOf="@+id/slider_title"
         />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

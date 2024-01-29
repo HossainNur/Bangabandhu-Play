@@ -77,18 +77,15 @@ public class MainActivity extends AppCompatActivity {
                 navController.navigate(R.id.familyMemberFragment);
                 NavigationHelper.getINSTANCE().setAppBarLayout(binding.appTopBarLayout);
                 unCheckableBottomNavigation();
-            }else if (item.getItemId() == R.id.live){
+            } else if (item.getItemId() == R.id.live) {
                 startActivity(new Intent(getApplicationContext(), StreamingActivity.class));
-            }
-            else if (item.getItemId() == R.id.pathshala){
+            } else if (item.getItemId() == R.id.pathshala) {
                 navController.navigate(R.id.pathshala);
                 unCheckableBottomNavigation();
-            }
-            else if (item.getItemId() == R.id.tunes){
+            } else if (item.getItemId() == R.id.tunes) {
                 navController.navigate(R.id.tunes);
                 unCheckableBottomNavigation();
-            }
-            else {
+            } else {
                 navController.navigate(R.id.photoGalleryFragment);
                 unCheckableBottomNavigation();
             }
@@ -123,6 +120,21 @@ public class MainActivity extends AppCompatActivity {
         binding.navView.getMenu().getItem(Constants.DOCUMENTARY).setCheckable(false);
     }
 
+    private void checkBottomMenuCheckable(){
+        super.onBackPressed();
+        switch (NavigationHelper.getINSTANCE().getCurrentFragment()) {
+            case Constants.HOME_FRAGMENT:
+                binding.navView.getMenu().getItem(Constants.HOME).setCheckable(true);
+                break;
+            case Constants.MOVIES_FRAGMENT:
+                binding.navView.getMenu().getItem(Constants.MOVIES).setCheckable(true);
+                break;
+            case Constants.DOCUMENTARY_FRAGMENT:
+                binding.navView.getMenu().getItem(Constants.DOCUMENTARY).setCheckable(true);
+                break;
+        }
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -133,24 +145,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-   /* @Override
-    public void onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
-            Intent a = new Intent(Intent.ACTION_MAIN);
-            a.addCategory(Intent.CATEGORY_HOME);
-            a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(a);
-        }
-        this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Click twice to exit", Toast.LENGTH_SHORT).show();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                doubleBackToExitPressedOnce = false;
-            }
-        }, 2000);
-    }*/
-
     @Override
     public void onBackPressed() {
 
@@ -160,34 +154,33 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDestinationChanged(NavController controller, NavDestination destination, Bundle arguments) {
                 Log.e("onDestinationChanged", "onDestinationChanged: " + destination.getLabel());
-                Log.e("onDestinationChanged", "onDestinationChanged: " + destination.getId());
                 currentFragment[0] = destination.getLabel().toString();
             }
         });
 
-        if ("fragment_pdf_view".equals(currentFragment[0])){
+        if ("fragment_pdf_view".equals(currentFragment[0])) {
             super.onBackPressed();
-        } else if ("fragment_family_member".equals(currentFragment[0])) {
+        }else if ("fragment_family_member_deatils".equals(currentFragment[0])) {
             super.onBackPressed();
-            binding.navView.getMenu().getItem(Constants.HOME).setCheckable(true);
+        }else if ("fragment_pdf_web_view".equals(currentFragment[0])) {
+            super.onBackPressed();
         }
         else if ("fragment_photo_gallery".equals(currentFragment[0])) {
-            super.onBackPressed();
-            binding.navView.getMenu().getItem(Constants.HOME).setCheckable(true);
+            checkBottomMenuCheckable();
         } else if ("fragment_pathshala".equals(currentFragment[0])) {
-            super.onBackPressed();
-            binding.navView.getMenu().getItem(Constants.HOME).setCheckable(true);
+            checkBottomMenuCheckable();
         }
         else if ("fragment_tunes".equals(currentFragment[0])) {
-            super.onBackPressed();
-            binding.navView.getMenu().getItem(Constants.HOME).setCheckable(true);
-        }
-        else {
+            checkBottomMenuCheckable();
+        } else if ("fragment_family_member".equals(currentFragment[0])) {
+            checkBottomMenuCheckable();
+        } else {
             if (doubleBackToExitPressedOnce) {
                 Intent a = new Intent(Intent.ACTION_MAIN);
                 a.addCategory(Intent.CATEGORY_HOME);
                 a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(a);
+                clearALLData();
             }
             this.doubleBackToExitPressedOnce = true;
             Toast.makeText(this, "Click twice to exit", Toast.LENGTH_SHORT).show();
@@ -199,5 +192,10 @@ public class MainActivity extends AppCompatActivity {
             }, 2000);
         }
 
+    }
+
+    private void clearALLData() {
+        int p = android.os.Process.myPid();
+        android.os.Process.killProcess(p);
     }
 }

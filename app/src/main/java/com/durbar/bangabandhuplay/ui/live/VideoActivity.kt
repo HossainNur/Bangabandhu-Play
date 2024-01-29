@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.PorterDuff
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
@@ -22,13 +23,13 @@ import io.agora.rtc.video.VideoCanvas
 import java.lang.Exception
 
 class VideoActivity : AppCompatActivity() {
+
     private var mRtcEngine: RtcEngine? = null
     private var userRole = 1
     private var token : String? = null
     private var appId: String? = null
     private var channelName : String? = null
     private lateinit var binding : ActivityVideoBinding
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +41,9 @@ class VideoActivity : AppCompatActivity() {
         appId = intent.getStringExtra("appId")
         token = intent.getStringExtra("token")
         initAgoraEngineAndJoinChannel()
+
     }
+
 
 
     override fun onDestroy() {
@@ -48,7 +51,6 @@ class VideoActivity : AppCompatActivity() {
         mRtcEngine!!.leaveChannel()
         RtcEngine.destroy()
         mRtcEngine = null
-        //endCall(CHANNEL_NAME)
     }
 
     private fun initAgoraEngineAndJoinChannel() {
@@ -96,8 +98,9 @@ class VideoActivity : AppCompatActivity() {
     }
 
     fun onEndCalledClicked(view: View) {
-        startActivity(Intent(applicationContext,MainActivity::class.java))
         finish()
+        /*startActivity(Intent(applicationContext,MainActivity::class.java))
+        finish()*/
     }
 
     fun onLocalAudioMuteClicked(view: View) {
@@ -134,4 +137,5 @@ class VideoActivity : AppCompatActivity() {
         val container = findViewById<View>(R.id.remote_video_view_container) as FrameLayout
         container.removeAllViews()
     }
+
 }

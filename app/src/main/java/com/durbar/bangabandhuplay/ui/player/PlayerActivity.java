@@ -227,10 +227,6 @@ public class PlayerActivity extends AppCompatActivity {
             //method for toggle will do next
             lockScreen(isLock);
         });
-
-        binding.ivSearch.setOnClickListener(v -> {
-            startActivity(new Intent(getApplicationContext(), SearchResultActivity.class));
-        });
     }
 
     private void hideProgressBar() {
@@ -293,7 +289,6 @@ public class PlayerActivity extends AppCompatActivity {
         onBackPressed();
         return super.onOptionsItemSelected(item);
     }
-
 
     @Override
     protected void onPause() {

@@ -21,9 +21,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.durbar.bangabandhuplay.R;
+import com.durbar.bangabandhuplay.data.model.category.root.single.CategorySlider;
 import com.durbar.bangabandhuplay.data.model.category.root.single.SubCategory;
 import com.durbar.bangabandhuplay.data.model.sliders.Original;
 import com.durbar.bangabandhuplay.databinding.FragmentMoviesBinding;
+import com.durbar.bangabandhuplay.ui.tunes.TunesSliderAdapter;
+import com.durbar.bangabandhuplay.utils.Constants;
+import com.durbar.bangabandhuplay.utils.NavigationHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +37,7 @@ public class MoviesFragment extends Fragment {
     private FragmentMoviesBinding binding;
     private MoviesViewModel moviesViewModel;
     private List<Original> isMoviesOriginalList;
+    private List<CategorySlider> categorySliderList = new ArrayList<>();
     private List<Original> images = new ArrayList<>();
     private MoviesSliderAdapter moviesSliderAdapter;
     private MoviesContentAdapter moviesContentAdapter;
@@ -80,6 +85,16 @@ public class MoviesFragment extends Fragment {
         moviesViewModel.fetchMoviesCategory("speech-of-bangabandhu").observe(requireActivity(), data -> {
             try {
                 if (data != null && !data.isEmpty()) {
+
+                    /*if (data.get(0).getCategorySliders() != null && !data.get(0).getCategorySliders().isEmpty()){
+                        slider = true;
+                        binding.moviesSliderVp.setVisibility(View.VISIBLE);
+                        categorySliderList = data.get(0).getCategorySliders();
+                        setSlider(categorySliderList );
+                    }else {
+                        binding.moviesSliderVp.setVisibility(View.GONE);
+                    }*/
+
                     moviesSection = true;
                     List<SubCategory> subCategories = new ArrayList<>();
                     for (SubCategory c: data.get(0).getSubCategories()){
@@ -96,6 +111,66 @@ public class MoviesFragment extends Fragment {
                 e.printStackTrace();
             }
         });
+    }
+
+    /*private void setSlider(List<CategorySlider> categorySliderList) {
+        binding.moviesSliderVp.setAdapter(new TunesSliderAdapter(categorySliderList,requireActivity()));
+        binding.moviesSliderVp.setClipToPadding(false);
+        binding.moviesSliderVp.setClipChildren(false);
+        binding.moviesSliderVp.setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
+
+
+        CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
+        compositePageTransformer.addTransformer(new MarginPageTransformer(10));
+        compositePageTransformer.addTransformer((page, position) -> {
+            float r = 1 - Math.abs(position);
+            page.setScaleY(0.85f + r * 0.15f);
+        });
+        binding.moviesSliderVp.setPageTransformer(compositePageTransformer);
+        //binding.homeSliderVp.setCurrentItem(1);
+        binding.moviesSliderVp.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                //Log.v("@@@@", position+" ");
+
+                sliderHandler.removeCallbacks(sliderRunnable);
+                sliderHandler.postDelayed(sliderRunnable, 3000);
+            }
+        });
+
+        binding.indicatorContainerLl.removeAllViews();
+
+        for (int i = 0; i < categorySliderList.size(); i++) {
+            TextView item = new TextView(requireActivity());
+
+            item.setBackground(getResources().getDrawable(R.drawable.slider_indicator_background));
+            item.setId(i);
+
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(15, 15);
+            params.setMargins(5, 0, 5, 0);
+            //item.setLayoutParams(new ViewGroup.LayoutParams(30,30));
+            item.setLayoutParams(params);
+
+            binding.indicatorContainerLl.addView(item);
+        }
+
+
+        binding.moviesSliderVp.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                binding.indicatorContainerLl.getChildAt(prev1).setBackground(getResources().getDrawable(R.drawable.slider_indicator_background));
+                binding.indicatorContainerLl.getChildAt(position).setBackground(getResources().getDrawable(R.drawable.slider_indicatior_back));
+                prev1 = position;
+            }
+        });
+    }*/
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        NavigationHelper.getINSTANCE().setCurrentFragment(Constants.MOVIES_FRAGMENT);
     }
 
     private void hideProgressBar() {

@@ -4,43 +4,50 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class CategorySlider {
-
-
     @SerializedName("id")
     @Expose
-    private Integer id;
+    public Integer id;
     @SerializedName("title")
     @Expose
-    private String title;
+    public String title;
     @SerializedName("description")
     @Expose
-    private String description;
+    public String description;
     @SerializedName("bottom_title")
     @Expose
-    private String bottomTitle;
+    public String bottomTitle;
     @SerializedName("root_category_id")
     @Expose
-    private Integer rootCategoryId;
+    public Integer rootCategoryId;
     @SerializedName("slug")
     @Expose
-    private String slug;
+    public String slug;
     @SerializedName("image")
     @Expose
-    private String image;
+    public String image;
+    @SerializedName("landscape_image")
+    @Expose
+    public String landscapeImage;
     @SerializedName("content_url")
     @Expose
-    private String contentUrl;
+    public String contentUrl;
     @SerializedName("status")
     @Expose
-    private String status;
+    public String status;
     @SerializedName("is_home")
     @Expose
-    private Integer isHome;
+    public Integer isHome;
     @SerializedName("order")
     @Expose
-    private Integer order;
+    public Integer order;
+    @SerializedName("created_at")
+    @Expose
+    public String createdAt;
+    @SerializedName("updated_at")
+    @Expose
+    public String updatedAt;
 
-    public CategorySlider(Integer id, String title, String description, String bottomTitle, Integer rootCategoryId, String slug, String image, String contentUrl, String status, Integer isHome, Integer order) {
+    public CategorySlider(Integer id, String title, String description, String bottomTitle, Integer rootCategoryId, String slug, String image, String landscapeImage, String contentUrl, String status, Integer isHome, Integer order, String createdAt, String updatedAt) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -48,10 +55,13 @@ public class CategorySlider {
         this.rootCategoryId = rootCategoryId;
         this.slug = slug;
         this.image = image;
+        this.landscapeImage = landscapeImage;
         this.contentUrl = contentUrl;
         this.status = status;
         this.isHome = isHome;
         this.order = order;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public Integer getId() {
@@ -82,6 +92,10 @@ public class CategorySlider {
         return image;
     }
 
+    public String getLandscapeImage() {
+        return landscapeImage;
+    }
+
     public String getContentUrl() {
         return contentUrl;
     }
@@ -96,5 +110,13 @@ public class CategorySlider {
 
     public Integer getOrder() {
         return order;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
     }
 }

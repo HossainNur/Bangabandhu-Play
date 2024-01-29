@@ -38,60 +38,20 @@ class PathshalaFragment : Fragment() {
 
         binding.progressBar.visibility = View.VISIBLE
 
-       /* viewModel.fetchPdfs().observe(viewLifecycleOwner) {datax ->
+        viewModel.fetchPdfs().observe(viewLifecycleOwner) {pathshala ->
             try {
-                // concat adapter
-                val concatAdapter = ConcatAdapter()
-
-                it.data?.data?.forEach {
-                    concatAdapter.addAdapter(CommonAdapter(it))
+                if (pathshala.data != null){
+                    val concatAdapter = ConcatAdapter()
+                    pathshala.data?.data?.forEach {
+                        concatAdapter.addAdapter(CommonAdapter(it))
+                    }
+                    binding.rcvPathshala.adapter = concatAdapter
+                    binding.progressBar.visibility = View.GONE
                 }
-                binding.rcvPathshala.adapter = concatAdapter
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-        }*/
-
-
-        val  retrofit = Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL_LIVE) // Replace with your actual base URL
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        val apiService = retrofit.create(ApiService::class.java)
-
-        val call = apiService.pathsahlaPdf
-
-        call.enqueue(object : Callback<PathshalaResponse> {
-            override fun onResponse(call: Call<PathshalaResponse>, response: Response<PathshalaResponse>) {
-                if (response.isSuccessful && response.body() != null && response.body()?.data != null) {
-
-                    binding.progressBar.visibility = View.GONE
-
-                    val responseData = response.body()
-
-                    responseData?.let {
-                        if (it.status == true) {
-                            //    val ebooksList = it.data?.data?.first()?.ebooks as? List<Ebook>
-
-                            // concat adapter
-                            val concatAdapter = ConcatAdapter()
-
-                            it.data?.data?.forEach {
-                                concatAdapter.addAdapter(CommonAdapter(it))
-                            }
-                            binding.rcvPathshala.adapter = concatAdapter
-
-                        }
-                    }
-                } else {
-                }
-            }
-
-            override fun onFailure(call: Call<PathshalaResponse>, t: Throwable) {
-                // Handle failure, such as network issues
-                Log.e("pathshala", "pathshala API call failed. ${t.message}")
-            }
-        })
+        }
     }
 
 }

@@ -21,9 +21,11 @@ import java.util.List;
 public class MoreOthersAdapter extends RecyclerView.Adapter<MoreOthersAdapter.mViewHolder> {
     private List<OttContent> ottContentList;
     private Context context;
-    public MoreOthersAdapter(List<OttContent> ottContentList, Context context) {
+    private String title;
+    public MoreOthersAdapter(List<OttContent> ottContentList, Context context,String title) {
         this.ottContentList = ottContentList;
         this.context = context;
+        this.title = title;
     }
 
     @NonNull
@@ -44,7 +46,7 @@ public class MoreOthersAdapter extends RecyclerView.Adapter<MoreOthersAdapter.mV
             Picasso.get().load(image).fit().into(holder.binding.mainProductCardThumbnailIv);
         }
         holder.binding.getRoot().setOnClickListener(v -> {
-            if (uuid != null && !uuid.isEmpty()) context.startActivity(new Intent(context, PlayerActivity.class).putExtra(Constants.CONTENT_UUID,uuid));
+            if (uuid != null && !uuid.isEmpty()) context.startActivity(new Intent(context, PlayerActivity.class).putExtra(Constants.CONTENT_UUID,uuid).putExtra(Constants.CONTENT_SECTION_TITLE,title));
         });
 
         holder.binding.mainProductCardThumbnailIv.startAnimation(AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.fall_down));

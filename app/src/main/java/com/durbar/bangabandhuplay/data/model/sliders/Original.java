@@ -26,6 +26,9 @@ import com.google.gson.annotations.SerializedName;
     @SerializedName("image")
     @Expose
     public String image;
+     @SerializedName("landscape_image")
+     @Expose
+     public String landscapeImage;
     @SerializedName("content_url")
     @Expose
     public String contentUrl;
@@ -48,7 +51,7 @@ import com.google.gson.annotations.SerializedName;
     @Expose
     public RootCategory rootCategory;
 
-    public Original(Integer id, String title, Object description, Object bottomTitle, Integer rootCategoryId, String slug, String image, String contentUrl, String status, Integer isHome, Integer order, String createdAt, String updatedAt, RootCategory rootCategory) {
+    public Original(Integer id, String title, Object description, Object bottomTitle, Integer rootCategoryId, String slug, String image,String landscapeImage, String contentUrl, String status, Integer isHome, Integer order, String createdAt, String updatedAt, RootCategory rootCategory) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -56,6 +59,7 @@ import com.google.gson.annotations.SerializedName;
         this.rootCategoryId = rootCategoryId;
         this.slug = slug;
         this.image = image;
+        this.landscapeImage = landscapeImage;
         this.contentUrl = contentUrl;
         this.status = status;
         this.isHome = isHome;
@@ -93,7 +97,11 @@ import com.google.gson.annotations.SerializedName;
         return image;
     }
 
-    public String getContentUrl() {
+     public String getLandscapeImage() {
+         return landscapeImage;
+     }
+
+     public String getContentUrl() {
         return contentUrl;
     }
 

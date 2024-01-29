@@ -21,7 +21,7 @@ public class PathshalaRepositoryJava {
     private Application application;
     private ApiService apiService;
 
-    private MutableLiveData<List<DataX>> dataxList;
+    private MutableLiveData<PathshalaResponse> dataxList;
 
     public PathshalaRepositoryJava(Application application) {
         this.application = application;
@@ -29,13 +29,13 @@ public class PathshalaRepositoryJava {
         dataxList = new MutableLiveData<>();
     }
 
-    public MutableLiveData<List<DataX>> fetchEbook(){
+    public MutableLiveData<PathshalaResponse> fetchEbook(){
         Call<PathshalaResponse> call = apiService.getPathsahlaPdf();
         call.enqueue(new Callback<PathshalaResponse>() {
             @Override
             public void onResponse(Call<PathshalaResponse> call, Response<PathshalaResponse> response) {
                 if (response.isSuccessful() && response.body() != null && response.body().getData() != null) {
-                    dataxList.setValue(response.body().getData().getData());
+                    dataxList.setValue(response.body());
                 } else {
                     Toast.makeText(application, response.message(), Toast.LENGTH_SHORT).show();
                 }

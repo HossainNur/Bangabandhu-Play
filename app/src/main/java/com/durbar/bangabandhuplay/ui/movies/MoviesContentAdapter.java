@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -37,14 +38,17 @@ public class MoviesContentAdapter extends RecyclerView.Adapter<MoviesContentAdap
     public void onBindViewHolder(@NonNull ParentViewHolder holder, int position) {
 
         SubCategory current = subCategories.get(position);
+        String title = current.getTitle();
+        String slug = current.getSlug();
 
         List<OttContent> ottContents = current.getOttContents();
 
-        holder.binding.itemRv.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
-        holder.binding.itemRv.setAdapter(new MoviesChildContentAdapter(ottContents, context));
 
-        String title = current.getTitle();
-        String slug = current.getSlug();
+
+        holder.binding.itemRv.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
+        holder.binding.itemRv.setAdapter(new MoviesChildContentAdapter(ottContents, context,title));
+
+
 
         if (title != null) {
             holder.binding.titleTv.setText(title);

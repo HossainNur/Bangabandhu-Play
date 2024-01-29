@@ -106,9 +106,9 @@
         android:label="fragment_tunes"
         tools:layout="@layout/fragment_tunes" />
     <fragment
-        android:id="@+id/pdfViewFragment"
-        android:name="com.durbar.bangabandhuplay.ui.pathshala.PdfViewFragment"
-        android:label="fragment_pdf_view"
-        tools:layout="@layout/fragment_pdf_view" />
+        android:id="@+id/pdfWebViewFragment"
+        android:name="com.durbar.bangabandhuplay.ui.pathshala.PdfWebViewFragment"
+        android:label="fragment_pdf_web_view"
+        tools:layout="@layout/fragment_pdf_web_view" />
 
 </navigation>

@@ -17,21 +17,11 @@
             android:id="@+id/toolbar"
             android:layout_width="0dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/iv_search"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_constraintTop_toTopOf="parent"
             app:titleTextColor="@color/white" />
 
-        <ImageView
-            android:id="@+id/iv_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:padding="@dimen/_5sdp"
-            android:src="@drawable/search_icon"
-            app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
         <com.google.android.exoplayer2.ui.PlayerView
             android:id="@+id/video_player"

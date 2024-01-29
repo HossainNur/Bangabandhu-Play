@@ -34,12 +34,12 @@ public class MoviesSliderAdapter extends RecyclerView.Adapter<MoviesSliderAdapte
     public void onBindViewHolder(@NonNull MoviesSliderAdapter.mViewHolder holder, int position) {
         Original current = images.get(position);
         String title = current.getTitle();
-        String image = current.getImage();
-        String description = current.getDescription().toString();
+        String image = current.getLandscapeImage();
+        //String description = current.getDescription().toString();
         String uuid = current.getContentUrl();
         if (image != null) Picasso.get().load(current.getImage()).into(holder.binding.moviesSliderImage);
         if (title != null) holder.binding.sliderTitle.setText(title);
-        if (description != null) holder.binding.sliderDesc.setText(description);
+        //if (description != null) holder.binding.sliderDesc.setText(description);
         holder.binding.playContent.setOnClickListener(v -> {
             if (uuid != null && !uuid.isEmpty()) context.startActivity(new Intent(context, PlayerActivity.class).putExtra(Constants.CONTENT_UUID, uuid).putExtra(Constants.CONTENT_SECTION_TITLE,"Slider"));
         });

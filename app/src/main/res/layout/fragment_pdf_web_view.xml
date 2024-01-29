@@ -3,15 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.pathshala.PdfViewFragment">
+    tools:context=".ui.pathshala.PdfWebViewFragment">
 
-    <com.github.barteksc.pdfviewer.PDFView
-        android:id="@+id/idPDFView"
+    <WebView
+        android:id="@+id/webview"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/_70sdp" />
+        android:layout_height="match_parent"/>
 
 
     <ProgressBar
