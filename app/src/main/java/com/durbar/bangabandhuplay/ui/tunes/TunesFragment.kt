@@ -8,18 +8,20 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
-import androidx.viewpager2.widget.ViewPager2
+import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.durbar.bangabandhuplay.R
 import com.durbar.bangabandhuplay.data.model.category.root.single.CategorySlider
 import com.durbar.bangabandhuplay.data.model.category.root.single.SubCategory
 import com.durbar.bangabandhuplay.data.model.sliders.Original
 import com.durbar.bangabandhuplay.databinding.FragmentTunesBinding
 import com.durbar.bangabandhuplay.ui.movies.MoviesContentAdapter
+import com.durbar.bangabandhuplay.ui.movies.MoviesSliderAdapter
 import com.durbar.bangabandhuplay.ui.movies.MoviesViewModel
 
 
@@ -30,6 +32,10 @@ class TunesFragment : Fragment() {
     private val sliderHandler = Handler()
     private var inc = true
     private var prev1 = 0
+    private var slider = false
+    private var moviesSection : Boolean = false
+    private var isMoviesOriginalList: List<Original>? = null
+    private var images: List<Original> = java.util.ArrayList()
     private var categorySliderList: List<CategorySlider> = java.util.ArrayList()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -41,18 +47,61 @@ class TunesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+       /* viewModel.getSliders().observe(requireActivity(),  {
+            originals: List<Original>? ->
+                try {
+                    if (originals != null) {
+                        slider = true
+                        isMoviesOriginalList = java.util.ArrayList<Original>()
+                        for (isHomeList in originals) {
+                            if (isHomeList.getIsHome() == 0) {
+                                (isMoviesOriginalList as java.util.ArrayList<Original>).add(isHomeList)
+                            }
+                        }
+                        images = isMoviesOriginalList as java.util.ArrayList<Original>
+                        setSlider(isMoviesOriginalList as java.util.ArrayList<Original>)
+                        hideProgressBar()
+                    }
+                } catch (e: java.lang.Exception) {
+                    e.printStackTrace()
+                }
+            })*/
+
+        viewModel.sliders.observe(viewLifecycleOwner){originals ->
+            try {
+                if (originals != null) {
+                    slider = true
+                    isMoviesOriginalList = java.util.ArrayList<Original>()
+                    for (isHomeList in originals) {
+                        if (isHomeList.getIsHome() == 0) {
+                            (isMoviesOriginalList as java.util.ArrayList<Original>).add(isHomeList)
+                        }
+                    }
+                    images = isMoviesOriginalList as java.util.ArrayList<Original>
+                    setSlider(isMoviesOriginalList as java.util.ArrayList<Original>)
+                    hideProgressBar()
+                }
+            }catch (e: java.lang.Exception){
+                e.printStackTrace()
+            }
+        }
+
+
+
         viewModel.fetchMoviesCategory("tunes").observe(viewLifecycleOwner){data ->
             try {
                 if (data != null && !data.isEmpty()) {
 
-                    if (data.get(0).categorySliders != null && !data.get(0).categorySliders.isNullOrEmpty()){
+                    /*if (data.get(0).categorySliders != null && !data.get(0).categorySliders.isNullOrEmpty()){
                         binding.tunesSliderVp.visibility = View.VISIBLE
                         categorySliderList = data.get(0).categorySliders
                         setSlider(categorySliderList)
                     }else{
                         binding.tunesSliderVp.visibility = View.GONE
-                    }
+                    }*/
 
+                    moviesSection = true
                     val subCategories: MutableList<SubCategory> = ArrayList()
                     for (c in data[0].subCategories) {
                         if (c.ottContents != null && !c.ottContents.isEmpty()) {
@@ -69,12 +118,11 @@ class TunesFragment : Fragment() {
         }
     }
 
-    private fun setSlider(categorySliders: List<CategorySlider>) {
+    private fun setSlider(originals: List<Original>) {
+        binding.tunesSliderVp.setAdapter(MoviesSliderAdapter(originals, requireActivity()))
         binding.tunesSliderVp.setClipToPadding(false)
         binding.tunesSliderVp.setClipChildren(false)
         binding.tunesSliderVp.setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER)
-
-
         val compositePageTransformer = CompositePageTransformer()
         compositePageTransformer.addTransformer(MarginPageTransformer(10))
         compositePageTransformer.addTransformer { page: View, position: Float ->
@@ -82,9 +130,8 @@ class TunesFragment : Fragment() {
             page.scaleY = 0.85f + r * 0.15f
         }
         binding.tunesSliderVp.setPageTransformer(compositePageTransformer)
-
-        binding.tunesSliderVp.registerOnPageChangeCallback(object :
-            ViewPager2.OnPageChangeCallback() {
+        //binding.homeSliderVp.setCurrentItem(1);
+        binding.tunesSliderVp.registerOnPageChangeCallback(object : OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 //Log.v("@@@@", position+" ");
@@ -93,9 +140,8 @@ class TunesFragment : Fragment() {
             }
         })
 
-        binding.indicatorContainerLl.removeAllViews()
-
-        for (i in categorySliders.indices) {
+        /*binding.indicatorContainerLl.removeAllViews()
+        for (i in originals.indices) {
             val item = TextView(requireActivity())
             item.background = resources.getDrawable(R.drawable.slider_indicator_background)
             item.id = i
@@ -105,10 +151,7 @@ class TunesFragment : Fragment() {
             item.layoutParams = params
             binding.indicatorContainerLl.addView(item)
         }
-
-
-        binding.tunesSliderVp.registerOnPageChangeCallback(object :
-            ViewPager2.OnPageChangeCallback() {
+        binding.tunesSliderVp.registerOnPageChangeCallback(object : OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 binding.indicatorContainerLl.getChildAt(prev1).background =
@@ -117,12 +160,20 @@ class TunesFragment : Fragment() {
                     resources.getDrawable(R.drawable.slider_indicatior_back)
                 prev1 = position
             }
-        })
+        })*/
     }
+
+    private fun hideProgressBar() {
+        if (slider && moviesSection) {
+            binding.tunesContainer.setVisibility(View.VISIBLE)
+            binding.progressBar.setVisibility(View.GONE)
+        }
+    }
+
     val sliderRunnable = Runnable {
         if (binding != null) {
             val current: Int = binding.tunesSliderVp.getCurrentItem()
-            if (current == categorySliderList.size - 1) {
+            if (current == images.size - 1) {
                 inc = false
             }
             if (current == 0) inc = true

@@ -44,7 +44,7 @@ public class SearchContentsAdapter extends RecyclerView.Adapter<SearchContentsAd
         }
 
         holder.binding.getRoot().setOnClickListener(v -> {
-            if (uuid != null && !uuid.isEmpty()) context.startActivity(new Intent(context, PlayerActivity.class).putExtra(Constants.CONTENT_UUID,uuid));
+            if (uuid != null && !uuid.isEmpty()) context.startActivity(new Intent(context, PlayerActivity.class).putExtra(Constants.CONTENT_UUID,uuid).putExtra(Constants.CONTENT_SECTION_TITLE,title));
         });
 
     }

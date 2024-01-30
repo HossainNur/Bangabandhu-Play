@@ -18,5 +18,6 @@ public class Constants {
     public static final String HOME_FRAGMENT = "HOME_FRAGMENT";
     public static final String MOVIES_FRAGMENT = "MOVIES_FRAGMENT";
     public static final String DOCUMENTARY_FRAGMENT = "DOCUMENTARY_FRAGMENT";
+    public static Boolean IS_FROM_PLAYER = false;
 
 }

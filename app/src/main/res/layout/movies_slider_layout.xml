@@ -46,15 +46,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="40dp"
         android:background="@drawable/transparent_gradient"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/slider_title"
         app:layout_constraintBottom_toBottomOf="parent"
         />
 
-    <TextView
+   <!-- <TextView
         android:id="@+id/slider_title"
         android:layout_width="@dimen/_150sdp"
         android:layout_height="wrap_content"
@@ -96,7 +95,7 @@
         app:layout_constraintTop_toTopOf="@+id/slider_title"
         app:layout_constraintBottom_toBottomOf="@+id/slider_desc"
         app:layout_constraintStart_toEndOf="@+id/slider_title"
-        />
+        />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

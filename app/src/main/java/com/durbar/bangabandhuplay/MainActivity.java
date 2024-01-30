@@ -43,15 +43,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        /*BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
-                .build();*/
-        /*NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-        //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(binding.navView, navController);*/
+
 
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, binding.drawerLayout, R.string.nav_open, R.string.nav_close);
         binding.drawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -112,7 +104,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        checkCurrentBottomNav();
+
     }
+
+    private void checkCurrentBottomNav() {
+
+        if (Constants.IS_FROM_PLAYER){
+        switch (NavigationHelper.getINSTANCE().getCurrentFragment()) {
+            case Constants.HOME_FRAGMENT:
+                navController.navigate(R.id.navigation_home);
+                break;
+            case Constants.MOVIES_FRAGMENT:
+                navController.navigate(R.id.navigation_movies);
+                break;
+            case Constants.DOCUMENTARY_FRAGMENT:
+                navController.navigate(R.id.navigation_tvShows);
+                break;
+        }
+
+        }
+
+    }
+
 
     private void unCheckableBottomNavigation() {
         binding.navView.getMenu().getItem(Constants.HOME).setCheckable(false);
@@ -177,6 +191,8 @@ public class MainActivity extends AppCompatActivity {
         } else {
             if (doubleBackToExitPressedOnce) {
                 Intent a = new Intent(Intent.ACTION_MAIN);
+                a.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                a.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 a.addCategory(Intent.CATEGORY_HOME);
                 a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(a);

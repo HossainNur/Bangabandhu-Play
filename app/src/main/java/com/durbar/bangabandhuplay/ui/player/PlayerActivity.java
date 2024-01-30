@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +25,7 @@ import android.widget.Toast;
 import com.durbar.bangabandhuplay.MainActivity;
 import com.durbar.bangabandhuplay.R;
 import com.durbar.bangabandhuplay.databinding.ActivityPlayerBinding;
+import com.durbar.bangabandhuplay.utils.NavigationHelper;
 import com.durbar.bangabandhuplay.utils.TrackSelectionDialog;
 import com.durbar.bangabandhuplay.data.model.ott_content.ContentSource;
 import com.durbar.bangabandhuplay.ui.search.SearchResultActivity;
@@ -50,6 +53,7 @@ public class PlayerActivity extends AppCompatActivity {
     private ConstraintLayout contentTopSection;
     private TextView moviesTitle;
     private boolean isShowingTrackSelectionDialog;
+    private NavController navController;
     boolean isFullScreen = false, isLock = false, ottContent = false, relatedContent = false;
 
     @Override
@@ -65,6 +69,7 @@ public class PlayerActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.baseline_arrow_back_ios_24);
         getSupportActionBar().setTitle(title);
+
 
         playerView = findViewById(R.id.video_player);
         btnFullScreen = findViewById(R.id.bt_fullscreen);
@@ -293,22 +298,17 @@ public class PlayerActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (exoPlayer != null && exoPlayer.isPlaying()) {
+        if (exoPlayer != null) {
             exoPlayer.pause();
-            exoPlayer.release();
             exoPlayer.setPlayWhenReady(false);
-            exoPlayer = null;
         }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if (exoPlayer != null && exoPlayer.isPlaying()){
+        if (exoPlayer != null){
             exoPlayer.stop();
-            exoPlayer.release();
-            exoPlayer.setPlayWhenReady(false);
-            exoPlayer = null;
         }
     }
 
@@ -316,17 +316,41 @@ public class PlayerActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        if (exoPlayer != null && exoPlayer.isPlaying()){
+        if (exoPlayer != null){
             exoPlayer.release();
-            exoPlayer.setPlayWhenReady(false);
             exoPlayer = null;
         }
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        //checkBottomMenuCheckable();
+        //clearStacks();
+        Constants.IS_FROM_PLAYER = true;
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        finish();
+    }
+
+    /*private void checkBottomMenuCheckable() {
+
+        switch (NavigationHelper.getINSTANCE().getCurrentFragment()) {
+            case Constants.HOME_FRAGMENT:
+
+                break;
+            case Constants.MOVIES_FRAGMENT:
+
+                break;
+            case Constants.DOCUMENTARY_FRAGMENT:
+
+                break;
+        }
+    }*/
+
+    private void clearStacks() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
         finish();
     }
 }

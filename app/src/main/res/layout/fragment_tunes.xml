@@ -7,6 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.tunes.TunesFragment">
 
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,7 +17,7 @@
             android:id="@+id/tunes_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/tunes_slider_vp"
@@ -26,13 +27,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
-            <LinearLayout
+            <!--<LinearLayout
                 android:id="@+id/indicator_container_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="@+id/tunes_slider_vp"
                 android:gravity="center"
-                android:orientation="horizontal" />
+                android:orientation="horizontal" />-->
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/tunes_rv"
@@ -46,13 +47,14 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <!--<ProgressBar
+    <ProgressBar
         android:id="@+id/progressBar"
         style="@style/progressBarStyle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        />-->
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
