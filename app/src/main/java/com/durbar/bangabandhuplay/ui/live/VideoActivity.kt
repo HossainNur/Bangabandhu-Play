@@ -36,11 +36,11 @@ class VideoActivity : AppCompatActivity() {
         binding = ActivityVideoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        /*userRole = intent.getIntExtra("UserRole", -1)
+        userRole = intent.getIntExtra("UserRole", -1)
         channelName = intent.getStringExtra("channel_name")
         appId = intent.getStringExtra("appId")
         token = intent.getStringExtra("token")
-        initAgoraEngineAndJoinChannel()*/
+        initAgoraEngineAndJoinChannel()
 
     }
 
