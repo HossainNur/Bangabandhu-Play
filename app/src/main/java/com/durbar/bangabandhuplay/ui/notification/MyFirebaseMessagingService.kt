@@ -14,15 +14,18 @@ import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
 import android.util.Log
+import android.widget.RemoteViews
 import androidx.core.app.NotificationChannelCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import com.durbar.bangabandhuplay.R
 import com.durbar.bangabandhuplay.SplashScreenActivity
+import com.durbar.bangabandhuplay.ui.live.StreamingActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import java.util.Date
+import kotlin.random.Random
 
 class MyFirebaseMessagingService  : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
@@ -40,6 +43,7 @@ class MyFirebaseMessagingService  : FirebaseMessagingService() {
         handleNotification(remoteMessage)
 
     }
+
 
     private fun initNotificationChannel() {
         val value = "/raw/cutom_rington_1"
@@ -110,9 +114,9 @@ class MyFirebaseMessagingService  : FirebaseMessagingService() {
         bigTextStyle.bigText(body)
         mBuilder.setStyle(bigTextStyle)
 
-       /* mBuilder.setSound(
-            Uri.parse("${ContentResolver.SCHEME_ANDROID_RESOURCE}://${this.packageName}/${R.raw.cutom_rington_1}")
-        )*/
+        mBuilder.setSound(
+            Uri.parse("${ContentResolver.SCHEME_ANDROID_RESOURCE}://${this.packageName}/${R.raw.custom_rington_1}")
+        )
 
         mBuilder.setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
         // mBuilder.setSound(defaultSoundUri)
@@ -120,8 +124,10 @@ class MyFirebaseMessagingService  : FirebaseMessagingService() {
         mBuilder.priority = Notification.PRIORITY_MAX
         mBuilder.color = ContextCompat.getColor(applicationContext, R.color.white)
         mBuilder.setAutoCancel(true)
-        //  val intent = Intent(this, SplashScreenActivity::class.java)
-        val intent = Intent(this, SplashScreenActivity::class.java)
+
+        // directing receiver to the desired activity. while notification pop up will be clicked
+        val intent = Intent(this, StreamingActivity::class.java)
+
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
         intent.putExtra("data", "fromoutside")
         val stackBuilder = TaskStackBuilder.create(this)

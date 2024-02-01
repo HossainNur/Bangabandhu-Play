@@ -1,57 +1,64 @@
-package com.durbar.bangabandhuplay.ui.live;
+package com.durbar.bangabandhuplay.ui.live
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
+import android.content.Intent
+import android.os.Bundle
+import android.view.View
+import android.widget.RadioButton
+import android.widget.RadioGroup
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import com.durbar.bangabandhuplay.MainActivity
+import com.durbar.bangabandhuplay.R
+import com.durbar.bangabandhuplay.data.model.live.Data
+import com.durbar.bangabandhuplay.databinding.ActivityStreamingBinding
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Toast;
+class StreamingActivity : AppCompatActivity() {
+    private var binding: ActivityStreamingBinding? = null
+    private var viewModel: LiveStreamingViewModel? = null
+    private var userRole = 0
+    private var from_Notification:String = ""  // notification purpose
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityStreamingBinding.inflate(
+            layoutInflater
+        )
+        viewModel = ViewModelProvider(this).get(LiveStreamingViewModel::class.java)
+        setContentView(binding!!.root)
 
-import com.durbar.bangabandhuplay.R;
-import com.durbar.bangabandhuplay.databinding.ActivitySearchResultBinding;
-import com.durbar.bangabandhuplay.databinding.ActivityStreamingBinding;
+        from_Notification = intent.getStringExtra("data")?: ""   // notification purpose
 
-public class StreamingActivity extends AppCompatActivity {
-
-    private ActivityStreamingBinding binding;
-    private LiveStreamingViewModel viewModel;
-    private int userRole = 0;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = ActivityStreamingBinding.inflate(getLayoutInflater());
-        viewModel =  new ViewModelProvider(this).get(LiveStreamingViewModel.class);
-        setContentView(binding.getRoot());
-
-        RadioGroup userRadioButton = (RadioGroup) findViewById(R.id.radio_group);
-        int checked = userRadioButton.getCheckedRadioButtonId();
-        RadioButton audienceButton = (RadioButton) findViewById(R.id.audience_rb);
-        userRole = (checked == audienceButton.getId()) ? 0 : 1;
-
-        fetchActiveLive();
+        val userRadioButton = findViewById<View>(R.id.radio_group) as RadioGroup
+        val checked = userRadioButton.checkedRadioButtonId
+        val audienceButton = findViewById<View>(R.id.audience_rb) as RadioButton
+        userRole = if (checked == audienceButton.id) 0 else 1
+        fetchActiveLive()
     }
 
-    private void fetchActiveLive() {
-        viewModel.getLiveStreaming().observe(this,data -> {
+    private fun fetchActiveLive() {
+        viewModel!!.liveStreaming.observe(this) { data: Data? ->
             try {
-                if (data != null && data.getStatus() == 1){
-                    String channelName = data.getChannelName();
-                    String token = data.getToken();
-                    String appId = data.getAppId();
-                   startActivity(new Intent(getApplicationContext(), VideoActivity.class)
+                if (data != null && data.getStatus() == 1) {
+                    val channelName = data.getChannelName()
+                    val token = data.getToken()
+                    val appId = data.getAppId()
+                    startActivity(
+                        Intent(applicationContext, VideoActivity::class.java)
                             .putExtra("UserRole", userRole)
-                            .putExtra("appId",appId).putExtra("channel_name",channelName).putExtra("token",token));
-                }else {
-                    Toast.makeText(getApplicationContext(),"No live Right now ",Toast.LENGTH_SHORT).show();
-                    finish();
+                            .putExtra("appId", appId).putExtra("channel_name", channelName)
+                            .putExtra("token", token)
+                    )
+                } else {
+                    Toast.makeText(applicationContext, "No live Right now ", Toast.LENGTH_SHORT).show()
+                    // If, user or receiver click notification after live has ended, then go to Main Activity
+                    if (from_Notification!=""){
+                        startActivity(Intent(this,MainActivity::class.java))
+                    }
+                    finish()
                 }
-            }catch (Exception e){
-                e.printStackTrace();
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
-
-        });
+        }
     }
 }
