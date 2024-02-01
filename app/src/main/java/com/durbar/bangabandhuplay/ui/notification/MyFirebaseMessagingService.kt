@@ -14,7 +14,6 @@ import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
 import android.util.Log
-import android.widget.RemoteViews
 import androidx.core.app.NotificationChannelCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -24,7 +23,6 @@ import com.durbar.bangabandhuplay.SplashScreenActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import java.util.Date
-import kotlin.random.Random
 
 class MyFirebaseMessagingService  : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
@@ -34,69 +32,13 @@ class MyFirebaseMessagingService  : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
         Log.e("fdgfd", "" + remoteMessage.data.toString())
-        //removeBrokenChannel()
-        //initNotificationChannel()
-        //generateNotification(remoteMessage.data["title"] ?: "title")
+        removeBrokenChannel()
+        initNotificationChannel()
+        // generateNotification(remoteMessage.data["title"] ?: "title")
         //showNotification(remoteMessage)
         Log.e("remoteMessage", "onMessageReceived: " )
         handleNotification(remoteMessage)
 
-    }
-
-    fun generateNotification(message: String) {
-        val intent = Intent(this, SplashScreenActivity::class.java)
-        //  intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-
-        val pendingIntent = PendingIntent.getActivity(this, 0, intent, if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.FLAG_NO_CREATE or PendingIntent.FLAG_MUTABLE else PendingIntent.FLAG_ONE_SHOT)
-
-        //CHANNEL ID,NAME
-
-        var builder: NotificationCompat.Builder =
-            NotificationCompat.Builder(applicationContext, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_notifications_black_24dp)
-                /*  .setSound(
-                      Uri.parse("${ContentResolver.SCHEME_ANDROID_RESOURCE}://${this.packageName}/${R.raw.cutom_rington_1}")
-                  )*/
-                .setAutoCancel(true)
-                .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
-                .setOnlyAlertOnce(true)
-                .setContentIntent(pendingIntent)
-
-
-        builder = builder.setContent(getRemoteView(message))
-
-        val notificationManager =
-            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val notificationChannel = NotificationChannel(
-                CHANNEL_ID, this.packageName,
-                NotificationManager.IMPORTANCE_HIGH
-            )
-            notificationManager.createNotificationChannel(notificationChannel)
-        }
-
-        notificationManager.notify(Random.nextInt(), builder.build())
-
-        //MediaPlayer.create(applicationContext, R.raw.tone).start()
-
-    }
-
-    @SuppressLint("RemoteViewLayout")
-    fun getRemoteView(message: String): RemoteViews {
-
-        val remoteView = RemoteViews(
-            this.packageName,
-            R.layout.notification
-        )
-
-
-        //remoteView.setTextViewText(R.id.title,title)
-        remoteView.setTextViewText(R.id.description, message)
-        remoteView.setImageViewResource(R.id.app_logo, R.drawable.ic_stat_name)  //R.drawable.ic_stat_name
-
-        return remoteView
     }
 
     private fun initNotificationChannel() {
@@ -134,7 +76,7 @@ class MyFirebaseMessagingService  : FirebaseMessagingService() {
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val m = (Date().time / 1000L % Int.MAX_VALUE).toInt()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channelId = "channel-01"
+            val channelId = CHANNEL_ID
             val channelName = "Channel Name"
             val importance = NotificationManager.IMPORTANCE_HIGH
             val mChannel = NotificationChannel(
@@ -145,8 +87,9 @@ class MyFirebaseMessagingService  : FirebaseMessagingService() {
         var bigTextStyle: NotificationCompat.BigTextStyle? = null
         var icon: Bitmap? = null
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-        val mBuilder = NotificationCompat.Builder(this, "channel-01")
-        mBuilder.setSmallIcon(R.mipmap.ic_launcher)
+        val mBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
+        mBuilder.setSmallIcon(R.drawable.asset_6)
+        // mBuilder.setLargeIcon(R.drawable.asset_6)
         mBuilder.setContentTitle(title)
         /* if (img != null) {
              icon = img
@@ -167,12 +110,17 @@ class MyFirebaseMessagingService  : FirebaseMessagingService() {
         bigTextStyle.bigText(body)
         mBuilder.setStyle(bigTextStyle)
 
+       /* mBuilder.setSound(
+            Uri.parse("${ContentResolver.SCHEME_ANDROID_RESOURCE}://${this.packageName}/${R.raw.cutom_rington_1}")
+        )*/
+
         mBuilder.setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
-        mBuilder.setSound(defaultSoundUri)
+        // mBuilder.setSound(defaultSoundUri)
         mBuilder.setContentText(body)
         mBuilder.priority = Notification.PRIORITY_MAX
         mBuilder.color = ContextCompat.getColor(applicationContext, R.color.white)
         mBuilder.setAutoCancel(true)
+        //  val intent = Intent(this, SplashScreenActivity::class.java)
         val intent = Intent(this, SplashScreenActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
         intent.putExtra("data", "fromoutside")

@@ -33,6 +33,17 @@ class SplashScreenActivity : AppCompatActivity() {
         )
         setContentView(binding!!.root)
 
+        // notification
+        handlePushNotification()
+
+        Handler().postDelayed({
+            startActivity(Intent(applicationContext, MainActivity::class.java))
+            finish()
+        }, SPLASH_TIME_OUT.toLong())
+    }
+
+    fun handlePushNotification(){
+        // for individual notification reciever
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
                 Log.w("notification", "Fetching FCM registration token failed", task.exception)
@@ -45,7 +56,7 @@ class SplashScreenActivity : AppCompatActivity() {
             // Log and toast
             //  val msg = getString(R.string.msg_token_fmt, token)
             System.out.println(token)
-            Toast.makeText(this,"device rg token is"+ token, Toast.LENGTH_SHORT).show()
+            // Toast.makeText(this,"device rg token is"+ token, Toast.LENGTH_SHORT).show()
             Log.d("token", "token: $token")
         })
 
@@ -63,11 +74,6 @@ class SplashScreenActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT > 32) {
             checkNotificationPermission()
         }
-
-        Handler().postDelayed({
-            startActivity(Intent(applicationContext, MainActivity::class.java))
-            finish()
-        }, SPLASH_TIME_OUT.toLong())
     }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
