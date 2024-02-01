@@ -55,6 +55,9 @@ public class ParentItemAdapter extends RecyclerView.Adapter<ParentItemAdapter.Pa
 
         holder.binding.moreTv.setOnClickListener(view -> {
             if (id != null && title != null) context.startActivity(new Intent(context, MoreActivity.class).putExtra(Constants.CONTENT_ID, id).putExtra(Constants.CONTENT_SECTION_TITLE, title).putExtra(Constants.CONTENT_IS_HOME,true));
+            Constants.setEditor(context,Constants.CONTENT_ID,id);
+            Constants.setEditor(context,Constants.CONTENT_SECTION_TITLE,title);
+            Constants.setEditor(context,Constants.CONTENT_IS_HOME,true);
         });
 
     }

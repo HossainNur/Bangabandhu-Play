@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.durbar.bangabandhuplay.MainActivity;
 import com.durbar.bangabandhuplay.R;
 import com.durbar.bangabandhuplay.databinding.ActivityPlayerBinding;
+import com.durbar.bangabandhuplay.ui.more.MoreActivity;
 import com.durbar.bangabandhuplay.utils.NavigationHelper;
 import com.durbar.bangabandhuplay.utils.TrackSelectionDialog;
 import com.durbar.bangabandhuplay.data.model.ott_content.ContentSource;
@@ -54,7 +55,7 @@ public class PlayerActivity extends AppCompatActivity {
     private TextView moviesTitle;
     private boolean isShowingTrackSelectionDialog;
     private NavController navController;
-    boolean isFullScreen = false, isLock = false, ottContent = false, relatedContent = false;
+    boolean isFullScreen = false, isLock = false, ottContent = false, relatedContent = false,isMore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +66,7 @@ public class PlayerActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         title = getIntent().getStringExtra(Constants.CONTENT_SECTION_TITLE);
+        isMore = getIntent().getBooleanExtra(Constants.CONTENT_IS_MORE,false);
         setSupportActionBar(binding.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.baseline_arrow_back_ios_24);
@@ -324,33 +326,46 @@ public class PlayerActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        //checkBottomMenuCheckable();
-        //clearStacks();
+
         Constants.IS_FROM_PLAYER = true;
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-        finish();
-    }
+        if (Constants.IS_MORE_CONTENT){
+            String id = Constants.getSharedPref(this,Constants.CONTENT_ID);
+            String slug = Constants.getSharedPref(this,Constants.CONTENT_SLUG);
+            String title = Constants.getSharedPref(this,Constants.CONTENT_SECTION_TITLE);
+            if (Constants.IS_MORE_HOME){
+                Intent intent = new Intent(this, MoreActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.putExtra(Constants.CONTENT_ID, id);
+                intent.putExtra(Constants.CONTENT_SECTION_TITLE, title);
+                intent.putExtra(Constants.CONTENT_IS_HOME,true);
+                startActivity(intent);
+                finish();
+                Constants.setEditor(this,Constants.CONTENT_ID,null);
+                Constants.setEditor(this,Constants.CONTENT_SECTION_TITLE,null);
+                Constants.setEditor(this,Constants.CONTENT_IS_HOME,null);
+            }else {
+                Intent intent = new Intent(this, MoreActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.putExtra(Constants.CONTENT_SECTION_TITLE, title);
+                intent.putExtra(Constants.CONTENT_SLUG, slug);
+                intent.putExtra(Constants.CONTENT_IS_HOME,false);
+                startActivity(intent);
+                Constants.setEditor(this,Constants.CONTENT_SLUG,slug);
+                Constants.setEditor(this,Constants.CONTENT_SECTION_TITLE,title);
+                Constants.setEditor(this,Constants.CONTENT_IS_HOME,null);
 
-    /*private void checkBottomMenuCheckable() {
+            }
 
-        switch (NavigationHelper.getINSTANCE().getCurrentFragment()) {
-            case Constants.HOME_FRAGMENT:
-
-                break;
-            case Constants.MOVIES_FRAGMENT:
-
-                break;
-            case Constants.DOCUMENTARY_FRAGMENT:
-
-                break;
+        }else {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
         }
-    }*/
 
-    private void clearStacks() {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-        finish();
     }
+
 }

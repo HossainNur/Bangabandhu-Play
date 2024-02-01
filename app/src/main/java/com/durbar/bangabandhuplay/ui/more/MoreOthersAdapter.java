@@ -22,10 +22,12 @@ public class MoreOthersAdapter extends RecyclerView.Adapter<MoreOthersAdapter.mV
     private List<OttContent> ottContentList;
     private Context context;
     private String title;
-    public MoreOthersAdapter(List<OttContent> ottContentList, Context context,String title) {
+    private boolean isMore;
+    public MoreOthersAdapter(List<OttContent> ottContentList, Context context,String title,boolean isMore) {
         this.ottContentList = ottContentList;
         this.context = context;
         this.title = title;
+        this.isMore = isMore;
     }
 
     @NonNull
@@ -46,7 +48,9 @@ public class MoreOthersAdapter extends RecyclerView.Adapter<MoreOthersAdapter.mV
             Picasso.get().load(image).fit().into(holder.binding.mainProductCardThumbnailIv);
         }
         holder.binding.getRoot().setOnClickListener(v -> {
-            if (uuid != null && !uuid.isEmpty()) context.startActivity(new Intent(context, PlayerActivity.class).putExtra(Constants.CONTENT_UUID,uuid).putExtra(Constants.CONTENT_SECTION_TITLE,title));
+            if (uuid != null && !uuid.isEmpty()) context.startActivity(new Intent(context, PlayerActivity.class).putExtra(Constants.CONTENT_UUID,uuid).putExtra(Constants.CONTENT_SECTION_TITLE,title).putExtra(Constants.CONTENT_IS_MORE,true));
+            Constants.IS_MORE_CONTENT = true;
+            Constants.IS_MORE_HOME = false;
         });
 
         holder.binding.mainProductCardThumbnailIv.startAnimation(AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.fall_down));

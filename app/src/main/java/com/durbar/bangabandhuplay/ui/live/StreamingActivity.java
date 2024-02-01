@@ -44,6 +44,7 @@ public class StreamingActivity extends AppCompatActivity {
                    startActivity(new Intent(getApplicationContext(), VideoActivity.class)
                             .putExtra("UserRole", userRole)
                             .putExtra("appId",appId).putExtra("channel_name",channelName).putExtra("token",token));
+
                 }else {
                     Toast.makeText(getApplicationContext(),"No live Right now ",Toast.LENGTH_SHORT).show();
                     finish();

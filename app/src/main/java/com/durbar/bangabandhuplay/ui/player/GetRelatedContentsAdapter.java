@@ -19,6 +19,7 @@ public class GetRelatedContentsAdapter extends RecyclerView.Adapter<GetRelatedCo
     private List<SingleContentRelatedContent> singleContentRelatedContentList;
     private Context context;
     private String title;
+    private boolean isMore;
 
     public GetRelatedContentsAdapter(List<SingleContentRelatedContent> singleContentRelatedContentList, Context context,String title) {
         this.singleContentRelatedContentList = singleContentRelatedContentList;

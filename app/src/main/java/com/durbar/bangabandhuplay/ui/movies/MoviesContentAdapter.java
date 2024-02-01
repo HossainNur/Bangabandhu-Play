@@ -56,6 +56,9 @@ public class MoviesContentAdapter extends RecyclerView.Adapter<MoviesContentAdap
 
         holder.binding.moreTv.setOnClickListener(view -> {
             if (slug != null && title != null) context.startActivity(new Intent(context, MoreActivity.class).putExtra(Constants.CONTENT_SLUG, slug).putExtra(Constants.CONTENT_SECTION_TITLE, title).putExtra(Constants.CONTENT_IS_HOME, false));
+            Constants.setEditor(context,Constants.CONTENT_SLUG,slug);
+            Constants.setEditor(context,Constants.CONTENT_SECTION_TITLE,title);
+            Constants.setEditor(context,Constants.CONTENT_IS_HOME,false);
         });
 
     }

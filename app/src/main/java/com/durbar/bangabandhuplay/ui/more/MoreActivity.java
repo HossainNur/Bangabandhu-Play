@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.durbar.bangabandhuplay.MainActivity;
 import com.durbar.bangabandhuplay.R;
 import com.durbar.bangabandhuplay.databinding.ActivityMoreBinding;
 import com.durbar.bangabandhuplay.ui.search.SearchResultActivity;
@@ -18,9 +19,9 @@ import com.durbar.bangabandhuplay.utils.Constants;
 public class MoreActivity extends AppCompatActivity {
 
     private ActivityMoreBinding binding;
-    private String id, title, slug;
+    private String id = null, title = null, slug = null;
     private MoreHomeViewModel viewModel;
-    private boolean moreSection = false, isHome;
+    private boolean moreSection = false, isHome,isMore = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,29 +42,38 @@ public class MoreActivity extends AppCompatActivity {
 
 
         if (isHome) {
-            viewModel.getContentHome(id).observe(this, customContentBySlug -> {
-                try {
-                    if (customContentBySlug.getData().getContents() != null) {
-                        moreSection = true;
-                        binding.watchTrailerRv.setLayoutManager(new GridLayoutManager(this, 2));
-                        binding.watchTrailerRv.setAdapter(new MoreHomeAdapter(customContentBySlug.getData().getContents(), this,title));
-                        hideProgressBar();
+            if (id != null){
+                viewModel.getContentHome(id).observe(this, customContentBySlug -> {
+                    try {
+                        if (customContentBySlug.getData().getContents() != null) {
+                            moreSection = true;
+                            binding.watchTrailerRv.setLayoutManager(new GridLayoutManager(this, 2));
+                            binding.watchTrailerRv.setAdapter(new MoreHomeAdapter(customContentBySlug.getData().getContents(), this,title,isMore));
+                            hideProgressBar();
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
+                });
+            }
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
         } else {
-            viewModel.getSingleSubCategoryContents(slug).observe(this, singleSubCategoryRes -> {
-                if (singleSubCategoryRes.getData().getOttContents() != null) {
-                    moreSection = true;
-                    binding.watchTrailerRv.setLayoutManager(new GridLayoutManager(this, 2));
-                    binding.watchTrailerRv.setAdapter(new MoreOthersAdapter(singleSubCategoryRes.getData().getOttContents(), this,title));
-                    hideProgressBar();
-                }
+            if (slug != null){
+                viewModel.getSingleSubCategoryContents(slug).observe(this, singleSubCategoryRes -> {
+                    try {
+                        if (singleSubCategoryRes.getData().getOttContents() != null) {
+                            moreSection = true;
+                            binding.watchTrailerRv.setLayoutManager(new GridLayoutManager(this, 2));
+                            binding.watchTrailerRv.setAdapter(new MoreOthersAdapter(singleSubCategoryRes.getData().getOttContents(), this,title,isMore));
+                            hideProgressBar();
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                });
+            }
 
-            });
         }
 
 
@@ -81,8 +91,9 @@ public class MoreActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        onBackPressed();
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
         finish();
+        onBackPressed();
         return super.onOptionsItemSelected(item);
     }
 }
