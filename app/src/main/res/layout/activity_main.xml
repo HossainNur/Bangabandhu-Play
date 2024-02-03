@@ -126,14 +126,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!--<androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guide_line_left"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent=".7"
-                />-->
-
             <ImageView
                 android:id="@+id/live_streaming_close"
                 android:layout_width="wrap_content"
@@ -144,13 +136,6 @@
                 app:layout_constraintTop_toTopOf="@+id/remote_video_view_container"
                 />
 
-            <!--<androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guide_line_top"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent=".1"
-                />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -3,13 +3,17 @@ package com.durbar.bangabandhuplay
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.os.Process
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
@@ -17,7 +21,9 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.Navigation.findNavController
@@ -25,6 +31,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.durbar.bangabandhuplay.R.id
 import com.durbar.bangabandhuplay.databinding.ActivityMainBinding
+import com.durbar.bangabandhuplay.ui.live.LiveStreamingViewModel
 import com.durbar.bangabandhuplay.ui.live.StreamingActivity
 import com.durbar.bangabandhuplay.ui.search.SearchResultActivity
 import com.durbar.bangabandhuplay.utils.Constants
@@ -33,12 +40,25 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.ktx.messaging
+import io.agora.rtc.IRtcEngineEventHandler
+import io.agora.rtc.RtcEngine
+import io.agora.rtc.video.VideoCanvas
 
 class MainActivity : AppCompatActivity() {
-    private var binding: ActivityMainBinding? = null
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var viewmodel: LiveStreamingViewModel
     private var actionBarDrawerToggle: ActionBarDrawerToggle? = null
     private var doubleBackToExitPressedOnce = false
+    private var liveClose = false
     private var navController: NavController? = null
+    private var mRtcEngine: RtcEngine? = null
+    private var userRole = 1
+    private var token : String? = null
+    private var appId: String? = null
+    private var channelName : String? = null
+    private val handler = Handler()
+    private val runnable: Runnable? = null
+    private val delayTime = 5000
 
     private val requestNotificationPermission =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted->
@@ -48,27 +68,28 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding!!.root)
+        viewmodel = ViewModelProvider(this)[LiveStreamingViewModel::class.java]
+        setContentView(binding.root)
         // notification
         handlePushNotification()
 
         actionBarDrawerToggle = ActionBarDrawerToggle(
             this,
-            binding!!.drawerLayout,
+            binding.drawerLayout,
             R.string.nav_open,
             R.string.nav_close
         )
-        binding!!.drawerLayout.addDrawerListener(actionBarDrawerToggle!!)
+        binding.drawerLayout.addDrawerListener(actionBarDrawerToggle!!)
         actionBarDrawerToggle!!.syncState()
-        setSupportActionBar(binding!!.homeToolbar)
+        setSupportActionBar(binding.homeToolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.title = ""
-        binding!!.appTopBarLayout.visibility = View.VISIBLE
+        binding.appTopBarLayout.visibility = View.VISIBLE
         val navHostFragment =
             supportFragmentManager.findFragmentById(id.nav_host_fragment_activity_main) as NavHostFragment?
         navController = navHostFragment!!.navController
-        setupWithNavController(binding!!.navView, navController!!)
-        binding!!.ivSearch.setOnClickListener { v: View? ->
+        setupWithNavController(binding.navView, navController!!)
+        binding.ivSearch.setOnClickListener { v: View? ->
             startActivity(
                 Intent(
                     applicationContext, SearchResultActivity::class.java
@@ -77,10 +98,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         //NAVIGATION DRAWER ITEM SELECTED LISTENER
-        binding!!.navDrawer.setNavigationItemSelectedListener { item: MenuItem ->
+        binding.navDrawer.setNavigationItemSelectedListener { item: MenuItem ->
             if (item.itemId == id.familyMemberFragment) {
                 navController!!.navigate(id.familyMemberFragment)
-                NavigationHelper.getINSTANCE().appBarLayout = binding!!.appTopBarLayout
+                NavigationHelper.getINSTANCE().appBarLayout = binding.appTopBarLayout
                 unCheckableBottomNavigation()
             } else if (item.itemId == id.live) {
                 startActivity(Intent(applicationContext, StreamingActivity::class.java))
@@ -94,23 +115,29 @@ class MainActivity : AppCompatActivity() {
                 navController!!.navigate(id.photoGalleryFragment)
                 unCheckableBottomNavigation()
             }
-            binding!!.drawerLayout.closeDrawer(GravityCompat.START)
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
-        binding!!.navView.setOnNavigationItemSelectedListener { item ->
+        binding.navView.setOnNavigationItemSelectedListener { item ->
             if (item.itemId == id.navigation_home) {
                 navController!!.navigate(id.navigation_home)
-                binding!!.navView.menu.getItem(Constants.HOME).setCheckable(true)
+                binding.navView.menu.getItem(Constants.HOME).setCheckable(true)
             } else if (item.itemId == id.navigation_movies) {
                 navController!!.navigate(id.navigation_movies)
-                binding!!.navView.menu.getItem(Constants.MOVIES).setCheckable(true)
+                binding.navView.menu.getItem(Constants.MOVIES).setCheckable(true)
             } else {
                 navController!!.navigate(id.navigation_tvShows)
-                binding!!.navView.menu.getItem(Constants.DOCUMENTARY).setCheckable(true)
+                binding.navView.menu.getItem(Constants.DOCUMENTARY).setCheckable(true)
             }
             true
         }
+
         checkCurrentBottomNav()
+
+        binding.liveStreamingClose.setOnClickListener {
+            binding.liveStreamingContainer.visibility = View.GONE
+            liveClose = true
+        }
     }
 
     private fun checkCurrentBottomNav() {
@@ -124,21 +151,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun unCheckableBottomNavigation() {
-        binding!!.navView.menu.getItem(Constants.HOME).setCheckable(false)
-        binding!!.navView.menu.getItem(Constants.MOVIES).setCheckable(false)
-        binding!!.navView.menu.getItem(Constants.DOCUMENTARY).setCheckable(false)
+        binding.navView.menu.getItem(Constants.HOME).setCheckable(false)
+        binding.navView.menu.getItem(Constants.MOVIES).setCheckable(false)
+        binding.navView.menu.getItem(Constants.DOCUMENTARY).setCheckable(false)
     }
 
     private fun checkBottomMenuCheckable() {
         super.onBackPressed()
         when (NavigationHelper.getINSTANCE().currentFragment) {
-            Constants.HOME_FRAGMENT -> binding!!.navView.menu.getItem(Constants.HOME)
+            Constants.HOME_FRAGMENT -> binding.navView.menu.getItem(Constants.HOME)
                 .setCheckable(true)
 
-            Constants.MOVIES_FRAGMENT -> binding!!.navView.menu.getItem(Constants.MOVIES)
+            Constants.MOVIES_FRAGMENT -> binding.navView.menu.getItem(Constants.MOVIES)
                 .setCheckable(true)
 
-            Constants.DOCUMENTARY_FRAGMENT -> binding!!.navView.menu.getItem(Constants.DOCUMENTARY)
+            Constants.DOCUMENTARY_FRAGMENT -> binding.navView.menu.getItem(Constants.DOCUMENTARY)
                 .setCheckable(true)
         }
     }
@@ -248,6 +275,135 @@ class MainActivity : AppCompatActivity() {
             else -> {
                 requestNotificationPermission.launch(permission)
             }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+    }
+
+    private fun fetchActiveLive() {
+        viewmodel.liveStreaming.observe(this) { data ->
+            try {
+                if (data != null && data.status == 1) {
+                    channelName = data.channelName
+                    token = data.token
+                    appId = data.appId
+                    userRole = 0
+
+                    if (channelName != null && token != null && appId != null) {
+                        if (!liveClose) {
+                            binding.liveStreamingContainer.visibility = View.VISIBLE
+                            initAgoraEngineAndJoinChannel()
+                        }
+                    }
+                } else {
+                    binding.liveStreamingContainer.visibility = View.GONE
+                    Toast.makeText(applicationContext, "nothing", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun initAgoraEngineAndJoinChannel() {
+        initializeAgoraEngine()
+
+        mRtcEngine!!.setChannelProfile(io.agora.rtc.Constants.CHANNEL_PROFILE_LIVE_BROADCASTING)
+        mRtcEngine!!.setClientRole(userRole)
+
+        mRtcEngine!!.enableVideo()
+        if (userRole == 1)
+            setupLocalVideo()
+        else {
+            val localVideoCanvas = findViewById<View>(R.id.local_video_view_container)
+            localVideoCanvas.isVisible = false
+        }
+
+        joinChannel()
+    }
+
+    private val mRtcEventHandler: IRtcEngineEventHandler = object : IRtcEngineEventHandler() {
+        override fun onUserJoined(uid: Int, elapsed: Int) {
+            runOnUiThread { setupRemoteVideo(uid) }
+        }
+
+        override fun onUserOffline(uid: Int, reason: Int) {
+            runOnUiThread { onRemoteUserLeft() }
+        }
+
+        override fun onJoinChannelSuccess(channel: String?, uid: Int, elapsed: Int) {
+            runOnUiThread { println("Join channel success: $uid") }
+        }
+    }
+
+    private fun initializeAgoraEngine() {
+        try {
+            mRtcEngine = RtcEngine.create(baseContext, appId, mRtcEventHandler)
+        } catch (e: java.lang.Exception) {
+            println("Exception: ${e.message}")
+        }
+    }
+
+    fun onSwitchCameraClicked(view: View) {
+        mRtcEngine!!.switchCamera()
+    }
+
+    fun onEndCalledClicked(view: View) {
+        finish()
+    }
+
+    fun onLocalAudioMuteClicked(view: View) {
+        val iv = view as ImageView
+        if (iv.isSelected){
+            iv.isSelected = false
+            iv.clearColorFilter()
+        }else {
+            iv.isSelected = true
+            iv.setColorFilter(resources.getColor(R.color.purple_200), PorterDuff.Mode.MULTIPLY)
+        }
+
+        mRtcEngine!!.muteLocalAudioStream(iv.isSelected)
+    }
+    private fun setupLocalVideo(){
+        val container = findViewById<View>(R.id.local_video_view_container) as FrameLayout
+        val surfaceView = RtcEngine.CreateRendererView(baseContext)
+        surfaceView.setZOrderMediaOverlay(true)
+        container.addView(surfaceView)
+        mRtcEngine!!.setupLocalVideo(VideoCanvas(surfaceView, VideoCanvas.RENDER_MODE_FIT, 0))
+    }
+
+    private fun joinChannel(){
+        mRtcEngine!!.joinChannel(token, channelName, null, 0)
+    }
+    private fun setupRemoteVideo(uid: Int){
+        val container = findViewById<View>(R.id.remote_video_view_container) as FrameLayout
+        if (container.childCount >= 1) return
+        val surfaceView = RtcEngine.CreateRendererView(baseContext)
+        container.addView(surfaceView)
+        mRtcEngine!!.setupRemoteVideo(VideoCanvas(surfaceView, VideoCanvas.RENDER_MODE_FIT, uid))
+        surfaceView.tag = uid
+    }
+    private fun onRemoteUserLeft(){
+        val container = findViewById<View>(R.id.remote_video_view_container) as FrameLayout
+        container.removeAllViews()
+    }
+
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (mRtcEngine != null) {
+            mRtcEngine!!.leaveChannel();
+            RtcEngine.destroy();
+            mRtcEngine = null;
         }
     }
 

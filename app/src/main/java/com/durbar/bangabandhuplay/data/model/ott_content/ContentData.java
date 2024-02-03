@@ -41,7 +41,7 @@ public class ContentData {
     public Object description;
     @SerializedName("year")
     @Expose
-    public Object year;
+    public String year;
     @SerializedName("runtime")
     @Expose
     public String runtime;
@@ -115,7 +115,7 @@ public class ContentData {
     @Expose
     public String videoType;
 
-    public ContentData(Integer id, String uuid, String access, String title, Object shortTitle, Integer rootCategoryId, Object subCategoryId, Object subSubCategoryId, Object seriesId, Object contentTypeId, Object description, Object year, String runtime, Object youtubeUrl, Object cloudUrl, Object poster, Object backdrop, Object viewCount, String releaseDate, String status, Integer order, List<Object> contentMeta, Object seriesInfo, List<ContentSource> contentSource, Integer averageReviewCount, List<Object> reviews, List<CastAndCrew> castAndCrews, String synopsisEnglish, Object synopsisBangla, String thumbnailPortrait, String thumbnailLandscape, String imdb, String saga, String genre, String isOriginal, String videoType) {
+    public ContentData(Integer id, String uuid, String access, String title, Object shortTitle, Integer rootCategoryId, Object subCategoryId, Object subSubCategoryId, Object seriesId, Object contentTypeId, Object description, String year, String runtime, Object youtubeUrl, Object cloudUrl, Object poster, Object backdrop, Object viewCount, String releaseDate, String status, Integer order, List<Object> contentMeta, Object seriesInfo, List<ContentSource> contentSource, Integer averageReviewCount, List<Object> reviews, List<CastAndCrew> castAndCrews, String synopsisEnglish, Object synopsisBangla, String thumbnailPortrait, String thumbnailLandscape, String imdb, String saga, String genre, String isOriginal, String videoType) {
         this.id = id;
         this.uuid = uuid;
         this.access = access;
@@ -198,7 +198,7 @@ public class ContentData {
         return description;
     }
 
-    public Object getYear() {
+    public String getYear() {
         return year;
     }
 

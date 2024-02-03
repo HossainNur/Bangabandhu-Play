@@ -54,7 +54,6 @@ public class PlayerActivity extends AppCompatActivity {
     private ConstraintLayout contentTopSection;
     private TextView moviesTitle;
     private boolean isShowingTrackSelectionDialog;
-    private NavController navController;
     boolean isFullScreen = false, isLock = false, ottContent = false, relatedContent = false,isMore;
 
     @Override
@@ -95,11 +94,13 @@ public class PlayerActivity extends AppCompatActivity {
                     String genre = singleOttContent.getData().getContentData().getGenre();
                     String runTime = singleOttContent.getData().getContentData().getRuntime();
                     List<ContentSource> contentSourceList = singleOttContent.getData().getContentData().getContentSource();
+                    String year = singleOttContent.getData().getContentData().getYear();
                     if (title != null) {
                         binding.moviesTitle.setText(title);
                         moviesTitle.setText(title);
                     }
                     if (description != null) binding.moviesDescription.setText(description);
+                    if (year != null) binding.moviesYear.setText(year);
 
                     if (singleOttContent.getData().getContentData().getCastAndCrews() != null && !singleOttContent.getData().getContentData().getCastAndCrews().isEmpty()){
                         binding.castCrewText.setVisibility(View.VISIBLE);
