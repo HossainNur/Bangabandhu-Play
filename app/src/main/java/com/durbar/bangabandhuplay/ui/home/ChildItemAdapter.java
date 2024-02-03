@@ -42,9 +42,10 @@ public class ChildItemAdapter extends RecyclerView.Adapter<ChildItemAdapter.Chil
     public void onBindViewHolder(@NonNull ChildViewHolder holder, int position) {
 
         OttContent current = frontendCustomContentList.get(position).getOttContent();
-
+        holder.binding.mainProductCardThumbnailIv.setClipToOutline(true);
+        
         if (frontendCustomContentList.get(position).getOttContent() != null){
-            holder.binding.mainProductCardThumbnailIv.setClipToOutline(true);
+
 
             String image = current.getThumbnailPortrait();
             String uuid = current.getUuid();

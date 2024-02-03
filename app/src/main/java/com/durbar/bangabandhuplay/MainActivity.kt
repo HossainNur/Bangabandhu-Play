@@ -137,6 +137,11 @@ class MainActivity : AppCompatActivity() {
         binding.liveStreamingClose.setOnClickListener {
             binding.liveStreamingContainer.visibility = View.GONE
             liveClose = true
+            if (mRtcEngine != null) {
+                mRtcEngine!!.leaveChannel();
+                RtcEngine.destroy();
+                mRtcEngine = null;
+            }
         }
     }
 
