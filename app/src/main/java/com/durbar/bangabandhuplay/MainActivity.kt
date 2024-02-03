@@ -56,9 +56,9 @@ class MainActivity : AppCompatActivity() {
     private var token : String? = null
     private var appId: String? = null
     private var channelName : String? = null
-    private val handler = Handler()
-    private val runnable: Runnable? = null
-    private val delayTime = 5000
+    private var handler: Handler = Handler()
+    private var runnable: Runnable? = null
+    private var delay = 3000
 
     private val requestNotificationPermission =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted->
@@ -210,6 +210,7 @@ class MainActivity : AppCompatActivity() {
                 val a = Intent(Intent.ACTION_MAIN)
                 a.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 a.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                a.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
                 a.addCategory(Intent.CATEGORY_HOME)
                 a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(a)
@@ -254,7 +255,7 @@ class MainActivity : AppCompatActivity() {
                     msg = "Subscribe failed"
                 }
                 Log.d("notifi", msg)
-                Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+                //Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
             }
 
         if (Build.VERSION.SDK_INT > 32) {
@@ -279,13 +280,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
+        handler.postDelayed(Runnable {
+            handler.postDelayed(runnable!!, delay.toLong())
+            fetchActiveLive()
+        }.also { runnable = it }, delay.toLong())
         super.onResume()
 
     }
 
     override fun onPause() {
         super.onPause()
-
+        handler.removeCallbacks(runnable!!)
     }
 
     private fun fetchActiveLive() {
@@ -305,7 +310,6 @@ class MainActivity : AppCompatActivity() {
                     }
                 } else {
                     binding.liveStreamingContainer.visibility = View.GONE
-                    Toast.makeText(applicationContext, "nothing", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

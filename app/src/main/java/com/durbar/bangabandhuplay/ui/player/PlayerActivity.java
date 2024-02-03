@@ -337,6 +337,7 @@ public class PlayerActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, MoreActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 intent.putExtra(Constants.CONTENT_ID, id);
                 intent.putExtra(Constants.CONTENT_SECTION_TITLE, title);
                 intent.putExtra(Constants.CONTENT_IS_HOME,true);
@@ -349,6 +350,7 @@ public class PlayerActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, MoreActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 intent.putExtra(Constants.CONTENT_SECTION_TITLE, title);
                 intent.putExtra(Constants.CONTENT_SLUG, slug);
                 intent.putExtra(Constants.CONTENT_IS_HOME,false);
@@ -363,6 +365,7 @@ public class PlayerActivity extends AppCompatActivity {
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
             startActivity(intent);
             finish();
         }

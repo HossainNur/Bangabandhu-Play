@@ -48,6 +48,7 @@ class StreamingActivity : AppCompatActivity() {
                             .putExtra("appId", appId).putExtra("channel_name", channelName)
                             .putExtra("token", token)
                     )
+                    finish()
                 } else {
                     Toast.makeText(applicationContext, "No live Right now ", Toast.LENGTH_SHORT).show()
                     // If, user or receiver click notification after live has ended, then go to Main Activity
