@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "843415954236",
+    "project_id": "bangabandhu-play-5e670",
+    "storage_bucket": "bangabandhu-play-5e670.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843415954236:android:4f650c4c721cbdac693439",
+        "android_client_info": {
+          "package_name": "com.durbar.bangabandhuplay"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYVEZvcr0asBhIYZiAUuCHIErJYOHgLog"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

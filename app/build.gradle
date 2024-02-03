@@ -108,4 +108,5 @@ dependencies {
 
     implementation 'io.agora.rtc:full-sdk:3.5.0'
     //implementation 'io.agora.rtc:full-rtc-basic:3.6.2'
+    implementation 'com.google.firebase:firebase-messaging:23.4.0'
 }

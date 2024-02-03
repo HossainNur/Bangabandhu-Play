@@ -4,18 +4,13 @@ import android.content.Intent
 import android.graphics.PorterDuff
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
 import com.durbar.bangabandhuplay.MainActivity
 import com.durbar.bangabandhuplay.R
 import com.durbar.bangabandhuplay.databinding.ActivityVideoBinding
-import com.durbar.bangabandhuplay.utils.Constants.APP_ID
-import com.durbar.bangabandhuplay.utils.Constants.TOKEN
 import io.agora.rtc.Constants
 import io.agora.rtc.IRtcEngineEventHandler
 import io.agora.rtc.RtcEngine
@@ -99,7 +94,7 @@ class VideoActivity : AppCompatActivity() {
 
     fun onEndCalledClicked(view: View) {
         finish()
-        startActivity(Intent(applicationContext,MainActivity::class.java))
+        startActivity(Intent(applicationContext, MainActivity::class.java))
         finish()
     }
 
