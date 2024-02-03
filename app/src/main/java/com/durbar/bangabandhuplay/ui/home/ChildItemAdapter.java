@@ -43,21 +43,25 @@ public class ChildItemAdapter extends RecyclerView.Adapter<ChildItemAdapter.Chil
 
         OttContent current = frontendCustomContentList.get(position).getOttContent();
 
-        holder.binding.mainProductCardThumbnailIv.setClipToOutline(true);
+        if (frontendCustomContentList.get(position).getOttContent() != null){
+            holder.binding.mainProductCardThumbnailIv.setClipToOutline(true);
 
-        String image = current.getThumbnailPortrait();
-        String uuid = current.getUuid();
+            String image = current.getThumbnailPortrait();
+            String uuid = current.getUuid();
 
-        if (image != null) {
-            Picasso.get().load(image).into(holder.binding.mainProductCardThumbnailIv);
+            if (image != null) {
+                Picasso.get().load(image).into(holder.binding.mainProductCardThumbnailIv);
+            }
+
+            holder.binding.getRoot().setOnClickListener(view -> {
+                if (uuid != null && !uuid.isEmpty())
+                    context.startActivity(new Intent(context, PlayerActivity.class).putExtra(Constants.CONTENT_UUID, uuid).putExtra(Constants.CONTENT_SECTION_TITLE, title));
+            });
+
+            holder.binding.contentImage.startAnimation(AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.slide_up_animation));
         }
 
-        holder.binding.getRoot().setOnClickListener(view -> {
-            if (uuid != null && !uuid.isEmpty())
-                context.startActivity(new Intent(context, PlayerActivity.class).putExtra(Constants.CONTENT_UUID, uuid).putExtra(Constants.CONTENT_SECTION_TITLE, title));
-        });
 
-        holder.binding.contentImage.startAnimation(AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.slide_up_animation));
 
     }
 

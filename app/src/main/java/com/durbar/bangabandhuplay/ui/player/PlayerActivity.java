@@ -54,6 +54,7 @@ public class PlayerActivity extends AppCompatActivity {
     private ConstraintLayout contentTopSection;
     private TextView moviesTitle;
     private boolean isShowingTrackSelectionDialog;
+    private NavController navController;
     boolean isFullScreen = false, isLock = false, ottContent = false, relatedContent = false,isMore;
 
     @Override
@@ -94,13 +95,11 @@ public class PlayerActivity extends AppCompatActivity {
                     String genre = singleOttContent.getData().getContentData().getGenre();
                     String runTime = singleOttContent.getData().getContentData().getRuntime();
                     List<ContentSource> contentSourceList = singleOttContent.getData().getContentData().getContentSource();
-                    String year = singleOttContent.getData().getContentData().getYear();
                     if (title != null) {
                         binding.moviesTitle.setText(title);
                         moviesTitle.setText(title);
                     }
                     if (description != null) binding.moviesDescription.setText(description);
-                    if (year != null) binding.moviesYear.setText(year);
 
                     if (singleOttContent.getData().getContentData().getCastAndCrews() != null && !singleOttContent.getData().getContentData().getCastAndCrews().isEmpty()){
                         binding.castCrewText.setVisibility(View.VISIBLE);
@@ -337,7 +336,6 @@ public class PlayerActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, MoreActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 intent.putExtra(Constants.CONTENT_ID, id);
                 intent.putExtra(Constants.CONTENT_SECTION_TITLE, title);
                 intent.putExtra(Constants.CONTENT_IS_HOME,true);
@@ -350,13 +348,12 @@ public class PlayerActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, MoreActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 intent.putExtra(Constants.CONTENT_SECTION_TITLE, title);
                 intent.putExtra(Constants.CONTENT_SLUG, slug);
                 intent.putExtra(Constants.CONTENT_IS_HOME,false);
                 startActivity(intent);
-                Constants.setEditor(this,Constants.CONTENT_SLUG,slug);
-                Constants.setEditor(this,Constants.CONTENT_SECTION_TITLE,title);
+                Constants.setEditor(this,Constants.CONTENT_SLUG,null);
+                Constants.setEditor(this,Constants.CONTENT_SECTION_TITLE,null);
                 Constants.setEditor(this,Constants.CONTENT_IS_HOME,null);
 
             }
@@ -365,7 +362,6 @@ public class PlayerActivity extends AppCompatActivity {
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
             startActivity(intent);
             finish();
         }
