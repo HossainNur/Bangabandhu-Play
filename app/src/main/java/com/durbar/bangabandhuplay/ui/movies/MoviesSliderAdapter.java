@@ -33,7 +33,7 @@ public class MoviesSliderAdapter extends RecyclerView.Adapter<MoviesSliderAdapte
     @Override
     public void onBindViewHolder(@NonNull MoviesSliderAdapter.mViewHolder holder, int position) {
         Original current = images.get(position);
-        String image = current.getLandscapeImage();
+        String image = current.getImage();
         String uuid = current.getContentUrl();
 
         if (image != null) Picasso.get().load(current.getImage()).into(holder.binding.moviesSliderImage);

@@ -41,16 +41,15 @@ class VideoActivity : AppCompatActivity() {
         appId = intent.getStringExtra("appId")
         token = intent.getStringExtra("token")
         initAgoraEngineAndJoinChannel()
-
     }
-
-
 
     override fun onDestroy() {
         super.onDestroy()
-        mRtcEngine!!.leaveChannel()
-        RtcEngine.destroy()
-        mRtcEngine = null
+        if (mRtcEngine != null){
+            mRtcEngine!!.leaveChannel()
+            RtcEngine.destroy()
+            mRtcEngine = null
+        }
     }
 
     private fun initAgoraEngineAndJoinChannel() {
@@ -98,8 +97,6 @@ class VideoActivity : AppCompatActivity() {
     }
 
     fun onEndCalledClicked(view: View) {
-        finish()
-        startActivity(Intent(applicationContext,MainActivity::class.java))
         finish()
     }
 

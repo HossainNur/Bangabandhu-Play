@@ -143,6 +143,18 @@ class MainActivity : AppCompatActivity() {
                 mRtcEngine = null;
             }
         }
+
+        binding.remoteVideoViewContainer.setOnClickListener {
+            binding.liveStreamingContainer.visibility = View.GONE
+            liveClose = true
+            if (mRtcEngine != null) {
+                mRtcEngine!!.leaveChannel();
+                RtcEngine.destroy();
+                mRtcEngine = null;
+            }
+            startActivity(Intent(applicationContext,StreamingActivity::class.java))
+            finish()
+        }
     }
 
     private fun checkCurrentBottomNav() {
@@ -296,6 +308,11 @@ class MainActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         handler.removeCallbacks(runnable!!)
+        if (mRtcEngine != null) {
+            mRtcEngine!!.leaveChannel();
+            RtcEngine.destroy();
+            mRtcEngine = null;
+        }
     }
 
     private fun fetchActiveLive() {
