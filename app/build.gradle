@@ -109,4 +109,10 @@ dependencies {
 
     implementation 'io.agora.rtc:full-sdk:3.5.0'
     //implementation 'io.agora.rtc:full-rtc-basic:3.6.2'
+
+    // http logger
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
+    implementation 'com.facebook.stetho:stetho:1.6.0'
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.6.0'
 }

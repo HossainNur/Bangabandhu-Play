@@ -2,9 +2,11 @@ package com.durbar.bangabandhuplay.data;
 
 import com.durbar.bangabandhuplay.utils.Constants;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
- public class Api {
+public class Api {
     private static volatile Api instance = null;
 
     private final ApiService apiService;
@@ -20,7 +22,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
     }
 
     private Api() {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+        HttpLoggingInterceptor httpLoggingInterceptor = new  HttpLoggingInterceptor();
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .addInterceptor(httpLoggingInterceptor)
+                .build();
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.BASE_URL).addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient) //add our client
+                .build();
 
         apiService = retrofit.create(ApiService.class);
     }
