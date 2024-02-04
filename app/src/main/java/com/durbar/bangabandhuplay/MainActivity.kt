@@ -35,6 +35,7 @@ import com.durbar.bangabandhuplay.ui.live.LiveStreamingViewModel
 import com.durbar.bangabandhuplay.ui.live.StreamingActivity
 import com.durbar.bangabandhuplay.ui.search.SearchResultActivity
 import com.durbar.bangabandhuplay.utils.Constants
+import com.durbar.bangabandhuplay.utils.Constants.END_CALL_PRESSED
 import com.durbar.bangabandhuplay.utils.NavigationHelper
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.ktx.Firebase
@@ -134,6 +135,16 @@ class MainActivity : AppCompatActivity() {
 
         checkCurrentBottomNav()
 
+        if (END_CALL_PRESSED){
+            binding.liveStreamingContainer.visibility = View.GONE
+            liveClose = true
+            if (mRtcEngine != null) {
+                mRtcEngine!!.leaveChannel();
+                RtcEngine.destroy();
+                mRtcEngine = null;
+            }
+        }
+
         binding.liveStreamingClose.setOnClickListener {
             binding.liveStreamingContainer.visibility = View.GONE
             liveClose = true
@@ -153,7 +164,7 @@ class MainActivity : AppCompatActivity() {
                 mRtcEngine = null;
             }
             startActivity(Intent(applicationContext,StreamingActivity::class.java))
-            finish()
+           // finish()
         }
     }
 
@@ -307,6 +318,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
+        binding.liveStreamingContainer.visibility = View.GONE
+        liveClose = true
         handler.removeCallbacks(runnable!!)
         if (mRtcEngine != null) {
             mRtcEngine!!.leaveChannel();

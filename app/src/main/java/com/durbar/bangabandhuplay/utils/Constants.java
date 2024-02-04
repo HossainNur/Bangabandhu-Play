@@ -29,6 +29,8 @@ public class Constants {
     public static Boolean IS_FROM_PLAYER = false;
     public static Boolean IS_MORE_CONTENT = false;
     public static Boolean IS_MORE_HOME = false;
+
+    public static Boolean END_CALL_PRESSED = false;
     public static final int CHANNEL_PROFILE_LIVE_BROADCASTING = 1;
 
 

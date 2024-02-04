@@ -15,6 +15,7 @@ import com.durbar.bangabandhuplay.MainActivity
 import com.durbar.bangabandhuplay.R
 import com.durbar.bangabandhuplay.databinding.ActivityVideoBinding
 import com.durbar.bangabandhuplay.utils.Constants.APP_ID
+import com.durbar.bangabandhuplay.utils.Constants.END_CALL_PRESSED
 import com.durbar.bangabandhuplay.utils.Constants.TOKEN
 import io.agora.rtc.Constants
 import io.agora.rtc.IRtcEngineEventHandler
@@ -43,6 +44,15 @@ class VideoActivity : AppCompatActivity() {
         initAgoraEngineAndJoinChannel()
     }
 
+    override fun onPause() {
+        super.onPause()
+        if (mRtcEngine != null){
+            mRtcEngine!!.leaveChannel()
+            RtcEngine.destroy()
+            mRtcEngine = null
+        }
+        finish()
+    }
     override fun onDestroy() {
         super.onDestroy()
         if (mRtcEngine != null){
@@ -97,6 +107,8 @@ class VideoActivity : AppCompatActivity() {
     }
 
     fun onEndCalledClicked(view: View) {
+        END_CALL_PRESSED = true
+        startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
 
