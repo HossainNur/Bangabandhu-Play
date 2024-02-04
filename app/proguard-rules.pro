@@ -75,6 +75,44 @@
     *;
 }
 
+-keep class com.durbar.bangabandhuplay.ui.live.VideoActivity
+-keepclassmembers class com.durbar.bangabandhuplay.ui.live.VideoActivity {
+    *;
+}
+-keepclassmembers class com.durbar.bangabandhuplay.MainActivity {
+    *;
+}
+
+-keep class io.agora.rtc.** { *; }
+-dontwarn io.agora.rtc.**
+
+# Add other rules as needed
+
+# Keep the entire Api class and its members
+-keep class com.durbar.bangabandhuplay.data.Api { *; }
+
+# Keep the ApiService interface
+-keep interface com.durbar.bangabandhuplay.data.ApiService { *; }
+
+# Keep the GsonConverterFactory class
+-keep class retrofit2.converter.gson.GsonConverterFactory { *; }
+
+# Keep the annotations used by retrofit
+-keepattributes Signature, InnerClasses
+
+# Keep the retrofit2 package
+-keep class retrofit2.** { *; }
+
+# Keep the HttpLoggingInterceptor class
+-keep class okhttp3.logging.HttpLoggingInterceptor { *; }
+
+# Keep the OkHttpClient class
+-keep class okhttp3.** { *; }
+
+# Don't warn about missing classes in the okhttp3 package
+-dontwarn okhttp3.**
+
+
 
 
 

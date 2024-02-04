@@ -40,6 +40,8 @@ public class MoviesSliderAdapter extends RecyclerView.Adapter<MoviesSliderAdapte
 
         holder.binding.getRoot().setOnClickListener(v -> {
             if (uuid != null && !uuid.isEmpty()) context.startActivity(new Intent(context, PlayerActivity.class).putExtra(Constants.CONTENT_UUID, uuid).putExtra(Constants.CONTENT_SECTION_TITLE,"Slider"));
+            Constants.IS_MORE_CONTENT = false;
+            Constants.IS_MORE_HOME = false;
         });
     }
 

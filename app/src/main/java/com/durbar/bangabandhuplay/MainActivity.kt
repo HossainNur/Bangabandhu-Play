@@ -153,6 +153,7 @@ class MainActivity : AppCompatActivity() {
                 RtcEngine.destroy();
                 mRtcEngine = null;
             }
+            END_CALL_PRESSED = true
         }
 
         binding.remoteVideoViewContainer.setOnClickListener {
