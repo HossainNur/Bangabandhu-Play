@@ -90,7 +90,7 @@
                     app:layout_constraintStart_toEndOf="@+id/movies_year"
                     app:layout_constraintTop_toTopOf="@+id/movies_year" />
 
-                <TextView
+                <!--<TextView
                     android:id="@+id/movies_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -99,7 +99,25 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/_10ssp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/movies_year" />
+                    app:layout_constraintTop_toBottomOf="@+id/movies_year" />-->
+
+                <io.github.kozemirov.readmoretextview.ReadMoreTextView
+                    android:id="@+id/movies_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_3sdp"
+                    app:text="@string/lorem_ipsum"
+                    app:color="@color/white"
+                    android:textSize="@dimen/_10ssp"
+                    app:justificationMode="1"
+                    app:readMoreText="Read More"
+                    app:showLessText="Show Less"
+                    app:limit="2"
+                    app:hidden="true"
+                    app:newLineIndent="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/movies_year"
+                    />
 
                 <TextView
                     android:id="@+id/cast_crew_text"
