@@ -1,74 +1,30 @@
-package com.durbar.bangabandhuplay.data.model.category.root.all;
+package com.durbar.bangabandhuplay.data.model.category.root.all
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
-public class Data {
-    @SerializedName("id")
-    @Expose
-    private Integer id;
-    @SerializedName("title")
-    @Expose
-    private String title;
-    @SerializedName("slug")
-    @Expose
-    private String slug;
-    @SerializedName("image")
-    @Expose
-    private String image;
-    @SerializedName("order")
-    @Expose
-    private Integer order;
-    @SerializedName("seo_title")
-    @Expose
-    private String seoTitle;
-    @SerializedName("seo_description")
-    @Expose
-    private String seoDescription;
-    @SerializedName("status")
-    @Expose
-    private String status;
+data class Data(
+    @field:SerializedName("id")
+    val id: Int? = 0,
 
-    public Data(Integer id, String title, String slug, String image, Integer order, String seoTitle, String seoDescription, String status) {
-        this.id = id;
-        this.title = title;
-        this.slug = slug;
-        this.image = image;
-        this.order = order;
-        this.seoTitle = seoTitle;
-        this.seoDescription = seoDescription;
-        this.status = status;
-    }
+    @field:SerializedName("title")
+    val title: String? = null,
 
-    public Integer getId() {
-        return id;
-    }
+    @field:SerializedName("slug")
+    val slug: String? = null,
 
-    public String getTitle() {
-        return title;
-    }
+    @field:SerializedName("image")
+    val image: String? = null,
 
-    public String getSlug() {
-        return slug;
-    }
+    @field:SerializedName("order")
+    val order: Int? = 0,
 
-    public String getImage() {
-        return image;
-    }
+    @field:SerializedName("seo_title")
+    val seoTitle: String? = null,
 
-    public Integer getOrder() {
-        return order;
-    }
+    @field:SerializedName("seo_description")
+    val seoDescription: String? = null,
 
-    public String getSeoTitle() {
-        return seoTitle;
-    }
-
-    public String getSeoDescription() {
-        return seoDescription;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-}
+    @field:SerializedName("status")
+    val status: String? = null
+)
