@@ -38,10 +38,10 @@ class StreamingActivity : AppCompatActivity() {
     private fun fetchActiveLive() {
         viewModel!!.liveStreaming.observe(this) { data: Data? ->
             try {
-                if (data != null && data.getStatus() == 1) {
-                    val channelName = data.getChannelName()
-                    val token = data.getToken()
-                    val appId = data.getAppId()
+                if (data != null && data.status == 1) {
+                    val channelName = data.channelName
+                    val token = data.token
+                    val appId = data.appId
                     startActivity(
                         Intent(applicationContext, VideoActivity::class.java)
                             .putExtra("UserRole", userRole)

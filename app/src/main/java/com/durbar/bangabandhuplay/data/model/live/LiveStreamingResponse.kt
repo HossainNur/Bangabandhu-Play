@@ -1,52 +1,15 @@
-package com.durbar.bangabandhuplay.data.model.live;
+package com.durbar.bangabandhuplay.data.model.live
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
-public class LiveStreamingResponse {
-    @SerializedName("status")
-    @Expose
-    public Boolean status;
-    @SerializedName("message")
-    @Expose
-    public String message;
-    @SerializedName("data")
-    @Expose
-    public Data data;
-    @SerializedName("errors")
-    @Expose
-    public Object errors;
-
-    public LiveStreamingResponse(Boolean status, String message, Data data, Object errors) {
-        this.status = status;
-        this.message = message;
-        this.data = data;
-        this.errors = errors;
-    }
-
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public Data getData() {
-        return data;
-    }
-
-    public Object getErrors() {
-        return errors;
-    }
-
-    @Override
-    public String toString() {
-        return "LiveStreamingResponse{" +
-                "status=" + status +
-                ", message='" + message + '\'' +
-                ", data=" + data +
-                ", errors=" + errors +
-                '}';
-    }
-}
+data class LiveStreamingResponse(
+    @field:SerializedName("status")
+    val status: Boolean? = null,
+    @field:SerializedName("message")
+    val message: String? = null,
+    @field:SerializedName("data")
+    val data: Data? = null,
+    @field:SerializedName("errors")
+    val errors: Any? = null
+)
