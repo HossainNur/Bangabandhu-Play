@@ -1,44 +1,15 @@
-package com.durbar.bangabandhuplay.data.model.sliders;
+package com.durbar.bangabandhuplay.data.model.sliders
 
-import androidx.annotation.Keep;
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
-public class Sliders {
-    @SerializedName("status")
-    @Expose
-    private Boolean status;
-    @SerializedName("message")
-    @Expose
-    private String message;
-    @SerializedName("data")
-    @Expose
-    private Data data;
-    @SerializedName("errors")
-    @Expose
-    private Object errors;
-
-    public Sliders(Boolean status, String message, Data data, Object errors) {
-        this.status = status;
-        this.message = message;
-        this.data = data;
-        this.errors = errors;
-    }
-
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public Data getData() {
-        return data;
-    }
-
-    public Object getErrors() {
-        return errors;
-    }
-}
+data class Sliders(
+    @field:SerializedName("status")
+    val status: Boolean? = null,
+    @field:SerializedName("message")
+    val message: String? = null,
+    @field:SerializedName("data")
+    val data: Data? = null,
+    @field:SerializedName("errors")
+    val errors: Any? = null
+)

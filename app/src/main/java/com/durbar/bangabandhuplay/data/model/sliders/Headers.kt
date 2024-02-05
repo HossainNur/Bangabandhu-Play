@@ -1,4 +1,3 @@
-package com.durbar.bangabandhuplay.data.model.sliders;
+package com.durbar.bangabandhuplay.data.model.sliders
 
-public class Headers {
-}
+class Headers
