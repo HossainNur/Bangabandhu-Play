@@ -1,116 +1,45 @@
-package com.durbar.bangabandhuplay.data.model.category.root.single;
+package com.durbar.bangabandhuplay.data.model.category.root.single
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
-import java.util.List;
+data class OttContent__1(
+    @field:SerializedName("id")
+    val id: Int? = 0,
 
-public class OttContent__1 {
-    @SerializedName("id")
-    @Expose
-    private Integer id;
-    @SerializedName("uuid")
-    @Expose
-    private String uuid;
-    @SerializedName("title")
-    @Expose
-    private String title;
-    @SerializedName("short_title")
-    @Expose
-    private String shortTitle;
-    @SerializedName("access")
-    @Expose
-    private String access;
-    @SerializedName("youtube_url")
-    @Expose
-    private Object youtubeUrl;
-    @SerializedName("cloud_url")
-    @Expose
-    private Object cloudUrl;
-    @SerializedName("poster")
-    @Expose
-    private String poster;
-    @SerializedName("view_count")
-    @Expose
-    private Integer viewCount;
-    @SerializedName("release_date")
-    @Expose
-    private String releaseDate;
-    @SerializedName("status")
-    @Expose
-    private String status;
-    @SerializedName("order")
-    @Expose
-    private Integer order;
-    @SerializedName("content_source")
-    @Expose
-    private List<ContentSource__1> contentSource ;
+    @field:SerializedName("uuid")
+    val uuid: String? = null,
 
-    public OttContent__1(Integer id, String uuid, String title, String shortTitle, String access, Object youtubeUrl, Object cloudUrl, String poster, Integer viewCount, String releaseDate, String status, Integer order, List<ContentSource__1> contentSource) {
-        this.id = id;
-        this.uuid = uuid;
-        this.title = title;
-        this.shortTitle = shortTitle;
-        this.access = access;
-        this.youtubeUrl = youtubeUrl;
-        this.cloudUrl = cloudUrl;
-        this.poster = poster;
-        this.viewCount = viewCount;
-        this.releaseDate = releaseDate;
-        this.status = status;
-        this.order = order;
-        this.contentSource = contentSource;
-    }
+    @field:SerializedName("title")
+    val title: String? = null,
 
-    public Integer getId() {
-        return id;
-    }
+    @field:SerializedName("short_title")
+    val shortTitle: String? = null,
 
-    public String getUuid() {
-        return uuid;
-    }
+    @field:SerializedName("access")
+    val access: String? = null,
 
-    public String getTitle() {
-        return title;
-    }
+    @field:SerializedName("youtube_url")
+    val youtubeUrl: Any? = null,
 
-    public String getShortTitle() {
-        return shortTitle;
-    }
+    @field:SerializedName("cloud_url")
+    val cloudUrl: Any? = null,
 
-    public String getAccess() {
-        return access;
-    }
+    @field:SerializedName("poster")
+    val poster: String? = null,
 
-    public Object getYoutubeUrl() {
-        return youtubeUrl;
-    }
+    @field:SerializedName("view_count")
+    val viewCount: Int? = 0,
 
-    public Object getCloudUrl() {
-        return cloudUrl;
-    }
+    @field:SerializedName("release_date")
+    val releaseDate: String? = null,
 
-    public String getPoster() {
-        return poster;
-    }
+    @field:SerializedName("status")
+    val status: String? = null,
 
-    public Integer getViewCount() {
-        return viewCount;
-    }
+    @field:SerializedName("order")
+    val order: Int? = 0,
 
-    public String getReleaseDate() {
-        return releaseDate;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public Integer getOrder() {
-        return order;
-    }
-
-    public List<ContentSource__1> getContentSource() {
-        return contentSource;
-    }
-}
+    @field:SerializedName("content_source")
+    val contentSource: List<ContentSource__1>? = listOf()
+)

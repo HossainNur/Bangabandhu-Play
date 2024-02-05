@@ -1,26 +1,12 @@
-package com.durbar.bangabandhuplay.data.model.category.root.single;
+package com.durbar.bangabandhuplay.data.model.category.root.single
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
-public class ContentSource__1 {
-    @SerializedName("key")
-    @Expose
-    private Object key;
-    @SerializedName("value")
-    @Expose
-    private Object value;
+data class ContentSource__1(
+    @field:SerializedName("key")
+    val key: Any? = null,
 
-    public ContentSource__1(Object key, Object value) {
-        this.key = key;
-        this.value = value;
-    }
-
-    public Object getKey() {
-        return key;
-    }
-
-    public Object getValue() {
-        return value;
-    }
-}
+    @field:SerializedName("value")
+    val value: Any? = null
+)

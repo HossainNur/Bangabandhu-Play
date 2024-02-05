@@ -1,101 +1,39 @@
-package com.durbar.bangabandhuplay.data.model.category.root.single;
+package com.durbar.bangabandhuplay.data.model.category.root.single
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
-import java.util.List;
+data class Data(
+    @field:SerializedName("id")
+    val id: Int? = 0,
 
-public class Data {
+    @field:SerializedName("title")
+    val title: String? = null,
 
-    @SerializedName("id")
-    @Expose
-    private Integer id;
-    @SerializedName("title")
-    @Expose
-    private String title;
-    @SerializedName("slug")
-    @Expose
-    private String slug;
-    @SerializedName("image")
-    @Expose
-    private String image;
-    @SerializedName("order")
-    @Expose
-    private Integer order;
-    @SerializedName("seo_title")
-    @Expose
-    private String seoTitle;
-    @SerializedName("seo_description")
-    @Expose
-    private String seoDescription;
-    @SerializedName("status")
-    @Expose
-    private String status;
-    @SerializedName("subCategories")
-    @Expose
-    private List<SubCategory> subCategories ;
-    @SerializedName("categorySliders")
-    @Expose
-    private List<CategorySlider> categorySliders;
-    @SerializedName("selected_category_items")
-    @Expose
-    private List<SelectedCategoryItem> selectedCategoryItems;
+    @field:SerializedName("slug")
+    val slug: String? = null,
 
-    public Data(Integer id, String title, String slug, String image, Integer order, String seoTitle, String seoDescription, String status, List<SubCategory> subCategories, List<CategorySlider> categorySliders, List<SelectedCategoryItem> selectedCategoryItems) {
-        this.id = id;
-        this.title = title;
-        this.slug = slug;
-        this.image = image;
-        this.order = order;
-        this.seoTitle = seoTitle;
-        this.seoDescription = seoDescription;
-        this.status = status;
-        this.subCategories = subCategories;
-        this.categorySliders = categorySliders;
-        this.selectedCategoryItems = selectedCategoryItems;
-    }
+    @field:SerializedName("image")
+    val image: String? = null,
 
-    public Integer getId() {
-        return id;
-    }
+    @field:SerializedName("order")
+    val order: Int? = 0,
 
-    public String getTitle() {
-        return title;
-    }
+    @field:SerializedName("seo_title")
+    val seoTitle: String? = null,
 
-    public String getSlug() {
-        return slug;
-    }
+    @field:SerializedName("seo_description")
+    val seoDescription: String? = null,
 
-    public String getImage() {
-        return image;
-    }
+    @field:SerializedName("status")
+    val status: String? = null,
 
-    public Integer getOrder() {
-        return order;
-    }
+    @field:SerializedName("subCategories")
+    val subCategories: List<SubCategory>? = listOf(),
 
-    public String getSeoTitle() {
-        return seoTitle;
-    }
+    @field:SerializedName("categorySliders")
+    val categorySliders: List<CategorySlider>? = listOf(),
 
-    public String getSeoDescription() {
-        return seoDescription;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public List<SubCategory> getSubCategories() {
-        return subCategories;
-    }
-
-    public List<CategorySlider> getCategorySliders() {
-        return categorySliders;
-    }
-
-    public List<SelectedCategoryItem> getSelectedCategoryItems() {
-        return selectedCategoryItems;
-    }
-}
+    @field:SerializedName("selected_category_items")
+    val selectedCategoryItems: List<SelectedCategoryItem>? = listOf()
+)

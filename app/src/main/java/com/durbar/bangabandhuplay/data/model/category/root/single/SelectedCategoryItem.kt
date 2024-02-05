@@ -1,36 +1,15 @@
-package com.durbar.bangabandhuplay.data.model.category.root.single;
+package com.durbar.bangabandhuplay.data.model.category.root.single
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
-public class SelectedCategoryItem {
+data class SelectedCategoryItem(
+    @field:SerializedName("id")
+    val id: Int? = 0,
 
+    @field:SerializedName("ott_content")
+    val ottContent: OttContent__1? = null,
 
-    @SerializedName("id")
-    @Expose
-    private Integer id;
-    @SerializedName("ott_content")
-    @Expose
-    private OttContent__1 ottContent;
-    @SerializedName("is_featured")
-    @Expose
-    private Integer isFeatured;
-
-    public SelectedCategoryItem(Integer id, OttContent__1 ottContent, Integer isFeatured) {
-        this.id = id;
-        this.ottContent = ottContent;
-        this.isFeatured = isFeatured;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public OttContent__1 getOttContent() {
-        return ottContent;
-    }
-
-    public Integer getIsFeatured() {
-        return isFeatured;
-    }
-}
+    @field:SerializedName("is_featured")
+    val isFeatured: Int? = 0
+)

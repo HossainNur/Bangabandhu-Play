@@ -1,41 +1,11 @@
-package com.durbar.bangabandhuplay.data.model.category.root.single;
+package com.durbar.bangabandhuplay.data.model.category.root.single
 
-import java.util.List;
+import com.google.gson.annotations.SerializedName
 
-public class ParentItem {
+data class ParentItem(
+    @field:SerializedName("ParentItemTitle")
+    val parentItemTitle: String? = null,
 
-    // Declaration of the variables
-    private String ParentItemTitle;
-    private List<ChildItem> ChildItemList;
-
-    // Constructor of the class
-    // to initialize the variables
-    public ParentItem(String ParentItemTitle, List<ChildItem> ChildItemList)
-    {
-
-        this.ParentItemTitle = ParentItemTitle;
-        this.ChildItemList = ChildItemList;
-    }
-
-    // Getter and Setter methods
-    // for each parameter
-    public String getParentItemTitle()
-    {
-        return ParentItemTitle;
-    }
-
-    public void setParentItemTitle(String parentItemTitle)
-    {
-        ParentItemTitle = parentItemTitle;
-    }
-
-    public List<ChildItem> getChildItemList()
-    {
-        return ChildItemList;
-    }
-
-    public void setChildItemList(List<ChildItem> childItemList)
-    {
-        ChildItemList = childItemList;
-    }
-}
+    @field:SerializedName("ChildItemList")
+    val childItemList: List<ChildItem>? = null
+)

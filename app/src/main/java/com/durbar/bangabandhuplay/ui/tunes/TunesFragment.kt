@@ -103,7 +103,7 @@ class TunesFragment : Fragment() {
 
                     moviesSection = true
                     val subCategories: MutableList<SubCategory> = ArrayList()
-                    for (c in data[0].subCategories) {
+                    for (c in data[0].subCategories!!) {
                         if (c.ottContents != null && !c.ottContents.isEmpty()) {
                             subCategories.add(c)
                         }

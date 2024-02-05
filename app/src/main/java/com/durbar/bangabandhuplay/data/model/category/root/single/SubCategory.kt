@@ -1,76 +1,30 @@
-package com.durbar.bangabandhuplay.data.model.category.root.single;
+package com.durbar.bangabandhuplay.data.model.category.root.single
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
-import java.util.List;
+data class SubCategory(
+    @field:SerializedName("id")
+    val id: Int? = 0,
 
-public class SubCategory {
-    @SerializedName("id")
-    @Expose
-    private Integer id;
-    @SerializedName("title")
-    @Expose
-    private String title;
-    @SerializedName("slug")
-    @Expose
-    private String slug;
-    @SerializedName("order")
-    @Expose
-    private Integer order;
-    @SerializedName("seo_title")
-    @Expose
-    private String seoTitle;
-    @SerializedName("seo_description")
-    @Expose
-    private String seoDescription;
-    @SerializedName("status")
-    @Expose
-    private String status;
-    @SerializedName("ott_contents")
-    @Expose
-    private List<OttContent> ottContents ;
+    @field:SerializedName("title")
+    val title: String? = null,
 
-    public SubCategory(Integer id, String title, String slug, Integer order, String seoTitle, String seoDescription, String status, List<OttContent> ottContents) {
-        this.id = id;
-        this.title = title;
-        this.slug = slug;
-        this.order = order;
-        this.seoTitle = seoTitle;
-        this.seoDescription = seoDescription;
-        this.status = status;
-        this.ottContents = ottContents;
-    }
+    @field:SerializedName("slug")
+    val slug: String? = null,
 
-    public Integer getId() {
-        return id;
-    }
+    @field:SerializedName("order")
+    val order: Int? = 0,
 
-    public String getTitle() {
-        return title;
-    }
+    @field:SerializedName("seo_title")
+    val seoTitle: String? = null,
 
-    public String getSlug() {
-        return slug;
-    }
+    @field:SerializedName("seo_description")
+    val seoDescription: String? = null,
 
-    public Integer getOrder() {
-        return order;
-    }
+    @field:SerializedName("status")
+    val status: String? = null,
 
-    public String getSeoTitle() {
-        return seoTitle;
-    }
-
-    public String getSeoDescription() {
-        return seoDescription;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public List<OttContent> getOttContents() {
-        return ottContents;
-    }
-}
+    @field:SerializedName("ott_contents")
+    val ottContents: List<OttContent>? = listOf()
+)
