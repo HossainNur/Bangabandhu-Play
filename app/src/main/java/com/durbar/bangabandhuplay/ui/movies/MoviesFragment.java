@@ -69,7 +69,7 @@ public class MoviesFragment extends Fragment {
                     slider = true;
                     isMoviesOriginalList = new ArrayList<>();
                     for (Original isHomeList : originals) {
-                        if (isHomeList.isHome() == 0) {
+                        if (isHomeList.isHome == 0) {
                             isMoviesOriginalList.add(isHomeList);
                         }
                     }
