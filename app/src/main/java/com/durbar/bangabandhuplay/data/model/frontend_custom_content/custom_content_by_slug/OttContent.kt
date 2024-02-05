@@ -1,66 +1,27 @@
-package com.durbar.bangabandhuplay.data.model.frontend_custom_content.custom_content_by_slug;
+package com.durbar.bangabandhuplay.data.model.frontend_custom_content.custom_content_by_slug
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
-public class OttContent {
-    @SerializedName("id")
-    @Expose
-    public Integer id;
-    @SerializedName("title")
-    @Expose
-    public String title;
-    @SerializedName("uuid")
-    @Expose
-    public String uuid;
-    @SerializedName("poster")
-    @Expose
-    public Object poster;
-    @SerializedName("access")
-    @Expose
-    public String access;
-    @SerializedName("thumbnail_portrait")
-    @Expose
-    public String thumbnailPortrait;
-    @SerializedName("thumbnail_landscape")
-    @Expose
-    public String thumbnailLandscape;
+data class OttContent(
+    @field:SerializedName("id")
+    val id: Int? = 0,
 
-    public OttContent(Integer id, String title, String uuid, Object poster, String access, String thumbnailPortrait, String thumbnailLandscape) {
-        this.id = id;
-        this.title = title;
-        this.uuid = uuid;
-        this.poster = poster;
-        this.access = access;
-        this.thumbnailPortrait = thumbnailPortrait;
-        this.thumbnailLandscape = thumbnailLandscape;
-    }
+    @field:SerializedName("title")
+    val title: String? = null,
 
-    public Integer getId() {
-        return id;
-    }
+    @field:SerializedName("uuid")
+    val uuid: String? = null,
 
-    public String getTitle() {
-        return title;
-    }
+    @field:SerializedName("poster")
+    val poster: Any? = null,  // Note: You may want to replace Object? with the actual type if known
 
-    public String getUuid() {
-        return uuid;
-    }
+    @field:SerializedName("access")
+    val access: String? = null,
 
-    public Object getPoster() {
-        return poster;
-    }
+    @field:SerializedName("thumbnail_portrait")
+    val thumbnailPortrait: String? = null,
 
-    public String getAccess() {
-        return access;
-    }
-
-    public String getThumbnailPortrait() {
-        return thumbnailPortrait;
-    }
-
-    public String getThumbnailLandscape() {
-        return thumbnailLandscape;
-    }
-}
+    @field:SerializedName("thumbnail_landscape")
+    val thumbnailLandscape: String? = null
+)

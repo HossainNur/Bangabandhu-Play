@@ -1,394 +1,150 @@
-package com.durbar.bangabandhuplay.data.model.category.single_sub;
+package com.durbar.bangabandhuplay.data.model.category.single_sub
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
-public class OttContent {
-    @SerializedName("id")
-    @Expose
-    public Integer id;
-    @SerializedName("uuid")
-    @Expose
-    public String uuid;
-    @SerializedName("title")
-    @Expose
-    public String title;
-    @SerializedName("short_title")
-    @Expose
-    public Object shortTitle;
-    @SerializedName("root_category_id")
-    @Expose
-    public Integer rootCategoryId;
-    @SerializedName("sub_category_id")
-    @Expose
-    public Integer subCategoryId;
-    @SerializedName("sub_sub_category_id")
-    @Expose
-    public Object subSubCategoryId;
-    @SerializedName("series_id")
-    @Expose
-    public Object seriesId;
-    @SerializedName("content_type_id")
-    @Expose
-    public Object contentTypeId;
-    @SerializedName("description")
-    @Expose
-    public Object description;
-    @SerializedName("bangla_description")
-    @Expose
-    public Object banglaDescription;
-    @SerializedName("year")
-    @Expose
-    public Object year;
-    @SerializedName("runtime")
-    @Expose
-    public Object runtime;
-    @SerializedName("youtube_url")
-    @Expose
-    public Object youtubeUrl;
-    @SerializedName("cloud_url")
-    @Expose
-    public Object cloudUrl;
-    @SerializedName("intro_starts")
-    @Expose
-    public Object introStarts;
-    @SerializedName("intro_end")
-    @Expose
-    public Object introEnd;
-    @SerializedName("next_end")
-    @Expose
-    public Object nextEnd;
-    @SerializedName("poster")
-    @Expose
-    public Object poster;
-    @SerializedName("backdrop")
-    @Expose
-    public Object backdrop;
-    @SerializedName("thumbnail_portrait")
-    @Expose
-    public String thumbnailPortrait;
-    @SerializedName("thumbnail_landscape")
-    @Expose
-    public String thumbnailLandscape;
-    @SerializedName("tv_cover")
-    @Expose
-    public Object tvCover;
-    @SerializedName("view_count")
-    @Expose
-    public Object viewCount;
-    @SerializedName("release_date")
-    @Expose
-    public Object releaseDate;
-    @SerializedName("status")
-    @Expose
-    public String status;
-    @SerializedName("access")
-    @Expose
-    public String access;
-    @SerializedName("order")
-    @Expose
-    public Integer order;
-    @SerializedName("series_order")
-    @Expose
-    public Integer seriesOrder;
-    @SerializedName("number_of_allowed_audience_per_user")
-    @Expose
-    public Integer numberOfAllowedAudiencePerUser;
-    @SerializedName("title_bangla")
-    @Expose
-    public Object titleBangla;
-    @SerializedName("content_type")
-    @Expose
-    public Object contentType;
-    @SerializedName("vod_type")
-    @Expose
-    public String vodType;
-    @SerializedName("video_type")
-    @Expose
-    public String videoType;
-    @SerializedName("upload_date")
-    @Expose
-    public Object uploadDate;
-    @SerializedName("imdb")
-    @Expose
-    public Object imdb;
-    @SerializedName("saga")
-    @Expose
-    public Object saga;
-    @SerializedName("is_original")
-    @Expose
-    public String isOriginal;
-    @SerializedName("synopsis_english")
-    @Expose
-    public Object synopsisEnglish;
-    @SerializedName("synopsis_bangla")
-    @Expose
-    public Object synopsisBangla;
-    @SerializedName("genre")
-    @Expose
-    public String genre;
-    @SerializedName("tags")
-    @Expose
-    public String tags;
-    @SerializedName("associated_teaser")
-    @Expose
-    public Object associatedTeaser;
-    @SerializedName("up_comming")
-    @Expose
-    public Object upComming;
-    @SerializedName("content_owner_id")
-    @Expose
-    public Integer contentOwnerId;
-    @SerializedName("external_id")
-    @Expose
-    public String externalId;
-    @SerializedName("created_at")
-    @Expose
-    public String createdAt;
-    @SerializedName("updated_at")
-    @Expose
-    public String updatedAt;
+data class OttContent(
+    @field:SerializedName("id")
+    val id: Int? = 0,
 
-    public OttContent(Integer id, String uuid, String title, Object shortTitle, Integer rootCategoryId, Integer subCategoryId, Object subSubCategoryId, Object seriesId, Object contentTypeId, Object description, Object banglaDescription, Object year, Object runtime, Object youtubeUrl, Object cloudUrl, Object introStarts, Object introEnd, Object nextEnd, Object poster, Object backdrop, String thumbnailPortrait, String thumbnailLandscape, Object tvCover, Object viewCount, Object releaseDate, String status, String access, Integer order, Integer seriesOrder, Integer numberOfAllowedAudiencePerUser, Object titleBangla, Object contentType, String vodType, String videoType, Object uploadDate, Object imdb, Object saga, String isOriginal, Object synopsisEnglish, Object synopsisBangla, String genre, String tags, Object associatedTeaser, Object upComming, Integer contentOwnerId, String externalId, String createdAt, String updatedAt) {
-        this.id = id;
-        this.uuid = uuid;
-        this.title = title;
-        this.shortTitle = shortTitle;
-        this.rootCategoryId = rootCategoryId;
-        this.subCategoryId = subCategoryId;
-        this.subSubCategoryId = subSubCategoryId;
-        this.seriesId = seriesId;
-        this.contentTypeId = contentTypeId;
-        this.description = description;
-        this.banglaDescription = banglaDescription;
-        this.year = year;
-        this.runtime = runtime;
-        this.youtubeUrl = youtubeUrl;
-        this.cloudUrl = cloudUrl;
-        this.introStarts = introStarts;
-        this.introEnd = introEnd;
-        this.nextEnd = nextEnd;
-        this.poster = poster;
-        this.backdrop = backdrop;
-        this.thumbnailPortrait = thumbnailPortrait;
-        this.thumbnailLandscape = thumbnailLandscape;
-        this.tvCover = tvCover;
-        this.viewCount = viewCount;
-        this.releaseDate = releaseDate;
-        this.status = status;
-        this.access = access;
-        this.order = order;
-        this.seriesOrder = seriesOrder;
-        this.numberOfAllowedAudiencePerUser = numberOfAllowedAudiencePerUser;
-        this.titleBangla = titleBangla;
-        this.contentType = contentType;
-        this.vodType = vodType;
-        this.videoType = videoType;
-        this.uploadDate = uploadDate;
-        this.imdb = imdb;
-        this.saga = saga;
-        this.isOriginal = isOriginal;
-        this.synopsisEnglish = synopsisEnglish;
-        this.synopsisBangla = synopsisBangla;
-        this.genre = genre;
-        this.tags = tags;
-        this.associatedTeaser = associatedTeaser;
-        this.upComming = upComming;
-        this.contentOwnerId = contentOwnerId;
-        this.externalId = externalId;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-    }
+    @field:SerializedName("uuid")
+    val uuid: String? = null,
 
-    public Integer getId() {
-        return id;
-    }
+    @field:SerializedName("title")
+    val title: String? = null,
 
-    public String getUuid() {
-        return uuid;
-    }
+    @field:SerializedName("short_title")
+    val shortTitle: String? = null,
 
-    public String getTitle() {
-        return title;
-    }
+    @field:SerializedName("root_category_id")
+    val rootCategoryId: Int? = 0,
 
-    public Object getShortTitle() {
-        return shortTitle;
-    }
+    @field:SerializedName("sub_category_id")
+    val subCategoryId: Int? = 0,
 
-    public Integer getRootCategoryId() {
-        return rootCategoryId;
-    }
+    @field:SerializedName("sub_sub_category_id")
+    val subSubCategoryId: String? = null,
 
-    public Integer getSubCategoryId() {
-        return subCategoryId;
-    }
+    @field:SerializedName("series_id")
+    val seriesId: String? = null,
 
-    public Object getSubSubCategoryId() {
-        return subSubCategoryId;
-    }
+    @field:SerializedName("content_type_id")
+    val contentTypeId: String? = null,
 
-    public Object getSeriesId() {
-        return seriesId;
-    }
+    @field:SerializedName("description")
+    val description: Object? = null,
 
-    public Object getContentTypeId() {
-        return contentTypeId;
-    }
+    @field:SerializedName("bangla_description")
+    val banglaDescription: String? = null,
 
-    public Object getDescription() {
-        return description;
-    }
+    @field:SerializedName("year")
+    val year: String? = null,
 
-    public Object getBanglaDescription() {
-        return banglaDescription;
-    }
+    @field:SerializedName("runtime")
+    val runtime: String? = null,
 
-    public Object getYear() {
-        return year;
-    }
+    @field:SerializedName("youtube_url")
+    val youtubeUrl: String? = null,
 
-    public Object getRuntime() {
-        return runtime;
-    }
+    @field:SerializedName("cloud_url")
+    val cloudUrl: String? = null,
 
-    public Object getYoutubeUrl() {
-        return youtubeUrl;
-    }
+    @field:SerializedName("intro_starts")
+    val introStarts: String? = null,
 
-    public Object getCloudUrl() {
-        return cloudUrl;
-    }
+    @field:SerializedName("intro_end")
+    val introEnd: String? = null,
 
-    public Object getIntroStarts() {
-        return introStarts;
-    }
+    @field:SerializedName("next_end")
+    val nextEnd: String? = null,
 
-    public Object getIntroEnd() {
-        return introEnd;
-    }
+    @field:SerializedName("poster")
+    val poster: String? = null,
 
-    public Object getNextEnd() {
-        return nextEnd;
-    }
+    @field:SerializedName("backdrop")
+    val backdrop: String? = null,
 
-    public Object getPoster() {
-        return poster;
-    }
+    @field:SerializedName("thumbnail_portrait")
+    val thumbnailPortrait: String? = null,
 
-    public Object getBackdrop() {
-        return backdrop;
-    }
+    @field:SerializedName("thumbnail_landscape")
+    val thumbnailLandscape: String? = null,
 
-    public String getThumbnailPortrait() {
-        return thumbnailPortrait;
-    }
+    @field:SerializedName("tv_cover")
+    val tvCover: String? = null,
 
-    public String getThumbnailLandscape() {
-        return thumbnailLandscape;
-    }
+    @field:SerializedName("view_count")
+    val viewCount: String? = null,
 
-    public Object getTvCover() {
-        return tvCover;
-    }
+    @field:SerializedName("release_date")
+    val releaseDate: String? = null,
 
-    public Object getViewCount() {
-        return viewCount;
-    }
+    @field:SerializedName("status")
+    val status: String? = null,
 
-    public Object getReleaseDate() {
-        return releaseDate;
-    }
+    @field:SerializedName("access")
+    val access: String? = null,
 
-    public String getStatus() {
-        return status;
-    }
+    @field:SerializedName("order")
+    val order: Int? = 0,
 
-    public String getAccess() {
-        return access;
-    }
+    @field:SerializedName("series_order")
+    val seriesOrder: Int? = 0,
 
-    public Integer getOrder() {
-        return order;
-    }
+    @field:SerializedName("number_of_allowed_audience_per_user")
+    val numberOfAllowedAudiencePerUser: Int? = 0,
 
-    public Integer getSeriesOrder() {
-        return seriesOrder;
-    }
+    @field:SerializedName("title_bangla")
+    val titleBangla: String? = null,
 
-    public Integer getNumberOfAllowedAudiencePerUser() {
-        return numberOfAllowedAudiencePerUser;
-    }
+    @field:SerializedName("content_type")
+    val contentType: String? = null,
 
-    public Object getTitleBangla() {
-        return titleBangla;
-    }
+    @field:SerializedName("vod_type")
+    val vodType: String? = null,
 
-    public Object getContentType() {
-        return contentType;
-    }
+    @field:SerializedName("video_type")
+    val videoType: String? = null,
 
-    public String getVodType() {
-        return vodType;
-    }
+    @field:SerializedName("upload_date")
+    val uploadDate: String? = null,
 
-    public String getVideoType() {
-        return videoType;
-    }
+    @field:SerializedName("imdb")
+    val imdb: String? = null,
 
-    public Object getUploadDate() {
-        return uploadDate;
-    }
+    @field:SerializedName("saga")
+    val saga: Any? = null,
 
-    public Object getImdb() {
-        return imdb;
-    }
+    @field:SerializedName("is_original")
+    val isOriginal: String? = null,
 
-    public Object getSaga() {
-        return saga;
-    }
+    @field:SerializedName("synopsis_english")
+    val synopsisEnglish: Any? = null,
 
-    public String getIsOriginal() {
-        return isOriginal;
-    }
+    @field:SerializedName("synopsis_bangla")
+    val synopsisBangla: Any? = null,
 
-    public Object getSynopsisEnglish() {
-        return synopsisEnglish;
-    }
+    @field:SerializedName("genre")
+    val genre: String? = null,
 
-    public Object getSynopsisBangla() {
-        return synopsisBangla;
-    }
+    @field:SerializedName("tags")
+    val tags: String? = null,
 
-    public String getGenre() {
-        return genre;
-    }
+    @field:SerializedName("associated_teaser")
+    val associatedTeaser: Any? = null,
 
-    public String getTags() {
-        return tags;
-    }
+    @field:SerializedName("up_comming")
+    val upComming: Any? = null,
 
-    public Object getAssociatedTeaser() {
-        return associatedTeaser;
-    }
+    @field:SerializedName("content_owner_id")
+    val contentOwnerId: Int? = 0,
 
-    public Object getUpComming() {
-        return upComming;
-    }
+    @field:SerializedName("external_id")
+    val externalId: String? = null,
 
-    public Integer getContentOwnerId() {
-        return contentOwnerId;
-    }
+    @field:SerializedName("created_at")
+    val createdAt: String? = null,
 
-    public String getExternalId() {
-        return externalId;
-    }
-
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
-}
+    @field:SerializedName("updated_at")
+    val updatedAt: String? = null
+)

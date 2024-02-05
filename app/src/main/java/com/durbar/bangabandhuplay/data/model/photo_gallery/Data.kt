@@ -3,12 +3,20 @@ package com.durbar.bangabandhuplay.data.model.photo_gallery
 import com.google.gson.annotations.SerializedName
 
 data class Data(
-    @SerializedName("id") var id: Int? = null,
-    @SerializedName("title") var title: String? = null,
-    @SerializedName("image") var image: String? = null,
-    @SerializedName("short_title") var shortTitle: String? = null,
-    @SerializedName("description") var description: String? = null,
-    @SerializedName("type") var type: String? = null,
-    @SerializedName("created_at") var createdAt: String? = null,
-    @SerializedName("updated_at") var updatedAt: String? = null
+    @field:SerializedName("id") 
+    val id: Int? = 0,
+    @field:SerializedName("title") 
+    val title: String? = null,
+    @field:SerializedName("image")
+    val image: String? = null,
+    @field:SerializedName("short_title")
+    val shortTitle: String? = null,
+    @field:SerializedName("description") 
+    val description: String? = null,
+    @field:SerializedName("type")
+    val type: String? = null,
+    @field:SerializedName("created_at") 
+    val createdAt: String? = null,
+    @field:SerializedName("updated_at") 
+    val updatedAt: String? = null
 )

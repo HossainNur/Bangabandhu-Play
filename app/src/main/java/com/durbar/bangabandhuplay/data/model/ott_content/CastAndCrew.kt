@@ -1,98 +1,29 @@
-package com.durbar.bangabandhuplay.data.model.ott_content;
+package com.durbar.bangabandhuplay.data.model.ott_content
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
-public class CastAndCrew {
-    @SerializedName("id")
-    @Expose
-    public Integer id;
-    @SerializedName("name")
-    @Expose
-    public String name;
-    @SerializedName("about")
-    @Expose
-    public String about;
-    @SerializedName("dob")
-    @Expose
-    public String dob;
-    @SerializedName("image")
-    @Expose
-    public String image;
-    @SerializedName("nationality")
-    @Expose
-    public String nationality;
-    @SerializedName("upcomming")
-    @Expose
-    public String upcomming;
-    @SerializedName("previous")
-    @Expose
-    public String previous;
-    @SerializedName("created_at")
-    @Expose
-    public String createdAt;
-    @SerializedName("updated_at")
-    @Expose
-    public String updatedAt;
-    @SerializedName("pivot")
-    @Expose
-    public Pivot pivot;
-
-    public CastAndCrew(Integer id, String name, String about, String dob, String image, String nationality, String upcomming, String previous, String createdAt, String updatedAt, Pivot pivot) {
-        this.id = id;
-        this.name = name;
-        this.about = about;
-        this.dob = dob;
-        this.image = image;
-        this.nationality = nationality;
-        this.upcomming = upcomming;
-        this.previous = previous;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.pivot = pivot;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getAbout() {
-        return about;
-    }
-
-    public String getDob() {
-        return dob;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public String getNationality() {
-        return nationality;
-    }
-
-    public String getUpcomming() {
-        return upcomming;
-    }
-
-    public String getPrevious() {
-        return previous;
-    }
-
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public Pivot getPivot() {
-        return pivot;
-    }
-}
+data class CastAndCrew(
+    @field:SerializedName("id")
+    val id: Int? = 0,
+    @field:SerializedName("name")
+    val name: String? = null,
+    @field:SerializedName("about")
+    val about: String? = null,
+    @field:SerializedName("dob")
+    val dob: String? = null,
+    @field:SerializedName("image")
+    val image: String? = null,
+    @field:SerializedName("nationality")
+    val nationality: String? = null,
+    @field:SerializedName("upcomming")
+    val upcomming: String? = null,
+    @field:SerializedName("previous")
+    val previous: String? = null,
+    @field:SerializedName("created_at")
+    val createdAt: String? = null,
+    @field:SerializedName("updated_at")
+    val updatedAt: String? = null,
+    @field:SerializedName("pivot")
+    val pivot: Pivot? = null
+)

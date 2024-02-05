@@ -1,53 +1,18 @@
-package com.durbar.bangabandhuplay.data.model.frontend_custom_content.custom_content_by_slug;
+package com.durbar.bangabandhuplay.data.model.frontend_custom_content.custom_content_by_slug
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
-public class CustomContentBySlug {
-    @SerializedName("status")
-    @Expose
-    private Boolean status;
-    @SerializedName("message")
-    @Expose
-    private String message;
-    @SerializedName("data")
-    @Expose
-    private Data data;
-    @SerializedName("errors")
-    @Expose
-    private Object errors;
+data class CustomContentBySlug(
+    @field:SerializedName("status")
+    val status: Boolean? = null,
 
-    public CustomContentBySlug(Boolean status, String message, Data data, Object errors) {
-        this.status = status;
-        this.message = message;
-        this.data = data;
-        this.errors = errors;
-    }
+    @field:SerializedName("message")
+    val message: String? = null,
 
-    public Boolean getStatus() {
-        return status;
-    }
+    @field:SerializedName("data")
+    val data: Data? = null,
 
-    public String getMessage() {
-        return message;
-    }
-
-    public Data getData() {
-        return data;
-    }
-
-    public Object getErrors() {
-        return errors;
-    }
-
-
-    @Override
-    public String toString() {
-        return "CustomContentBySlug{" +
-                "status=" + status +
-                ", message='" + message + '\'' +
-                ", data=" + data +
-                ", errors=" + errors +
-                '}';
-    }
-}
+    @field:SerializedName("errors")
+    val errors: Any? = null
+)

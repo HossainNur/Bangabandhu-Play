@@ -1,84 +1,33 @@
-package com.durbar.bangabandhuplay.data.model.get_related_contents;
+package com.durbar.bangabandhuplay.data.model.get_related_contents
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
-import java.util.List;
+data class FixedRelatedContent(
+    @field:SerializedName("id")
+    val id: Int? = 0,
 
-public class FixedRelatedContent {
-    @SerializedName("id")
-    @Expose
-    public Integer id;
-    @SerializedName("content_type_slug")
-    @Expose
-    public Integer contentTypeSlug;
-    @SerializedName("content_type_title")
-    @Expose
-    public String contentTypeTitle;
-    @SerializedName("more_info_slug")
-    @Expose
-    public String moreInfoSlug;
-    @SerializedName("is_available_on_single_page")
-    @Expose
-    public Integer isAvailableOnSinglePage;
-    @SerializedName("is_featured_section")
-    @Expose
-    public Integer isFeaturedSection;
-    @SerializedName("created_at")
-    @Expose
-    public String createdAt;
-    @SerializedName("updated_at")
-    @Expose
-    public String updatedAt;
-    @SerializedName("frontend_custom_content_limited_data")
-    @Expose
-    public List<FrontendCustomContentLimitedData> frontendCustomContentLimitedData;
+    @field:SerializedName("content_type_slug")
+    val contentTypeSlug: Int? = 0,
 
-    public FixedRelatedContent(Integer id, Integer contentTypeSlug, String contentTypeTitle, String moreInfoSlug, Integer isAvailableOnSinglePage, Integer isFeaturedSection, String createdAt, String updatedAt, List<FrontendCustomContentLimitedData> frontendCustomContentLimitedData) {
-        this.id = id;
-        this.contentTypeSlug = contentTypeSlug;
-        this.contentTypeTitle = contentTypeTitle;
-        this.moreInfoSlug = moreInfoSlug;
-        this.isAvailableOnSinglePage = isAvailableOnSinglePage;
-        this.isFeaturedSection = isFeaturedSection;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.frontendCustomContentLimitedData = frontendCustomContentLimitedData;
-    }
+    @field:SerializedName("content_type_title")
+    val contentTypeTitle: String? = null,
 
-    public Integer getId() {
-        return id;
-    }
+    @field:SerializedName("more_info_slug")
+    val moreInfoSlug: String? = null,
 
-    public Integer getContentTypeSlug() {
-        return contentTypeSlug;
-    }
+    @field:SerializedName("is_available_on_single_page")
+    val isAvailableOnSinglePage: Int? = 0,
 
-    public String getContentTypeTitle() {
-        return contentTypeTitle;
-    }
+    @field:SerializedName("is_featured_section")
+    val isFeaturedSection: Int? = 0,
 
-    public String getMoreInfoSlug() {
-        return moreInfoSlug;
-    }
+    @field:SerializedName("created_at")
+    val createdAt: String? = null,
 
-    public Integer getIsAvailableOnSinglePage() {
-        return isAvailableOnSinglePage;
-    }
+    @field:SerializedName("updated_at")
+    val updatedAt: String? = null,
 
-    public Integer getIsFeaturedSection() {
-        return isFeaturedSection;
-    }
-
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public List<FrontendCustomContentLimitedData> getFrontendCustomContentLimitedData() {
-        return frontendCustomContentLimitedData;
-    }
-}
+    @field:SerializedName("frontend_custom_content_limited_data")
+    val frontendCustomContentLimitedData: List<FrontendCustomContentLimitedData>? = listOf()
+)

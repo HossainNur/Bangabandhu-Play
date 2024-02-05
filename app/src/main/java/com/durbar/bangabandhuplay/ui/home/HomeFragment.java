@@ -54,7 +54,7 @@ public class HomeFragment extends Fragment {
                 if (originals != null) {
                     slider = true;
                     for (Original isHomeList : originals) {
-                        if (isHomeList.getIsHome() == 1) {
+                        if (isHomeList.isHome() == 1) {
                             isHomeOriginalList.add(isHomeList);
                         }
                     }

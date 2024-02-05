@@ -1,45 +1,18 @@
-package com.durbar.bangabandhuplay.data.model.frontend_custom_content.custom_contents;
+package com.durbar.bangabandhuplay.data.model.frontend_custom_content.custom_contents
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
-import java.util.List;
+data class CustomContent(
+    @field:SerializedName("status")
+    val status: Boolean? = null,
 
-public class CustomContent {
-    @SerializedName("status")
-    @Expose
-    private final Boolean status;
-    @SerializedName("message")
-    @Expose
-    private final String message;
-    @SerializedName("data")
-    @Expose
-    private final List<Data> data;
-    @SerializedName("errors")
-    @Expose
-    private final Object errors;
+    @field:SerializedName("message")
+    val message: String? = null,
 
+    @field:SerializedName("data")
+    val data: List<Data>? = listOf(),
 
-    public CustomContent(Boolean status, String message, List<Data> data, Object errors) {
-        this.status = status;
-        this.message = message;
-        this.data = data;
-        this.errors = errors;
-    }
-
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public List<Data> getData() {
-        return data;
-    }
-
-    public Object getErrors() {
-        return errors;
-    }
-}
+    @field:SerializedName("errors")
+    val errors: Any? = null
+)

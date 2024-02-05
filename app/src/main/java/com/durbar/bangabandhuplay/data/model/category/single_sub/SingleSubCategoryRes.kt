@@ -1,42 +1,18 @@
-package com.durbar.bangabandhuplay.data.model.category.single_sub;
+package com.durbar.bangabandhuplay.data.model.category.single_sub
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
-public class SingleSubCategoryRes {
-    @SerializedName("status")
-    @Expose
-    public Boolean status;
-    @SerializedName("message")
-    @Expose
-    public String message;
-    @SerializedName("data")
-    @Expose
-    public Data data;
-    @SerializedName("errors")
-    @Expose
-    public Object errors;
+data class SingleSubCategoryRes(
+    @field:SerializedName("status")
+    val status: Boolean? = null,
 
-    public SingleSubCategoryRes(Boolean status, String message, Data data, Object errors) {
-        this.status = status;
-        this.message = message;
-        this.data = data;
-        this.errors = errors;
-    }
+    @field:SerializedName("message")
+    val message: String? = null,
 
-    public Boolean getStatus() {
-        return status;
-    }
+    @field:SerializedName("data")
+    val data: Data? = null,
 
-    public String getMessage() {
-        return message;
-    }
-
-    public Data getData() {
-        return data;
-    }
-
-    public Object getErrors() {
-        return errors;
-    }
-}
+    @field:SerializedName("errors")
+    val errors: Any? = null
+)

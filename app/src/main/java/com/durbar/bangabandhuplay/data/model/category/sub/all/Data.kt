@@ -1,65 +1,36 @@
-package com.durbar.bangabandhuplay.data.model.category.sub.all;
+package com.durbar.bangabandhuplay.data.model.category.sub.all
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
-import java.util.List;
+data class Data(
+    @field:SerializedName("id")
+    val id: Int? = 0,
 
-public class Data {
-    @SerializedName("id")
-    @Expose
-    private Integer id;
-    @SerializedName("title")
-    @Expose
-    private String title;
-    @SerializedName("slug")
-    @Expose
-    private String slug;
-    @SerializedName("image")
-    @Expose
-    private String image;
-    @SerializedName("order")
-    @Expose
-    private Integer order;
-    @SerializedName("seo_title")
-    @Expose
-    private String seoTitle;
-    @SerializedName("seo_description")
-    @Expose
-    private String seoDescription;
-    @SerializedName("status")
-    @Expose
-    private String status;
-    @SerializedName("subSubCategories")
-    @Expose
-    private List<Object> subSubCategories;
-    @SerializedName("rootCategory")
-    @Expose
-    private RootCategory rootCategory;
+    @field:SerializedName("title")
+    val title: String? = null,
 
+    @field:SerializedName("slug")
+    val slug: String? = null,
 
-    public Data
-            (
-                    Integer id,
-                    String title,
-                    String slug,
-                    String image,
-                    Integer order,
-                    String seoTitle,
-                    String seoDescription,
-                    String status,
-                    List<Object> subSubCategories,
-                    RootCategory rootCategory
-            ) {
-        this.id = id;
-        this.title = title;
-        this.slug = slug;
-        this.image = image;
-        this.order = order;
-        this.seoTitle = seoTitle;
-        this.seoDescription = seoDescription;
-        this.status = status;
-        this.subSubCategories = subSubCategories;
-        this.rootCategory = rootCategory;
-    }
-}
+    @field:SerializedName("image")
+    val image: String? = null,
+
+    @field:SerializedName("order")
+    val order: Int? = 0,
+
+    @field:SerializedName("seo_title")
+    val seoTitle: String? = null,
+
+    @field:SerializedName("seo_description")
+    val seoDescription: String? = null,
+
+    @field:SerializedName("status")
+    val status: String? = null,
+
+    @field:SerializedName("subSubCategories")
+    val subSubCategories: List<Any>? = null,
+
+    @field:SerializedName("rootCategory")
+    val rootCategory: RootCategory? = null
+)

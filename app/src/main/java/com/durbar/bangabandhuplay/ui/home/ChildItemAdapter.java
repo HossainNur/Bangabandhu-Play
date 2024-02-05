@@ -47,7 +47,7 @@ public class ChildItemAdapter extends RecyclerView.Adapter<ChildItemAdapter.Chil
         if (frontendCustomContentList.get(position).getOttContent() != null){
 
 
-            String image = current.getThumbnailPortrait();
+            String image = current.getThumbnailLandscape();
             String uuid = current.getUuid();
 
             if (image != null) {

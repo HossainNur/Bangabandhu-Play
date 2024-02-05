@@ -74,7 +74,7 @@ class TunesFragment : Fragment() {
                     slider = true
                     isMoviesOriginalList = java.util.ArrayList<Original>()
                     for (isHomeList in originals) {
-                        if (isHomeList.getIsHome() == 0) {
+                        if (isHomeList.isHome == 0) {
                             (isMoviesOriginalList as java.util.ArrayList<Original>).add(isHomeList)
                         }
                     }

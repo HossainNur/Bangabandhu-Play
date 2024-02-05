@@ -1,109 +1,43 @@
-package com.durbar.bangabandhuplay.data.model.category.single_sub;
+package com.durbar.bangabandhuplay.data.model.category.single_sub
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
-import java.util.List;
 
-public class Data {
+data class Data(
+    @field:SerializedName("id")
+    val id: Int? = 0,
 
-    @SerializedName("id")
-    @Expose
-    public Integer id;
-    @SerializedName("title")
-    @Expose
-    public String title;
-    @SerializedName("slug")
-    @Expose
-    public String slug;
-    @SerializedName("image")
-    @Expose
-    public Object image;
-    @SerializedName("order")
-    @Expose
-    public Integer order;
-    @SerializedName("seo_title")
-    @Expose
-    public String seoTitle;
-    @SerializedName("seo_description")
-    @Expose
-    public Object seoDescription;
-    @SerializedName("status")
-    @Expose
-    public String status;
-    @SerializedName("root_category_id")
-    @Expose
-    public Integer rootCategoryId;
-    @SerializedName("created_at")
-    @Expose
-    public String createdAt;
-    @SerializedName("updated_at")
-    @Expose
-    public String updatedAt;
-    @SerializedName("ott_contents")
-    @Expose
-    public List<OttContent> ottContents;
+    @field:SerializedName("title")
+    val title: String? = null,
 
-    public Data(Integer id, String title, String slug, Object image, Integer order, String seoTitle, Object seoDescription, String status, Integer rootCategoryId, String createdAt, String updatedAt, List<OttContent> ottContents) {
-        this.id = id;
-        this.title = title;
-        this.slug = slug;
-        this.image = image;
-        this.order = order;
-        this.seoTitle = seoTitle;
-        this.seoDescription = seoDescription;
-        this.status = status;
-        this.rootCategoryId = rootCategoryId;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.ottContents = ottContents;
-    }
+    @field:SerializedName("slug")
+    val slug: String? = null,
 
-    public Integer getId() {
-        return id;
-    }
+    @field:SerializedName("image")
+    val image: String? = null,
 
-    public String getTitle() {
-        return title;
-    }
+    @field:SerializedName("order")
+    val order: Int? = 0,
 
-    public String getSlug() {
-        return slug;
-    }
+    @field:SerializedName("seo_title")
+    val seoTitle: String? = null,
 
-    public Object getImage() {
-        return image;
-    }
+    @field:SerializedName("seo_description")
+    val seoDescription: String? = null,
 
-    public Integer getOrder() {
-        return order;
-    }
+    @field:SerializedName("status")
+    val status: String? = null,
 
-    public String getSeoTitle() {
-        return seoTitle;
-    }
+    @field:SerializedName("root_category_id")
+    val rootCategoryId: Int? = 0,
 
-    public Object getSeoDescription() {
-        return seoDescription;
-    }
+    @field:SerializedName("created_at")
+    val createdAt: String? = null,
 
-    public String getStatus() {
-        return status;
-    }
+    @field:SerializedName("updated_at")
+    val updatedAt: String? = null,
 
-    public Integer getRootCategoryId() {
-        return rootCategoryId;
-    }
-
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public List<OttContent> getOttContents() {
-        return ottContents;
-    }
-}
+    @field:SerializedName("ott_contents")
+    val ottContents: List<OttContent>? = listOf()
+)

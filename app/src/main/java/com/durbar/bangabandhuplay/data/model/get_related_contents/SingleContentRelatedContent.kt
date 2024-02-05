@@ -1,148 +1,58 @@
-package com.durbar.bangabandhuplay.data.model.get_related_contents;
+package com.durbar.bangabandhuplay.data.model.get_related_contents
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
-import java.util.List;
 
-public class SingleContentRelatedContent {
-    @SerializedName("id")
-    @Expose
-    public Integer id;
-    @SerializedName("uuid")
-    @Expose
-    public String uuid;
-    @SerializedName("title")
-    @Expose
-    public String title;
-    @SerializedName("short_title")
-    @Expose
-    public Object shortTitle;
-    @SerializedName("access")
-    @Expose
-    public String access;
-    @SerializedName("youtube_url")
-    @Expose
-    public Object youtubeUrl;
-    @SerializedName("cloud_url")
-    @Expose
-    public Object cloudUrl;
-    @SerializedName("poster")
-    @Expose
-    public Object poster;
-    @SerializedName("view_count")
-    @Expose
-    public Object viewCount;
-    @SerializedName("release_date")
-    @Expose
-    public String releaseDate;
-    @SerializedName("status")
-    @Expose
-    public String status;
-    @SerializedName("order")
-    @Expose
-    public Integer order;
-    @SerializedName("runtime")
-    @Expose
-    public Object runtime;
-    @SerializedName("content_source")
-    @Expose
-    public List<ContentSource> contentSource;
-    @SerializedName("average_review_count")
-    @Expose
-    public Integer averageReviewCount;
-    @SerializedName("thumbnail_portrait")
-    @Expose
-    public String thumbnailPortrait;
-    @SerializedName("thumbnail_landscape")
-    @Expose
-    public String thumbnailLandscape;
+data class SingleContentRelatedContent(
+    @field:SerializedName("id")
+    val id: Int? = 0,
 
-    public SingleContentRelatedContent(Integer id, String uuid, String title, Object shortTitle, String access, Object youtubeUrl, Object cloudUrl, Object poster, Object viewCount, String releaseDate, String status, Integer order, Object runtime, List<ContentSource> contentSource, Integer averageReviewCount, String thumbnailPortrait, String thumbnailLandscape) {
-        this.id = id;
-        this.uuid = uuid;
-        this.title = title;
-        this.shortTitle = shortTitle;
-        this.access = access;
-        this.youtubeUrl = youtubeUrl;
-        this.cloudUrl = cloudUrl;
-        this.poster = poster;
-        this.viewCount = viewCount;
-        this.releaseDate = releaseDate;
-        this.status = status;
-        this.order = order;
-        this.runtime = runtime;
-        this.contentSource = contentSource;
-        this.averageReviewCount = averageReviewCount;
-        this.thumbnailPortrait = thumbnailPortrait;
-        this.thumbnailLandscape = thumbnailLandscape;
-    }
+    @field:SerializedName("uuid")
+    val uuid: String? = null,
 
-    public Integer getId() {
-        return id;
-    }
+    @field:SerializedName("title")
+    val title: String? = null,
 
-    public String getUuid() {
-        return uuid;
-    }
+    @field:SerializedName("short_title")
+    val shortTitle: Any? = null,
 
-    public String getTitle() {
-        return title;
-    }
+    @field:SerializedName("access")
+    val access: String? = null,
 
-    public Object getShortTitle() {
-        return shortTitle;
-    }
+    @field:SerializedName("youtube_url")
+    val youtubeUrl: Any? = null,
 
-    public String getAccess() {
-        return access;
-    }
+    @field:SerializedName("cloud_url")
+    val cloudUrl: Any? = null,
 
-    public Object getYoutubeUrl() {
-        return youtubeUrl;
-    }
+    @field:SerializedName("poster")
+    val poster: Any? = null,
 
-    public Object getCloudUrl() {
-        return cloudUrl;
-    }
+    @field:SerializedName("view_count")
+    val viewCount: Any? = null,
 
-    public Object getPoster() {
-        return poster;
-    }
+    @field:SerializedName("release_date")
+    val releaseDate: String? = null,
 
-    public Object getViewCount() {
-        return viewCount;
-    }
+    @field:SerializedName("status")
+    val status: String? = null,
 
-    public String getReleaseDate() {
-        return releaseDate;
-    }
+    @field:SerializedName("order")
+    val order: Int? = 0,
 
-    public String getStatus() {
-        return status;
-    }
+    @field:SerializedName("runtime")
+    val runtime: Any? = null,
 
-    public Integer getOrder() {
-        return order;
-    }
+    @field:SerializedName("content_source")
+    val contentSource: List<ContentSource>? = listOf(),
 
-    public Object getRuntime() {
-        return runtime;
-    }
+    @field:SerializedName("average_review_count")
+    val averageReviewCount: Int? = 0,
 
-    public List<ContentSource> getContentSource() {
-        return contentSource;
-    }
+    @field:SerializedName("thumbnail_portrait")
+    val thumbnailPortrait: String? = null,
 
-    public Integer getAverageReviewCount() {
-        return averageReviewCount;
-    }
-
-    public String getThumbnailPortrait() {
-        return thumbnailPortrait;
-    }
-
-    public String getThumbnailLandscape() {
-        return thumbnailLandscape;
-    }
-}
+    @field:SerializedName("thumbnail_landscape")
+    val thumbnailLandscape: String? = null
+)

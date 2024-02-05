@@ -67,7 +67,7 @@ public class PlayerRepository {
             public void onResponse(Call<GetRelatedContent> call, Response<GetRelatedContent> response) {
                 if (response.isSuccessful() && response.body() != null && response.body().getData().getSingleContentRelatedContents() != null) {
                     relatedContent.setValue(response.body().getData().getSingleContentRelatedContents());
-                    Log.d("response",""+response.body().getData().getSingleContentRelatedContents());
+                    Log.d("response",""+ response.body().getData().getSingleContentRelatedContents());
                 }
                 else{
                     Toast.makeText(application, response.code()+" - "+response.message(), Toast.LENGTH_SHORT).show();
