@@ -40,7 +40,7 @@ class PathshalaFragment : Fragment() {
 
         viewModel.fetchPdfs().observe(viewLifecycleOwner) {pathshala ->
             try {
-                if (pathshala.data != null){
+                if (pathshala?.data != null){
                     val concatAdapter = ConcatAdapter()
                     pathshala.data?.data?.forEach {
                         concatAdapter.addAdapter(CommonAdapter(it))

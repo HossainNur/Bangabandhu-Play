@@ -1,52 +1,42 @@
-package com.durbar.bangabandhuplay.data.repository;
+package com.durbar.bangabandhuplay.data.repository
 
-import android.app.Application;
-import android.widget.Toast;
+import android.app.Application
+import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
+import com.durbar.bangabandhuplay.data.Api
+import com.durbar.bangabandhuplay.data.ApiService
+import com.durbar.bangabandhuplay.data.model.pathshala.PathshalaResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-import androidx.lifecycle.MutableLiveData;
+class PathshalaRepositoryJava(private val application: Application) {
+    private val apiService: ApiService
+    private val dataxList: MutableLiveData<PathshalaResponse?>
 
-import com.durbar.bangabandhuplay.data.Api;
-import com.durbar.bangabandhuplay.data.ApiService;
-import com.durbar.bangabandhuplay.data.model.pathshala.DataX;
-import com.durbar.bangabandhuplay.data.model.pathshala.Ebook;
-import com.durbar.bangabandhuplay.data.model.pathshala.PathshalaResponse;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class PathshalaRepositoryJava {
-    private Application application;
-    private ApiService apiService;
-
-    private MutableLiveData<PathshalaResponse> dataxList;
-
-    public PathshalaRepositoryJava(Application application) {
-        this.application = application;
-        apiService = Api.getInstance().getApiService();
-        dataxList = new MutableLiveData<>();
+    init {
+        apiService = Api.getInstance().apiService
+        dataxList = MutableLiveData()
     }
 
-    public MutableLiveData<PathshalaResponse> fetchEbook(){
-        Call<PathshalaResponse> call = apiService.getPathsahlaPdf();
-        call.enqueue(new Callback<PathshalaResponse>() {
-            @Override
-            public void onResponse(Call<PathshalaResponse> call, Response<PathshalaResponse> response) {
-                if (response.isSuccessful() && response.body() != null && response.body().getData() != null) {
-                    dataxList.setValue(response.body());
+    fun fetchEbook(): MutableLiveData<PathshalaResponse?> {
+        val call = apiService.pathsahlaPdf
+        call.enqueue(object : Callback<PathshalaResponse?> {
+            override fun onResponse(
+                call: Call<PathshalaResponse?>,
+                response: Response<PathshalaResponse?>
+            ) {
+                if (response.isSuccessful && response.body() != null && response.body()!!.data != null) {
+                    dataxList.setValue(response.body())
                 } else {
-                    Toast.makeText(application, response.message(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(application, response.message(), Toast.LENGTH_SHORT).show()
                 }
             }
 
-            @Override
-            public void onFailure(Call<PathshalaResponse> call, Throwable t) {
-                Toast.makeText(application, t.getMessage(), Toast.LENGTH_SHORT).show();
+            override fun onFailure(call: Call<PathshalaResponse?>, t: Throwable) {
+                Toast.makeText(application, t.message, Toast.LENGTH_SHORT).show()
             }
-        });
-
-        return dataxList;
+        })
+        return dataxList
     }
 }

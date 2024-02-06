@@ -1,79 +1,70 @@
-package com.durbar.bangabandhuplay.data.repository;
+package com.durbar.bangabandhuplay.data.repository
 
-import android.app.Application;
-import android.widget.Toast;
+import android.app.Application
+import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
+import com.durbar.bangabandhuplay.data.Api
+import com.durbar.bangabandhuplay.data.ApiService
+import com.durbar.bangabandhuplay.data.model.category.root.single.Data
+import com.durbar.bangabandhuplay.data.model.category.root.single.SingleRootCategory
+import com.durbar.bangabandhuplay.data.model.sliders.Original
+import com.durbar.bangabandhuplay.data.model.sliders.Sliders
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.MutableLiveData;
+class MoviesRepository(private val application: Application) {
+    private val apiService: ApiService
+    private val sliderList: MutableLiveData<List<Original>?>
+    private val dataList: MutableLiveData<List<Data>?>
 
-import com.durbar.bangabandhuplay.data.model.category.root.single.Data;
-import com.durbar.bangabandhuplay.data.model.category.root.single.SingleRootCategory;
-import com.durbar.bangabandhuplay.data.Api;
-import com.durbar.bangabandhuplay.data.ApiService;
-import com.durbar.bangabandhuplay.data.model.sliders.Original;
-import com.durbar.bangabandhuplay.data.model.sliders.Sliders;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class MoviesRepository {
-    private Application application;
-    private ApiService apiService;
-    private MutableLiveData<List<Original>> sliderList;
-
-    private MutableLiveData<List<Data>> dataList;
-
-    public MoviesRepository(Application application) {
-        this.application = application;
-        apiService = Api.getInstance().getApiService();
-        sliderList = new MutableLiveData<>();
-        dataList = new MutableLiveData<>();
+    init {
+        apiService = Api.getInstance().apiService
+        sliderList = MutableLiveData()
+        dataList = MutableLiveData()
     }
 
-    public MutableLiveData<List<Original>> fetchSlider() {
-
-        Call<Sliders> call = apiService.getSliders();
-        call.enqueue(new Callback<Sliders>() {
-            @Override
-            public void onResponse(@NonNull Call<Sliders> call, @NonNull Response<Sliders> response) {
-                if (response.isSuccessful() && response.body() != null && response.body().getData().getOriginal() != null) {
-                    sliderList.setValue(response.body().getData().getOriginal());
+    fun fetchSlider(): MutableLiveData<List<Original>?> {
+        val call = apiService.sliders
+        call.enqueue(object : Callback<Sliders?> {
+            override fun onResponse(call: Call<Sliders?>, response: Response<Sliders?>) {
+                if (response.isSuccessful && response.body() != null && response.body()!!.data!!.original != null) {
+                    sliderList.setValue(response.body()!!.data!!.original)
                 } else {
-                    Toast.makeText(application, "Something went wrong!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(application, "Something went wrong!!", Toast.LENGTH_SHORT).show()
                 }
             }
 
-            @Override
-            public void onFailure(@NonNull Call<Sliders> call, @NonNull Throwable t) {
-                Toast.makeText(application, t.getMessage(), Toast.LENGTH_SHORT).show();
-                t.printStackTrace();
+            override fun onFailure(call: Call<Sliders?>, t: Throwable) {
+                Toast.makeText(application, t.message, Toast.LENGTH_SHORT).show()
+                t.printStackTrace()
             }
-        });
-        return sliderList;
+        })
+        return sliderList
     }
-    public MutableLiveData<List<Data>> fetchMoviesCategory(String slug){
 
-        Call<SingleRootCategory> call = apiService.getMoviesCategory(slug);
-
-        call.enqueue(new Callback<SingleRootCategory>() {
-            @Override
-            public void onResponse(Call<SingleRootCategory> call, Response<SingleRootCategory> response) {
-                if (response.isSuccessful() && response.body() != null){
-                    dataList.setValue(response.body().getData());
-                }else {
-                    Toast.makeText(application, response.code()+" - "+response.message(), Toast.LENGTH_SHORT).show();
+    fun fetchMoviesCategory(slug: String?): MutableLiveData<List<Data>?> {
+        val call = apiService.getMoviesCategory(slug)
+        call.enqueue(object : Callback<SingleRootCategory?> {
+            override fun onResponse(
+                call: Call<SingleRootCategory?>,
+                response: Response<SingleRootCategory?>
+            ) {
+                if (response.isSuccessful && response.body() != null) {
+                    dataList.setValue(response.body()!!.data)
+                } else {
+                    Toast.makeText(
+                        application,
+                        response.code().toString() + " - " + response.message(),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
-            @Override
-            public void onFailure(Call<SingleRootCategory> call, Throwable t) {
-                Toast.makeText(application, "Failed - "+t.getMessage(), Toast.LENGTH_SHORT).show();
+            override fun onFailure(call: Call<SingleRootCategory?>, t: Throwable) {
+                Toast.makeText(application, "Failed - " + t.message, Toast.LENGTH_SHORT).show()
             }
-        });
-
-        return dataList;
+        })
+        return dataList
     }
 }

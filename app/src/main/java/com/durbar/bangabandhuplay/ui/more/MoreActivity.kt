@@ -41,12 +41,12 @@ class MoreActivity : AppCompatActivity() {
             id?.let {
                 viewModel!!.getContentHome(it).observe(this) { customContentBySlug ->
                     try {
-                        if (customContentBySlug.data?.contents != null) {
+                        if (customContentBySlug?.data?.contents != null) {
                             moreSection = true
                             binding?.watchTrailerRv?.layoutManager = GridLayoutManager(this, 2)
                             binding?.watchTrailerRv?.adapter =
                                 MoreHomeAdapter(
-                                    customContentBySlug.data.contents,
+                                    customContentBySlug?.data.contents,
                                     this,
                                     title ?: "",
                                     isMore
@@ -62,7 +62,7 @@ class MoreActivity : AppCompatActivity() {
             slug?.let {
                 viewModel?.getSingleSubCategoryContents(it)?.observe(this) { singleSubCategoryRes ->
                     try {
-                        if (singleSubCategoryRes.data?.ottContents != null) {
+                        if (singleSubCategoryRes?.data?.ottContents != null) {
                             moreSection = true
                             binding?.watchTrailerRv?.layoutManager = GridLayoutManager(this, 2)
                             binding?.watchTrailerRv?.adapter =

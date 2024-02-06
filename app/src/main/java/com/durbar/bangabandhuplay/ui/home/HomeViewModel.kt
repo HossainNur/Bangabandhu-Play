@@ -14,8 +14,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         repository = HomeRepository(application)
     }
 
-    val sliders: MutableLiveData<List<Original>>
+    val sliders: MutableLiveData<List<Original>?>
         get() = repository.fetchSlider()
-    val frontendSection: MutableLiveData<List<Data>>
-        get() = repository.frontendSection
+    val frontendSection: MutableLiveData<List<Data>?>
+        get() = repository.getFrontendSection()
 }

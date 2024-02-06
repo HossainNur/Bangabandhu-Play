@@ -14,10 +14,10 @@ class MoviesViewModel(application: Application) : AndroidViewModel(application) 
         moviesRepository = MoviesRepository(application)
     }
 
-    val sliders: MutableLiveData<List<Original>>
+    val sliders: MutableLiveData<List<Original>?>
         get() = moviesRepository.fetchSlider()
 
-    fun fetchMoviesCategory(slug: String?): MutableLiveData<List<Data>> {
+    fun fetchMoviesCategory(slug: String?): MutableLiveData<List<Data>?> {
         return moviesRepository.fetchMoviesCategory(slug)
     }
 }

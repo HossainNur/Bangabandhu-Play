@@ -14,11 +14,11 @@ class MoreHomeViewModel(application: Application) : AndroidViewModel(application
         repository = MoreHomeRepository(application)
     }
 
-    fun getContentHome(slug: String?): MutableLiveData<CustomContentBySlug> {
+    fun getContentHome(slug: String?): MutableLiveData<CustomContentBySlug?> {
         return repository.fetchContentForHome(slug)
     }
 
-    fun getSingleSubCategoryContents(slug: String?): MutableLiveData<SingleSubCategoryRes> {
+    fun getSingleSubCategoryContents(slug: String?): MutableLiveData<SingleSubCategoryRes?> {
         return repository.getSingleSubCategoryContents(slug)
     }
 }

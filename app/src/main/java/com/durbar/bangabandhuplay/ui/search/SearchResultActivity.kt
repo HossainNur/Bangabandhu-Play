@@ -55,9 +55,9 @@ class SearchResultActivity() : AppCompatActivity() {
     }
 
     private fun fetchSearchContent(query: String) {
-        viewModel!!.getSearchContents(query).observe(this, { searchResultRes: SearchResultRes ->
+        viewModel!!.getSearchContents(query).observe(this) { searchResultRes ->
             try {
-                if (searchResultRes.data != null && !searchResultRes.data.isEmpty()) {
+                if (searchResultRes?.data != null && !searchResultRes.data.isEmpty()) {
                     binding!!.searchResultRv.setLayoutManager(
                         LinearLayoutManager(
                             this,
@@ -82,7 +82,7 @@ class SearchResultActivity() : AppCompatActivity() {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-        })
+        }
     }
 
     private fun showProgressBar() {

@@ -10,7 +10,7 @@ class PathshalaViewModel(application: Application) : AndroidViewModel(applicatio
 
       private val repository: PathshalaRepositoryJava = PathshalaRepositoryJava(application)
 
-      fun fetchPdfs(): MutableLiveData<PathshalaResponse> {
+      fun fetchPdfs(): MutableLiveData<PathshalaResponse?> {
           return repository.fetchEbook()
       }
 }

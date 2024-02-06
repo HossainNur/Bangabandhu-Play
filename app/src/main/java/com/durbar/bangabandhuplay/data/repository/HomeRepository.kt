@@ -1,82 +1,58 @@
-package com.durbar.bangabandhuplay.data.repository;
+package com.durbar.bangabandhuplay.data.repository
 
-import android.app.Application;
-import android.widget.Toast;
+import android.app.Application
+import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
+import com.durbar.bangabandhuplay.data.Api
+import com.durbar.bangabandhuplay.data.ApiService
+import com.durbar.bangabandhuplay.data.model.frontend_custom_content.custom_contents.CustomContent
+import com.durbar.bangabandhuplay.data.model.frontend_custom_content.custom_contents.Data
+import com.durbar.bangabandhuplay.data.model.sliders.Original
+import com.durbar.bangabandhuplay.data.model.sliders.Sliders
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-import androidx.annotation.Keep;
-import androidx.annotation.NonNull;
-import androidx.lifecycle.MutableLiveData;
+class HomeRepository(private val application: Application) {
+    private val apiService: ApiService = Api.getInstance().apiService
+    private val sliderList: MutableLiveData<List<Original>?> = MutableLiveData()
+    private val dataList: MutableLiveData<List<Data>?> = MutableLiveData()
 
-import com.durbar.bangabandhuplay.data.Api;
-import com.durbar.bangabandhuplay.data.ApiService;
-import com.durbar.bangabandhuplay.data.model.frontend_custom_content.custom_contents.CustomContent;
-import com.durbar.bangabandhuplay.data.model.frontend_custom_content.custom_contents.Data;
-import com.durbar.bangabandhuplay.data.model.sliders.Original;
-import com.durbar.bangabandhuplay.data.model.sliders.Sliders;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class HomeRepository {
-    private Application application;
-    private ApiService apiService;
-    private MutableLiveData<List<Original>> sliderList;
-    private MutableLiveData<List<Data>> dataList;
-
-    public HomeRepository(Application application) {
-        this.application = application;
-        apiService = Api.getInstance().getApiService();
-        sliderList = new MutableLiveData<>();
-        dataList = new MutableLiveData<>();
-    }
-
-    public MutableLiveData<List<Original>> fetchSlider() {
-
-        Call<Sliders> call = apiService.getSliders();
-        call.enqueue(new Callback<Sliders>() {
-            @Override
-            public void onResponse(@NonNull Call<Sliders> call, @NonNull Response<Sliders> response) {
-                if (response.isSuccessful() && response.body() != null && response.body().getData().getOriginal() != null) {
-                    sliderList.setValue(response.body().getData().getOriginal());
+    fun fetchSlider(): MutableLiveData<List<Original>?> {
+        val call: Call<Sliders> = apiService.sliders
+        call.enqueue(object : Callback<Sliders> {
+            override fun onResponse(call: Call<Sliders>, response: Response<Sliders>) {
+                if (response.isSuccessful && response.body() != null && response.body()?.data?.original != null) {
+                    sliderList.value = response.body()?.data?.original
                 } else {
-                    Toast.makeText(application, response.message(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(application, response.message(), Toast.LENGTH_SHORT).show()
                 }
             }
 
-            @Override
-            public void onFailure(@NonNull Call<Sliders> call, @NonNull Throwable t) {
-                Toast.makeText(application, t.getMessage(), Toast.LENGTH_SHORT).show();
-                t.printStackTrace();
+            override fun onFailure(call: Call<Sliders>, t: Throwable) {
+                Toast.makeText(application, t.message, Toast.LENGTH_SHORT).show()
+                t.printStackTrace()
             }
-        });
-        return sliderList;
+        })
+        return sliderList
     }
 
-    public MutableLiveData<List<Data>> getFrontendSection() {
-        Call<CustomContent> call = apiService.getFrontendCustomContent();
-        call.enqueue(new Callback<CustomContent>() {
-            @Override
-            public void onResponse(Call<CustomContent> call, Response<CustomContent> response) {
-                if (response.isSuccessful() && response.body() != null && response.body().getData() != null) {
-                    dataList.setValue(response.body().getData());
+    fun getFrontendSection(): MutableLiveData<List<Data>?> {
+        val call: Call<CustomContent> = apiService.frontendCustomContent
+        call.enqueue(object : Callback<CustomContent> {
+            override fun onResponse(call: Call<CustomContent>, response: Response<CustomContent>) {
+                if (response.isSuccessful && response.body() != null && response.body()?.data != null) {
+                    dataList.value = response.body()?.data
                 } else {
-                    Toast.makeText(application, "Something went wrong!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(application, "Something went wrong!!", Toast.LENGTH_SHORT).show()
                 }
-
             }
 
-            @Override
-            public void onFailure(@NonNull Call<CustomContent> call, @NonNull Throwable t) {
-                Toast.makeText(application, t.getMessage(), Toast.LENGTH_SHORT).show();
-                t.printStackTrace();
+            override fun onFailure(call: Call<CustomContent>, t: Throwable) {
+                Toast.makeText(application, t.message, Toast.LENGTH_SHORT).show()
+                t.printStackTrace()
             }
-        });
-
-        return dataList;
+        })
+        return dataList
     }
-
-
 }

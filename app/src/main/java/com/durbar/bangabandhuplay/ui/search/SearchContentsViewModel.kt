@@ -13,7 +13,7 @@ class SearchContentsViewModel(application: Application) : AndroidViewModel(appli
         repository = SearchContentsRepository(application)
     }
 
-    fun getSearchContents(keyword: String?): MutableLiveData<SearchResultRes> {
+    fun getSearchContents(keyword: String?): MutableLiveData<SearchResultRes?> {
         return repository.getSearchContents(keyword)
     }
 }
