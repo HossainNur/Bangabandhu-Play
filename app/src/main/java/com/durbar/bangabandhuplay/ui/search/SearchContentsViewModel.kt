@@ -1,21 +1,19 @@
-package com.durbar.bangabandhuplay.ui.search;
+package com.durbar.bangabandhuplay.ui.search
 
-import android.app.Application;
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.MutableLiveData;
-import com.durbar.bangabandhuplay.data.model.search_content.SearchResultRes;
-import com.durbar.bangabandhuplay.data.repository.SearchContentsRepository;
-public class SearchContentsViewModel extends AndroidViewModel {
-    private SearchContentsRepository repository;
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
+import com.durbar.bangabandhuplay.data.model.search_content.SearchResultRes
+import com.durbar.bangabandhuplay.data.repository.SearchContentsRepository
 
+class SearchContentsViewModel(application: Application) : AndroidViewModel(application) {
+    private val repository: SearchContentsRepository
 
-    public SearchContentsViewModel(@NonNull Application application) {
-        super(application);
-        repository = new SearchContentsRepository(application);
+    init {
+        repository = SearchContentsRepository(application)
     }
 
-    public MutableLiveData<SearchResultRes> getSearchContents(String keyword){
-        return repository.getSearchContents(keyword);
+    fun getSearchContents(keyword: String?): MutableLiveData<SearchResultRes> {
+        return repository.getSearchContents(keyword)
     }
 }
