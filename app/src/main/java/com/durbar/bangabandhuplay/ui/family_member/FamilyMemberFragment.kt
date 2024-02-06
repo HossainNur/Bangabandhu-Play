@@ -1,79 +1,72 @@
-package com.durbar.bangabandhuplay.ui.family_member;
+package com.durbar.bangabandhuplay.ui.family_member
 
-import android.content.Context;
-import android.os.Bundle;
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.Navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import com.durbar.bangabandhuplay.R
+import com.durbar.bangabandhuplay.data.model.family_member.Data
+import com.durbar.bangabandhuplay.databinding.FragmentFamilyMemberBinding
+import com.durbar.bangabandhuplay.utils.NavigationHelper
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.GridLayoutManager;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
-import com.durbar.bangabandhuplay.R;
-import com.durbar.bangabandhuplay.databinding.FragmentFamilyMemberBinding;
-import com.durbar.bangabandhuplay.utils.NavigationHelper;
-
-public class FamilyMemberFragment extends Fragment implements FamilyMemberAdapter.CallBack{
-    private FragmentFamilyMemberBinding binding;
-    private FamilyMemberViewModel viewModel;
-    private NavController navController;
-    private boolean familyMember = false;
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+class FamilyMemberFragment : Fragment(), FamilyMemberAdapter.CallBack {
+    private var binding: FragmentFamilyMemberBinding? = null
+    private var viewModel: FamilyMemberViewModel? = null
+    private var navController: NavController? = null
+    private var familyMember = false
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentFamilyMemberBinding.inflate(inflater,container,false);
-        viewModel =  new ViewModelProvider(this).get(FamilyMemberViewModel.class);
-        return binding.getRoot();
+        binding = FragmentFamilyMemberBinding.inflate(inflater, container, false)
+        viewModel = ViewModelProvider(this).get(FamilyMemberViewModel::class.java)
+        return binding!!.root
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        navController = Navigation.findNavController(view);
-        viewModel.fetchFamilyMemberPhotos().observe(requireActivity(),data -> {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        navController = findNavController(view)
+        viewModel!!.fetchFamilyMemberPhotos().observe(requireActivity()) { data ->
             try {
-                if (data != null && !data.isEmpty()){
-                    familyMember = true;
-                    binding.familyMemberRv.setLayoutManager(new GridLayoutManager(requireContext(),3));
-                    binding.familyMemberRv.setAdapter(new FamilyMemberAdapter(data,requireContext(),this));
-                    hideProgressBar();
+                if (data != null && !data.isEmpty()) {
+                    familyMember = true
+                    binding!!.familyMemberRv.layoutManager = GridLayoutManager(requireContext(), 3)
+                    binding!!.familyMemberRv.adapter =
+                        FamilyMemberAdapter(data, requireContext(), this)
+                    hideProgressBar()
                 }
-            }catch (Exception e){
-                e.printStackTrace();
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
-        });
-
-    }
-
-    private void hideProgressBar() {
-        if (familyMember){
-            binding.familyMemberRv.setVisibility(View.VISIBLE);
-            binding.progressBar.setVisibility(View.GONE);
-        }
-
-    }
-
-
-    @Override
-    public void familyMemberDetails(String title, String shortTitle, String description, String image) {
-        if (title != null && shortTitle != null && description != null && image != null){
-            navController.navigate(R.id.familyMemberDeatilsFragment);
-            NavigationHelper.getINSTANCE().setTitle(title);
-            NavigationHelper.getINSTANCE().setShortTitle(shortTitle);
-            NavigationHelper.getINSTANCE().setDescription(description);
-            NavigationHelper.getINSTANCE().setImage(image);
         }
     }
 
+    private fun hideProgressBar() {
+        if (familyMember) {
+            binding!!.familyMemberRv.visibility = View.VISIBLE
+            binding!!.progressBar.visibility = View.GONE
+        }
+    }
+
+    override fun familyMemberDetails(
+        title: String,
+        shortTitle: String,
+        description: String,
+        image: String
+    ) {
+        if (title != null && shortTitle != null && description != null && image != null) {
+            navController!!.navigate(R.id.familyMemberDeatilsFragment)
+            NavigationHelper.getINSTANCE().title = title
+            NavigationHelper.getINSTANCE().shortTitle = shortTitle
+            NavigationHelper.getINSTANCE().description = description
+            NavigationHelper.getINSTANCE().image = image
+        }
+    }
 }

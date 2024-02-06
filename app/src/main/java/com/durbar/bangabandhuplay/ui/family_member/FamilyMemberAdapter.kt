@@ -1,74 +1,58 @@
-package com.durbar.bangabandhuplay.ui.family_member;
+package com.durbar.bangabandhuplay.ui.family_member
 
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.durbar.bangabandhuplay.data.model.family_member.Data
+import com.durbar.bangabandhuplay.databinding.GalleryContentLayoutBinding
+import com.squareup.picasso.Picasso
 
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
+class FamilyMemberAdapter(private val dataList: List<Data>, private val context: Context, private val callBack: CallBack) :
+    RecyclerView.Adapter<FamilyMemberAdapter.mViewHolder>() {
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.durbar.bangabandhuplay.data.model.family_member.Data;
-import com.durbar.bangabandhuplay.databinding.GalleryContentLayoutBinding;
-import com.squareup.picasso.Picasso;
-
-import java.util.List;
-
-
-public class FamilyMemberAdapter extends RecyclerView.Adapter<FamilyMemberAdapter.mViewHolder>{
-    private List<Data> dataList;
-    private Context context;
-    private CallBack callBack;
-
-    public FamilyMemberAdapter(List<Data> dataList,Context context,CallBack callBack) {
-        this.dataList = dataList;
-        this.context = context;
-        this.callBack = callBack;
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): mViewHolder {
+        return mViewHolder(
+            GalleryContentLayoutBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
-    @NonNull
-    @Override
-    public FamilyMemberAdapter.mViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new FamilyMemberAdapter.mViewHolder(GalleryContentLayoutBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull FamilyMemberAdapter.mViewHolder holder, int position) {
-
-        Data current = dataList.get(position);
-        String image = current.getImage();
-        String title = current.getTitle();
-        String shortTitle = current.getShortTitle();
-        String description = current.getDescription();
+    override fun onBindViewHolder(holder: mViewHolder, position: Int) {
+        val current = dataList[position]
+        val image = current.image
+        val title = current.title
+        val shortTitle = current.shortTitle
+        val description = current.description
 
         if (image != null) {
-            holder.binding.mainProductCardThumbnailIv.setClipToOutline(true);
-            Picasso.get().load(image).fit().into(holder.binding.mainProductCardThumbnailIv);
+            holder.binding.mainProductCardThumbnailIv.clipToOutline = true
+            Picasso.get().load(image).fit().into(holder.binding.mainProductCardThumbnailIv)
         }
 
-        holder.binding.getRoot().setOnClickListener(v -> {
-            if (title != null && shortTitle != null && description != null && image != null){
-                callBack.familyMemberDetails(title,shortTitle,description,image);
+        holder.binding.root.setOnClickListener {
+            title?.let { t ->
+                shortTitle?.let { st ->
+                    description?.let { d ->
+                        image?.let { i ->
+                            callBack.familyMemberDetails(t, st, d, i)
+                        }
+                    }
+                }
             }
-
-        });
-    }
-
-    @Override
-    public int getItemCount() {
-         return dataList == null ? 0 : dataList.size();
-    }
-
-    public class mViewHolder extends RecyclerView.ViewHolder {
-
-        GalleryContentLayoutBinding binding;
-        public mViewHolder(@NonNull GalleryContentLayoutBinding itemView) {
-            super(itemView.getRoot());
-            binding = itemView;
         }
     }
 
-    public interface  CallBack{
-        void familyMemberDetails(String title, String shortTitle, String description, String image);
+    override fun getItemCount(): Int {
+        return dataList.size
+    }
+
+    inner class mViewHolder(val binding: GalleryContentLayoutBinding) : RecyclerView.ViewHolder(binding.root)
+
+    interface CallBack {
+        fun familyMemberDetails(title: String, shortTitle: String, description: String, image: String)
     }
 }

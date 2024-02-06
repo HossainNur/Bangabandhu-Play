@@ -1,74 +1,66 @@
-package com.durbar.bangabandhuplay.ui.movies;
+package com.durbar.bangabandhuplay.ui.movies
 
-import android.content.Context;
-import android.content.Intent;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
+import android.content.Context
+import android.content.Intent
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import androidx.recyclerview.widget.RecyclerView
+import com.durbar.bangabandhuplay.R
+import com.durbar.bangabandhuplay.data.model.category.root.single.OttContent
+import com.durbar.bangabandhuplay.databinding.ContentLayoutBinding
+import com.durbar.bangabandhuplay.ui.player.PlayerActivity
+import com.durbar.bangabandhuplay.utils.Constants
+import com.squareup.picasso.Picasso
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+class MoviesChildContentAdapter(
+    private val contentList: List<OttContent>,
+    private val context: Context,
+    private val title: String
+) : RecyclerView.Adapter<MoviesChildContentAdapter.ChildViewHolder>() {
 
-import com.durbar.bangabandhuplay.R;
-import com.durbar.bangabandhuplay.databinding.ContentLayoutBinding;
-import com.durbar.bangabandhuplay.ui.player.PlayerActivity;
-import com.durbar.bangabandhuplay.data.model.category.root.single.OttContent;
-import com.durbar.bangabandhuplay.utils.Constants;
-import com.squareup.picasso.Picasso;
-import java.util.List;
-
-
-public class MoviesChildContentAdapter extends RecyclerView.Adapter<MoviesChildContentAdapter.ChildViewHolder> {
-
-    private List<OttContent> contentList;
-    private Context context;
-    private String title;
-
-    public MoviesChildContentAdapter(List<OttContent> contentList,Context context,String title) {
-        this.contentList = contentList;
-        this.context = context;
-        this.title = title;
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChildViewHolder {
+        return ChildViewHolder(
+            ContentLayoutBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
-    @NonNull
-    @Override
-    public ChildViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        return new ChildViewHolder(ContentLayoutBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
-    }
+    override fun onBindViewHolder(holder: ChildViewHolder, position: Int) {
+        val current = contentList[position]
 
-    @Override
-    public void onBindViewHolder(@NonNull ChildViewHolder holder, int position) {
-        OttContent current = contentList.get(position);
+        val image = current.thumbnailPortrait
+        val uuid = current.uuid
 
-        String image = current.getThumbnailPortrait();
-        String uuid = current.getUuid();
+        holder.binding.mainProductCardThumbnailIv.clipToOutline = true
 
-        holder.binding.mainProductCardThumbnailIv.setClipToOutline(true);
+        image?.let { Picasso.get().load(it).into(holder.binding.mainProductCardThumbnailIv) }
 
-        if (image != null){
-            Picasso.get().load(image).into(holder.binding.mainProductCardThumbnailIv);
+        holder.binding.root.setOnClickListener {
+            if (uuid != null && uuid.isNotEmpty()) {
+                context.startActivity(
+                    Intent(context, PlayerActivity::class.java)
+                        .putExtra(Constants.CONTENT_UUID, uuid)
+                        .putExtra(Constants.CONTENT_SECTION_TITLE, title)
+                )
+            }
         }
 
-        holder.binding.getRoot().setOnClickListener(view -> {
-            if (uuid != null && !uuid.isEmpty()) context.startActivity(new Intent(context, PlayerActivity.class).putExtra(Constants.CONTENT_UUID,uuid).putExtra(Constants.CONTENT_SECTION_TITLE,title));
-        });
-
-        holder.binding.contentImage.startAnimation(AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.slide_up_animation));
+        holder.binding.contentImage.startAnimation(
+            AnimationUtils.loadAnimation(
+                holder.itemView.context,
+                R.anim.slide_up_animation
+            )
+        )
     }
 
-    @Override
-    public int getItemCount() {
-        return contentList != null ? contentList.size() : 0;
+    override fun getItemCount(): Int {
+        return contentList.size
     }
 
-    class ChildViewHolder extends RecyclerView.ViewHolder {
-
-        ContentLayoutBinding binding;
-
-        ChildViewHolder(ContentLayoutBinding itemView) {
-            super(itemView.getRoot());
-            binding = itemView;
-        }
-    }
-
+    inner class ChildViewHolder(val binding: ContentLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }
