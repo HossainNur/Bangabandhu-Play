@@ -63,10 +63,10 @@ class FamilyMemberFragment : Fragment(), FamilyMemberAdapter.CallBack {
     ) {
         if (title != null && shortTitle != null && description != null && image != null) {
             navController!!.navigate(R.id.familyMemberDeatilsFragment)
-            NavigationHelper.getINSTANCE().title = title
-            NavigationHelper.getINSTANCE().shortTitle = shortTitle
-            NavigationHelper.getINSTANCE().description = description
-            NavigationHelper.getINSTANCE().image = image
+            NavigationHelper.instanceNavHelper?.title = title
+            NavigationHelper.instanceNavHelper?.shortTitle = shortTitle
+            NavigationHelper.instanceNavHelper?.description = description
+            NavigationHelper.instanceNavHelper?.image = image
         }
     }
 }

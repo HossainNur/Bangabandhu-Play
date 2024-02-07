@@ -17,7 +17,7 @@ class MoreHomeRepository(private val application: Application) {
     private val apiService: ApiService
 
     init {
-        apiService = Api.getInstance().apiService
+        apiService = Api.instance!!.apiService
         contentHome = MutableLiveData()
         singleSubCategory = MutableLiveData()
     }

@@ -159,7 +159,7 @@ class MoviesFragment : Fragment() {
     }*/
     override fun onResume() {
         super.onResume()
-        NavigationHelper.getINSTANCE().currentFragment = Constants.MOVIES_FRAGMENT
+        NavigationHelper.instanceNavHelper?.currentFragment = Constants.MOVIES_FRAGMENT
     }
 
     private fun hideProgressBar() {

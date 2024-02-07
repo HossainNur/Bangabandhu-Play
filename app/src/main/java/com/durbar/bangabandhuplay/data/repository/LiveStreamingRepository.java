@@ -24,7 +24,7 @@ public class LiveStreamingRepository {
 
     public LiveStreamingRepository(Application application) {
         this.application = application;
-        apiService = Api.getInstance().getApiService();
+        apiService = Api.getInstance().apiService;
         dataList = new MutableLiveData<>();
     }
 

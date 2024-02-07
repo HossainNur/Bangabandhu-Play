@@ -14,7 +14,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class HomeRepository(private val application: Application) {
-    private val apiService: ApiService = Api.getInstance().apiService
+    private val apiService: ApiService = Api.instance!!.apiService
     private val sliderList: MutableLiveData<List<Original>?> = MutableLiveData()
     private val dataList: MutableLiveData<List<Data>?> = MutableLiveData()
 

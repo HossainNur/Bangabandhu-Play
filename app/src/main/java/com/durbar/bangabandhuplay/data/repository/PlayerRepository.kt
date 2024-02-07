@@ -19,7 +19,7 @@ class PlayerRepository(private val application: Application) {
     private val relatedContent: MutableLiveData<List<SingleContentRelatedContent>?>
 
     init {
-        apiService = Api.getInstance().apiService
+        apiService = Api.instance!!.apiService
         content = MutableLiveData()
         relatedContent = MutableLiveData()
     }

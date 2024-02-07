@@ -33,11 +33,11 @@ class FamilyMemberDetailsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentFamilyMemberDeatilsBinding.inflate(inflater, container, false)
-        image = NavigationHelper.getINSTANCE().image
-        title = NavigationHelper.getINSTANCE().title
-        shortTitle = NavigationHelper.getINSTANCE().shortTitle
-        description = NavigationHelper.getINSTANCE().description
-        appBarLayout = NavigationHelper.getINSTANCE().appBarLayout
+        image = NavigationHelper.instanceNavHelper?.image
+        title = NavigationHelper.instanceNavHelper?.title
+        shortTitle = NavigationHelper.instanceNavHelper?.shortTitle
+        description = NavigationHelper.instanceNavHelper?.description
+        appBarLayout = NavigationHelper.instanceNavHelper?.appBarLayout
         return binding!!.root
     }
 

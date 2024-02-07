@@ -19,7 +19,7 @@ class MoviesRepository(private val application: Application) {
     private val dataList: MutableLiveData<List<Data>?>
 
     init {
-        apiService = Api.getInstance().apiService
+        apiService = Api.instance!!.apiService
         sliderList = MutableLiveData()
         dataList = MutableLiveData()
     }

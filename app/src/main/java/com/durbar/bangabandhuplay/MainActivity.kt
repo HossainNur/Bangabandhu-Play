@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity() {
         binding.navDrawer.setNavigationItemSelectedListener { item: MenuItem ->
             if (item.itemId == id.familyMemberFragment) {
                 navController!!.navigate(id.familyMemberFragment)
-                NavigationHelper.getINSTANCE().appBarLayout = binding.appTopBarLayout
+                NavigationHelper.instanceNavHelper?.appBarLayout = binding.appTopBarLayout
                 unCheckableBottomNavigation()
             } else if (item.itemId == id.live) {
                 startActivity(Intent(applicationContext, StreamingActivity::class.java))
@@ -171,7 +171,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun checkCurrentBottomNav() {
         if (Constants.IS_FROM_PLAYER) {
-            when (NavigationHelper.getINSTANCE().currentFragment) {
+            when (NavigationHelper.instanceNavHelper?.currentFragment) {
                 Constants.HOME_FRAGMENT -> navController!!.navigate(id.navigation_home)
                 Constants.MOVIES_FRAGMENT -> navController!!.navigate(id.navigation_movies)
                 Constants.DOCUMENTARY_FRAGMENT -> navController!!.navigate(id.navigation_tvShows)
@@ -187,7 +187,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun checkBottomMenuCheckable() {
         super.onBackPressed()
-        when (NavigationHelper.getINSTANCE().currentFragment) {
+        when (NavigationHelper.instanceNavHelper?.currentFragment) {
             Constants.HOME_FRAGMENT -> binding.navView.menu.getItem(Constants.HOME)
                 .setCheckable(true)
 

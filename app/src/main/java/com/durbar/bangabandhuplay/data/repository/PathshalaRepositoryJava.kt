@@ -15,7 +15,7 @@ class PathshalaRepositoryJava(private val application: Application) {
     private val dataxList: MutableLiveData<PathshalaResponse?>
 
     init {
-        apiService = Api.getInstance().apiService
+        apiService = Api.instance!!.apiService
         dataxList = MutableLiveData()
     }
 

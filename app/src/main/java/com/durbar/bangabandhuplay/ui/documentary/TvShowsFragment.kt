@@ -98,7 +98,7 @@ class TvShowsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        NavigationHelper.getINSTANCE().currentFragment =
+        NavigationHelper.instanceNavHelper?.currentFragment =
             Constants.DOCUMENTARY_FRAGMENT
     }
 

@@ -1,42 +1,44 @@
-package com.durbar.bangabandhuplay.data;
+package com.durbar.bangabandhuplay.data
 
-import com.durbar.bangabandhuplay.utils.Constants;
+import com.durbar.bangabandhuplay.utils.Constants
+import okhttp3.OkHttpClient
 
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.concurrent.Volatile
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-public class Api {
-    private static volatile Api instance = null;
+class Api private constructor() {
+    @JvmField
+    val apiService: ApiService
 
-    private final ApiService apiService;
+    init {
+        val httpLoggingInterceptor = HttpLoggingInterceptor()
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+        val okHttpClient: OkHttpClient = OkHttpClient.Builder()
+            .addInterceptor(httpLoggingInterceptor)
+            .build()
+        val retrofit = Retrofit.Builder().baseUrl(Constants.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient) //add our client
+            .build()
+        apiService = retrofit.create(ApiService::class.java)
+    }
 
-    public static Api getInstance() {
-        if (instance == null) synchronized (Api.class) {
-            if (instance == null) {
-                instance = new Api();
+    companion object {
+        @JvmStatic
+        @Volatile
+        var instance: Api? = null
+            get() {
+                if (field == null) synchronized(
+                    Api::class.java
+                ) {
+                    if (field == null) {
+                        field = Api()
+                    }
+                }
+                return field
             }
-        }
-
-        return instance;
-    }
-
-    private Api() {
-        HttpLoggingInterceptor httpLoggingInterceptor = new  HttpLoggingInterceptor();
-        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(httpLoggingInterceptor)
-                .build();
-
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.BASE_URL).addConverterFactory(GsonConverterFactory.create())
-                .client(okHttpClient) //add our client
-                .build();
-
-        apiService = retrofit.create(ApiService.class);
-    }
-
-    public ApiService getApiService() {
-        return this.apiService;
+            private set
     }
 }

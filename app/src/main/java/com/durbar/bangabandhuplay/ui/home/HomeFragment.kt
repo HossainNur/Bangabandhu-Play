@@ -82,7 +82,7 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        NavigationHelper.getINSTANCE().currentFragment = Constants.HOME_FRAGMENT
+        NavigationHelper.instanceNavHelper?.currentFragment = Constants.HOME_FRAGMENT
     }
 
     private fun hideProgressBar() {

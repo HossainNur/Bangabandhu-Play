@@ -18,7 +18,7 @@ class PhotoGalleryRepository {
 
     constructor(application: Application){
         this.application = application
-        apiService = Api.getInstance().apiService
+        apiService = Api.instance!!.apiService
     }
 
     fun fetchGalleryPhotos(): MutableLiveData<List<Data>>{

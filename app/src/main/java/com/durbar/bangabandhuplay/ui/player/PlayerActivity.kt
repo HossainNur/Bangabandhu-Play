@@ -365,6 +365,7 @@ class PlayerActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
+            Constants.IS_MORE_CONTENT = false
         } else {
             val intent = Intent(this, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)

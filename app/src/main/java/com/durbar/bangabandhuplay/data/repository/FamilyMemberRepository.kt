@@ -16,7 +16,7 @@ class FamilyMemberRepository(private val application: Application) {
     private val dataList: MutableLiveData<List<Data>>
 
     init {
-        apiService = Api.getInstance().apiService
+        apiService = Api.instance!!.apiService
         dataList = MutableLiveData()
     }
 

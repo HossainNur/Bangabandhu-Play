@@ -15,7 +15,7 @@ class SearchContentsRepository(private val application: Application) {
     private val searchData: MutableLiveData<SearchResultRes?>
 
     init {
-        apiService = Api.getInstance().apiService
+        apiService = Api.instance!!.apiService
         searchData = MutableLiveData()
     }
 
