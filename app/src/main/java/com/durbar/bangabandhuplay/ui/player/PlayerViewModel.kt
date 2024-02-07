@@ -1,27 +1,24 @@
-package com.durbar.bangabandhuplay.ui.player;
+package com.durbar.bangabandhuplay.ui.player
 
-import android.app.Application;
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.MutableLiveData;
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
+import com.durbar.bangabandhuplay.data.model.get_related_contents.SingleContentRelatedContent
+import com.durbar.bangabandhuplay.data.model.ott_content.SingleOttContent
+import com.durbar.bangabandhuplay.data.repository.PlayerRepository
 
-import com.durbar.bangabandhuplay.data.model.get_related_contents.SingleContentRelatedContent;
-import com.durbar.bangabandhuplay.data.model.ott_content.SingleOttContent;
-import com.durbar.bangabandhuplay.data.repository.PlayerRepository;
+class PlayerViewModel(application: Application) : AndroidViewModel(application) {
+    private val repository: PlayerRepository
 
-import java.util.List;
-
-public class PlayerViewModel extends AndroidViewModel {
-    private PlayerRepository repository;
-    public PlayerViewModel(@NonNull Application application) {
-        super(application);
-        repository = new PlayerRepository(application);
+    init {
+        repository = PlayerRepository(application)
     }
 
-    public MutableLiveData<SingleOttContent> fetchContent(String UUID){
-        return repository.fetchContent(UUID);
+    fun fetchContent(UUID: String?): MutableLiveData<SingleOttContent?> {
+        return repository.fetchContent(UUID)
     }
-    public MutableLiveData<List<SingleContentRelatedContent>> getRelatedOttContents(String UUID) {
-        return repository.getRelatedOttContents(UUID);
+
+    fun getRelatedOttContents(UUID: String?): MutableLiveData<List<SingleContentRelatedContent>?> {
+        return repository.getRelatedOttContents(UUID)
     }
 }

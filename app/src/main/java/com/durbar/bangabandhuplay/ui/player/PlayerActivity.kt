@@ -1,371 +1,376 @@
-package com.durbar.bangabandhuplay.ui.player;
+package com.durbar.bangabandhuplay.ui.player
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import android.content.DialogInterface
+import android.content.Intent
+import android.content.pm.ActivityInfo
+import android.net.Uri
+import android.os.Bundle
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.durbar.bangabandhuplay.MainActivity
+import com.durbar.bangabandhuplay.R
+import com.durbar.bangabandhuplay.data.model.get_related_contents.SingleContentRelatedContent
+import com.durbar.bangabandhuplay.data.model.ott_content.SingleOttContent
+import com.durbar.bangabandhuplay.databinding.ActivityPlayerBinding
+import com.durbar.bangabandhuplay.ui.more.MoreActivity
+import com.durbar.bangabandhuplay.utils.Constants
+import com.durbar.bangabandhuplay.utils.TrackSelectionDialog
+import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
+import com.google.android.exoplayer2.ui.PlayerView
+import com.google.gson.Gson
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
-import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.net.Uri;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.durbar.bangabandhuplay.MainActivity;
-import com.durbar.bangabandhuplay.R;
-import com.durbar.bangabandhuplay.databinding.ActivityPlayerBinding;
-import com.durbar.bangabandhuplay.ui.more.MoreActivity;
-import com.durbar.bangabandhuplay.utils.NavigationHelper;
-import com.durbar.bangabandhuplay.utils.TrackSelectionDialog;
-import com.durbar.bangabandhuplay.data.model.ott_content.ContentSource;
-import com.durbar.bangabandhuplay.ui.search.SearchResultActivity;
-import com.durbar.bangabandhuplay.utils.Constants;
-import com.google.android.exoplayer2.ExoPlayer;
-import com.google.android.exoplayer2.MediaItem;
-import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
-import com.google.android.exoplayer2.ui.PlayerView;
-import com.google.gson.Gson;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-public class PlayerActivity extends AppCompatActivity {
-
-    private ActivityPlayerBinding binding;
-    private String title;
-    private PlayerViewModel viewModel;
-    private String uuid, videoPath;
-    private PlayerView playerView;
-    private ExoPlayer exoPlayer;
-    private ImageView btnFullScreen, btnReplay, btnForward, btnBack, btnLockscreen, btnSetting;
-    private ConstraintLayout contentTopSection;
-    private TextView moviesTitle;
-    private boolean isShowingTrackSelectionDialog;
-    private NavController navController;
-    boolean isFullScreen = false, isLock = false, ottContent = false, relatedContent = false,isMore;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = ActivityPlayerBinding.inflate(getLayoutInflater());
-        viewModel = new ViewModelProvider(this).get(PlayerViewModel.class);
-        uuid = getIntent().getStringExtra(Constants.CONTENT_UUID);
-        setContentView(binding.getRoot());
-
-        title = getIntent().getStringExtra(Constants.CONTENT_SECTION_TITLE);
-        isMore = getIntent().getBooleanExtra(Constants.CONTENT_IS_MORE,false);
-        setSupportActionBar(binding.toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.baseline_arrow_back_ios_24);
-        getSupportActionBar().setTitle(title);
-
-
-        playerView = findViewById(R.id.video_player);
-        btnFullScreen = findViewById(R.id.bt_fullscreen);
-        btnReplay = findViewById(R.id.exo_replay);
-        btnForward = findViewById(R.id.exo_forward);
-        btnBack = findViewById(R.id.iv_back);
-        moviesTitle = findViewById(R.id.tv_content_title);
-        btnLockscreen = findViewById(R.id.exo_lock);
-        btnSetting = findViewById(R.id.iv_setting);
-        contentTopSection = findViewById(R.id.top_movies_section_container);
-
-
-
-        viewModel.fetchContent(uuid).observe(this, singleOttContent -> {
+class PlayerActivity : AppCompatActivity() {
+    private var binding: ActivityPlayerBinding? = null
+    private var title: String? = null
+    private var viewModel: PlayerViewModel? = null
+    private var uuid: String? = null
+    private var videoPath: String? = null
+    private var playerView: PlayerView? = null
+    private var exoPlayer: ExoPlayer? = null
+    private var btnFullScreen: ImageView? = null
+    private var btnReplay: ImageView? = null
+    private var btnForward: ImageView? = null
+    private var btnBack: ImageView? = null
+    private var btnLockscreen: ImageView? = null
+    private var btnSetting: ImageView? = null
+    private var contentTopSection: ConstraintLayout? = null
+    private var moviesTitle: TextView? = null
+    private var isShowingTrackSelectionDialog = false
+    private val navController: NavController? = null
+    var isFullScreen = false
+    var isLock = false
+    var ottContent = false
+    var relatedContent = false
+    var isMore = false
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityPlayerBinding.inflate(
+            layoutInflater
+        )
+        viewModel = ViewModelProvider(this).get(PlayerViewModel::class.java)
+        uuid = intent.getStringExtra(Constants.CONTENT_UUID)
+        setContentView(binding!!.root)
+        title = intent.getStringExtra(Constants.CONTENT_SECTION_TITLE)
+        isMore = intent.getBooleanExtra(Constants.CONTENT_IS_MORE, false)
+        setSupportActionBar(binding!!.toolbar)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_ios_24)
+        supportActionBar!!.title = title
+        playerView = findViewById(R.id.video_player)
+        btnFullScreen = findViewById(R.id.bt_fullscreen)
+        btnReplay = findViewById(R.id.exo_replay)
+        btnForward = findViewById(R.id.exo_forward)
+        btnBack = findViewById(R.id.iv_back)
+        moviesTitle = findViewById(R.id.tv_content_title)
+        btnLockscreen = findViewById(R.id.exo_lock)
+        btnSetting = findViewById(R.id.iv_setting)
+        contentTopSection = findViewById(R.id.top_movies_section_container)
+        viewModel?.fetchContent(uuid)?.observe(this) { singleOttContent ->
             try {
-                if (singleOttContent.getData().getContentData() != null) {
-                    ottContent = true;
-                    String title = singleOttContent.getData().getContentData().getTitle();
-                    String description = singleOttContent.getData().getContentData().getSynopsisEnglish();
-                    String releaseDate = singleOttContent.getData().getContentData().getReleaseDate();
-                    String genre = singleOttContent.getData().getContentData().getGenre();
-                    String runTime = singleOttContent.getData().getContentData().getRuntime();
-                    List<ContentSource> contentSourceList = singleOttContent.getData().getContentData().getContentSource();
-                    if (title != null) {
-                        binding.moviesTitle.setText(title);
-                        moviesTitle.setText(title);
+                if (singleOttContent?.data?.contentData != null) {
+                    ottContent = true
+                    val title = singleOttContent.data.contentData.title.orEmpty()
+                    val description = singleOttContent.data.contentData.synopsisEnglish.orEmpty()
+                    val releaseDate = singleOttContent.data.contentData.releaseDate.orEmpty()
+                    val genre = singleOttContent.data.contentData.genre.orEmpty()
+                    val runTime = singleOttContent.data.contentData.runtime.orEmpty()
+                    val contentSourceList =
+                        singleOttContent.data.contentData.contentSource.orEmpty()
+                    if (title.isNotEmpty()) {
+                        binding?.moviesTitle?.text = title
+                        moviesTitle?.text = title
                     }
-                    if (description != null) binding.moviesDescription.setText(description);
+                    if (description.isNotEmpty()) binding?.moviesDescription?.text = description
 
-                    if (singleOttContent.getData().getContentData().getCastAndCrews() != null && !singleOttContent.getData().getContentData().getCastAndCrews().isEmpty()){
-                        binding.castCrewText.setVisibility(View.VISIBLE);
-                        binding.castCrewRv.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-                        binding.castCrewRv.setAdapter(new CastCrewSliderAdapter(singleOttContent.getData().getContentData().getCastAndCrews()));
-                    }else binding.castCrewText.setVisibility(View.GONE);
+                    if (singleOttContent.data.contentData.castAndCrews != null &&
+                        singleOttContent.data.contentData.castAndCrews.isNotEmpty()
+                    ) {
+                        binding?.castCrewText?.visibility = View.VISIBLE
+                        binding?.castCrewRv?.layoutManager =
+                            LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+                        binding?.castCrewRv?.adapter =
+                            CastCrewSliderAdapter(singleOttContent.data.contentData.castAndCrews)
+                    } else binding?.castCrewText?.visibility = View.GONE
 
-                    if (contentSourceList != null && !contentSourceList.isEmpty()) {
-                        for (ContentSource c : contentSourceList) {
-                            if (c.getSourceType().equalsIgnoreCase("content_path")) {
-                                videoPath = c.getContentSource();
+                    if (contentSourceList.isNotEmpty()) {
+                        for (c in contentSourceList) {
+                            if (c.sourceType.equals("content_path", true)) {
+                                videoPath = c.contentSource.orEmpty()
                             }
                         }
                     }
 
-                    if (videoPath != null && !videoPath.isEmpty()) {
-                        initializePlayer(videoPath);
+                    if (videoPath?.isNotEmpty() == true) {
+                        initializePlayer(videoPath!!)
                     }
 
-                    if (runTime != null){
-                        long timeSec = Long.parseLong(runTime);
-                        int hours = (int) timeSec / 3600;
-                        int temp = (int) timeSec - hours * 3600;
-                        int mins = temp / 60;
-                        temp = temp - mins * 60;
-                        int secs = temp;
+                    if (runTime.isNotEmpty()) {
+                        val timeSec = runTime.toLong()
+                        val hours = (timeSec / 3600).toInt()
+                        var temp = (timeSec - hours * 3600).toInt()
+                        val mins = temp / 60
+                        temp -= mins * 60
+                        val secs = temp
 
-                        String requiredFormat = hours + "h " + mins + "m " + secs + "s";
+                        val requiredFormat = "$hours h $mins m $secs s"
                         // content runtime
-                        binding.tvRunTime.setText(requiredFormat);
+                        binding?.tvRunTime?.text = requiredFormat
                     }
 
-                    if (releaseDate != null) {
-                        SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    if (releaseDate.isNotEmpty()) {
+                        val inputDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                         try {
-                            Date inputDate = inputDateFormat.parse(releaseDate);
-                            SimpleDateFormat outputDateFormat = new SimpleDateFormat("MMMM dd, yyyy");
-                            String outputDateStr = outputDateFormat.format(inputDate);
-                            binding.tvReleaseDate.setText(outputDateStr);
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                            val inputDate: Date = inputDateFormat.parse(releaseDate)!!
+                            val outputDateFormat =
+                                SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault())
+                            val outputDateStr: String = outputDateFormat.format(inputDate)
+                            binding?.tvReleaseDate?.text = outputDateStr
+                        } catch (e: Exception) {
+                            e.printStackTrace()
                         }
                     }
 
-                    if (genre != null) {
+                    if (genre.isNotEmpty()) {
+                        val gson = Gson()
+                        val array: Array<String> = gson.fromJson(genre, Array<String>::class.java)
 
-                        Gson gson = new Gson();
-                        String[] array = gson.fromJson(genre, String[].class);
-
-                        List<String> detailsList = new ArrayList<>();
-                        for (String item : array) {
-                            detailsList.add(item.trim());
+                        val detailsList = mutableListOf<String>()
+                        for (item in array) {
+                            detailsList.add(item.trim())
                         }
 
-                        binding.rvDetails.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-                        binding.rvDetails.setAdapter(new DetailsSectionAdapter(detailsList));
+                        binding?.rvDetails?.layoutManager =
+                            LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+                        binding?.rvDetails?.adapter = DetailsSectionAdapter(detailsList)
 
                     }
-                    hideProgressBar();
+                    hideProgressBar()
                 }
-
-
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
-        });
-
-        viewModel.getRelatedOttContents(uuid).observe(this, singleContentRelatedContents -> {
-            try {
-                if (singleContentRelatedContents != null && !singleContentRelatedContents.isEmpty()) {
-                    relatedContent = true;
-                    binding.rvMoreLikeThis.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-                    binding.rvMoreLikeThis.setAdapter(new GetRelatedContentsAdapter(singleContentRelatedContents, this,title));
-                    hideProgressBar();
+        }
+        viewModel!!.getRelatedOttContents(uuid).observe(this) { singleContentRelatedContents->
+                try {
+                    if (singleContentRelatedContents != null && !singleContentRelatedContents.isEmpty()) {
+                        relatedContent = true
+                        binding!!.rvMoreLikeThis.layoutManager =
+                            LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+                        binding!!.rvMoreLikeThis.adapter =
+                            GetRelatedContentsAdapter(singleContentRelatedContents, this, title!!)
+                        hideProgressBar()
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
-        });
-
-        btnReplay.setOnClickListener(view -> {
-            if (exoPlayer.getCurrentPosition() == 0) exoPlayer.seekTo(0);
-            else {
-                exoPlayer.seekTo(exoPlayer.getCurrentPosition() - 10000);
+        btnReplay?.setOnClickListener(View.OnClickListener { view: View? ->
+            if (exoPlayer!!.currentPosition == 0L) exoPlayer!!.seekTo(0) else {
+                exoPlayer!!.seekTo(exoPlayer!!.currentPosition - 10000)
             }
-        });
-
-        btnForward.setOnClickListener(view -> {
-            exoPlayer.seekTo(exoPlayer.getCurrentPosition() + 10000);
-        });
-
-        btnSetting.setOnClickListener(v -> {
+        })
+        btnForward?.setOnClickListener(View.OnClickListener { view: View? ->
+            exoPlayer!!.seekTo(
+                exoPlayer!!.currentPosition + 10000
+            )
+        })
+        btnSetting?.setOnClickListener(View.OnClickListener { v: View? ->
             if (!isShowingTrackSelectionDialog && TrackSelectionDialog.willHaveContent(exoPlayer)) {
-                isShowingTrackSelectionDialog = true;
-                TrackSelectionDialog trackSelectionDialog = TrackSelectionDialog.createForPlayer(exoPlayer,
-                        /* onDismissListener= */ dismissedDialog -> isShowingTrackSelectionDialog = false);
-                trackSelectionDialog.show(getSupportFragmentManager(), /* tag= */ null);
+                isShowingTrackSelectionDialog = true
+                val trackSelectionDialog = TrackSelectionDialog.createForPlayer(
+                    exoPlayer
+                )  /* onDismissListener= */
+                { dismissedDialog: DialogInterface? -> isShowingTrackSelectionDialog = false }
+                trackSelectionDialog.show(supportFragmentManager,  /* tag= */null)
             }
-
-        });
-
-        btnFullScreen.setOnClickListener(view -> {
+        })
+        btnFullScreen?.setOnClickListener(View.OnClickListener { view: View? ->
             if (!isFullScreen) {
-                btnFullScreen.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.baseline_fullscreen_exit_24));
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-                ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) playerView.getLayoutParams();
-                params.width = params.MATCH_PARENT;
-                params.height = params.MATCH_PARENT;
-                playerView.setLayoutParams(params);
-                contentTopSection.setVisibility(View.VISIBLE);
-                getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-                binding.videoPlayer.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIT);
+                btnFullScreen?.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        applicationContext,
+                        R.drawable.baseline_fullscreen_exit_24
+                    )
+                )
+                requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
+                val params = playerView?.getLayoutParams() as ConstraintLayout.LayoutParams
+                params.width = ViewGroup.LayoutParams.MATCH_PARENT
+                params.height = ViewGroup.LayoutParams.MATCH_PARENT
+                playerView?.setLayoutParams(params)
+                contentTopSection?.setVisibility(View.VISIBLE)
+                window.setFlags(
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN
+                )
+                binding!!.videoPlayer.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT
             } else {
-                videoFullScreen();
+                videoFullScreen()
             }
-            isFullScreen = !isFullScreen;
-        });
-
-        btnBack.setOnClickListener(view -> {
-            videoFullScreen();
-            isFullScreen = !isFullScreen;
-        });
-
-        btnLockscreen.setOnClickListener(view -> {
+            isFullScreen = !isFullScreen
+        })
+        btnBack?.setOnClickListener(View.OnClickListener { view: View? ->
+            videoFullScreen()
+            isFullScreen = !isFullScreen
+        })
+        btnLockscreen?.setOnClickListener(View.OnClickListener { view: View? ->
             //change icon base on toggle lock screen or unlock screen
             if (!isLock) {
-                btnLockscreen.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.baseline_lock_24));
+                btnLockscreen?.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        applicationContext,
+                        R.drawable.baseline_lock_24
+                    )
+                )
             } else {
-                btnLockscreen.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.baseline_lock_open_24));
+                btnLockscreen?.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        applicationContext,
+                        R.drawable.baseline_lock_open_24
+                    )
+                )
             }
-            isLock = !isLock;
+            isLock = !isLock
             //method for toggle will do next
-            lockScreen(isLock);
-        });
+            lockScreen(isLock)
+        })
     }
 
-    private void hideProgressBar() {
+    private fun hideProgressBar() {
         if (ottContent && relatedContent) {
-            binding.contentSectionContainer.setVisibility(View.VISIBLE);
-            binding.progressBar.setVisibility(View.GONE);
+            binding!!.contentSectionContainer.visibility = View.VISIBLE
+            binding!!.progressBar.visibility = View.GONE
         }
     }
 
-    void lockScreen(boolean lock) {
+    fun lockScreen(lock: Boolean) {
         //just hide the control for lock screen and vise versa
-        LinearLayout sec_mid = findViewById(R.id.sec_controlvid1);
-        LinearLayout sec_bottom = findViewById(R.id.sec_controlvid2);
+        val sec_mid = findViewById<LinearLayout>(R.id.sec_controlvid1)
+        val sec_bottom = findViewById<LinearLayout>(R.id.sec_controlvid2)
         if (lock) {
-            sec_mid.setVisibility(View.INVISIBLE);
-            sec_bottom.setVisibility(View.INVISIBLE);
-            btnBack.setVisibility(View.INVISIBLE);
-            moviesTitle.setVisibility(View.INVISIBLE);
-            btnSetting.setVisibility(View.INVISIBLE);
+            sec_mid.visibility = View.INVISIBLE
+            sec_bottom.visibility = View.INVISIBLE
+            btnBack!!.visibility = View.INVISIBLE
+            moviesTitle!!.visibility = View.INVISIBLE
+            btnSetting!!.visibility = View.INVISIBLE
         } else {
-            sec_mid.setVisibility(View.VISIBLE);
-            sec_bottom.setVisibility(View.VISIBLE);
-            btnBack.setVisibility(View.VISIBLE);
-            moviesTitle.setVisibility(View.VISIBLE);
-            btnSetting.setVisibility(View.VISIBLE);
-            moviesTitle.setVisibility(View.VISIBLE);
+            sec_mid.visibility = View.VISIBLE
+            sec_bottom.visibility = View.VISIBLE
+            btnBack!!.visibility = View.VISIBLE
+            moviesTitle!!.visibility = View.VISIBLE
+            btnSetting!!.visibility = View.VISIBLE
+            moviesTitle!!.visibility = View.VISIBLE
         }
     }
 
-    private void videoFullScreen() {
-        btnFullScreen.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.baseline_fullscreen_24));
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) playerView.getLayoutParams();
-        params.width = params.MATCH_PARENT;
-        params.height = (int) (200 * getApplicationContext().getResources().getDisplayMetrics().density);
-        playerView.setLayoutParams(params);
-        contentTopSection.setVisibility(View.GONE);
-        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    private fun videoFullScreen() {
+        btnFullScreen!!.setImageDrawable(
+            ContextCompat.getDrawable(
+                applicationContext,
+                R.drawable.baseline_fullscreen_24
+            )
+        )
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        val params = playerView!!.layoutParams as ConstraintLayout.LayoutParams
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT
+        params.height = (200 * applicationContext.resources.displayMetrics.density).toInt()
+        playerView!!.layoutParams = params
+        contentTopSection!!.visibility = View.GONE
+        window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
     }
 
-    private void initializePlayer(String videoPath) {
+    private fun initializePlayer(videoPath: String) {
         try {
-            Uri videoUri = Uri.parse(videoPath);
-            exoPlayer = new ExoPlayer.Builder(this).build();
-            binding.videoPlayer.setPlayer(exoPlayer);
-            MediaItem mediaItem = MediaItem.fromUri(videoUri);
-            exoPlayer.setMediaItem(mediaItem);
-            exoPlayer.setPlayWhenReady(true);
-            exoPlayer.prepare();
-            exoPlayer.play();
-
-        } catch (Exception e) {
-            e.printStackTrace();
+            val videoUri = Uri.parse(videoPath)
+            exoPlayer = ExoPlayer.Builder(this).build()
+            binding!!.videoPlayer.player = exoPlayer
+            val mediaItem = MediaItem.fromUri(videoUri)
+            exoPlayer!!.setMediaItem(mediaItem)
+            exoPlayer!!.playWhenReady = true
+            exoPlayer!!.prepare()
+            exoPlayer!!.play()
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        onBackPressed();
-        return super.onOptionsItemSelected(item);
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        onBackPressed()
+        return super.onOptionsItemSelected(item)
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
+    override fun onPause() {
+        super.onPause()
         if (exoPlayer != null) {
-            exoPlayer.pause();
-            exoPlayer.setPlayWhenReady(false);
+            exoPlayer!!.pause()
+            exoPlayer!!.playWhenReady = false
         }
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (exoPlayer != null){
-            exoPlayer.stop();
+    override fun onStop() {
+        super.onStop()
+        if (exoPlayer != null) {
+            exoPlayer!!.stop()
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        if (exoPlayer != null){
-            exoPlayer.release();
-            exoPlayer = null;
+    override fun onDestroy() {
+        super.onDestroy()
+        window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        if (exoPlayer != null) {
+            exoPlayer!!.release()
+            exoPlayer = null
         }
     }
 
-    @Override
-    public void onBackPressed() {
-
-        Constants.IS_FROM_PLAYER = true;
-        if (Constants.IS_MORE_CONTENT){
-            String id = Constants.getSharedPref(this,Constants.CONTENT_ID);
-            String slug = Constants.getSharedPref(this,Constants.CONTENT_SLUG);
-            String title = Constants.getSharedPref(this,Constants.CONTENT_SECTION_TITLE);
-            if (Constants.IS_MORE_HOME){
-                Intent intent = new Intent(this, MoreActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                intent.putExtra(Constants.CONTENT_ID, id);
-                intent.putExtra(Constants.CONTENT_SECTION_TITLE, title);
-                intent.putExtra(Constants.CONTENT_IS_HOME,true);
-                startActivity(intent);
-                finish();
-                Constants.setEditor(this,Constants.CONTENT_ID,null);
-                Constants.setEditor(this,Constants.CONTENT_SECTION_TITLE,null);
-                Constants.setEditor(this,Constants.CONTENT_IS_HOME,null);
-            }else {
-                Intent intent = new Intent(this, MoreActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                intent.putExtra(Constants.CONTENT_SECTION_TITLE, title);
-                intent.putExtra(Constants.CONTENT_SLUG, slug);
-                intent.putExtra(Constants.CONTENT_IS_HOME,false);
-                startActivity(intent);
-                Constants.setEditor(this,Constants.CONTENT_SLUG,null);
-                Constants.setEditor(this,Constants.CONTENT_SECTION_TITLE,null);
-                Constants.setEditor(this,Constants.CONTENT_IS_HOME,null);
-
+    override fun onBackPressed() {
+        Constants.IS_FROM_PLAYER = true
+        if (Constants.IS_MORE_CONTENT) {
+            val id = Constants.getSharedPref(this, Constants.CONTENT_ID)
+            val slug = Constants.getSharedPref(this, Constants.CONTENT_SLUG)
+            val title = Constants.getSharedPref(this, Constants.CONTENT_SECTION_TITLE)
+            if (Constants.IS_MORE_HOME) {
+                val intent = Intent(this, MoreActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                intent.putExtra(Constants.CONTENT_ID, id)
+                intent.putExtra(Constants.CONTENT_SECTION_TITLE, title)
+                intent.putExtra(Constants.CONTENT_IS_HOME, true)
+                startActivity(intent)
+                finish()
+            } else {
+                val intent = Intent(this, MoreActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                intent.putExtra(Constants.CONTENT_SECTION_TITLE, title)
+                intent.putExtra(Constants.CONTENT_SLUG, slug)
+                intent.putExtra(Constants.CONTENT_IS_HOME, false)
+                startActivity(intent)
+                finish()
             }
-
-        }else {
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finish();
+        } else {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            startActivity(intent)
+            finish()
         }
-
     }
-
 }
