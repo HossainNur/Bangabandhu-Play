@@ -1,18 +1,24 @@
 package com.durbar.bangabandhuplay.data.model.get_related_contents;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class GetRelatedContent {
+    @Nullable
     @SerializedName("status")
     @Expose
     public Boolean status;
+    @Nullable
     @SerializedName("message")
     @Expose
     public String message;
+    @Nullable
     @SerializedName("data")
     @Expose
     public Data data;
+    @Nullable
     @SerializedName("errors")
     @Expose
     public Object errors;

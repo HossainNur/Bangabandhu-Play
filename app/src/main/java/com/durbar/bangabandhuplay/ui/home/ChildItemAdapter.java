@@ -26,7 +26,7 @@ public class ChildItemAdapter extends RecyclerView.Adapter<ChildItemAdapter.Chil
     private Context context;
     private String title;
 
-    public ChildItemAdapter(List<FrontendCustomContent> frontendCustomContentList, Context context,String title) {
+    public ChildItemAdapter(List<FrontendCustomContent> frontendCustomContentList, Context context, String title) {
         this.frontendCustomContentList = frontendCustomContentList;
         this.context = context;
         this.title = title;
@@ -43,10 +43,8 @@ public class ChildItemAdapter extends RecyclerView.Adapter<ChildItemAdapter.Chil
 
         OttContent current = frontendCustomContentList.get(position).getOttContent();
         holder.binding.mainProductCardThumbnailIv.setClipToOutline(true);
-        
+
         if (frontendCustomContentList.get(position).getOttContent() != null){
-
-
             String image = current.getThumbnailPortrait();
             String uuid = current.getUuid();
 
@@ -61,7 +59,6 @@ public class ChildItemAdapter extends RecyclerView.Adapter<ChildItemAdapter.Chil
 
             holder.binding.contentImage.startAnimation(AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.slide_up_animation));
         }
-
 
 
     }

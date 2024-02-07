@@ -40,16 +40,19 @@ public class TunesSliderAdapter extends RecyclerView.Adapter<TunesSliderAdapter.
     public void onBindViewHolder(@NonNull TunesSliderAdapter.mViewHolder holder, int position) {
 
         CategorySlider current = categorySliderList.get(position);
-        String title = current.getTitle();
-        String image = current.getLandscapeImage();
-        String description = current.getDescription().toString();
-        String uuid = current.getContentUrl();
-        if (image != null) Picasso.get().load(current.getImage()).into(holder.binding.categoriesSliderImage);
-        if (title != null) holder.binding.sliderTitle.setText(title);
-        if (description != null) holder.binding.sliderDesc.setText(description);
-        holder.binding.getRoot().setOnClickListener(v -> {
-            if (uuid != null && !uuid.isEmpty()) context.startActivity(new Intent(context, PlayerActivity.class).putExtra(Constants.CONTENT_UUID, uuid).putExtra(Constants.CONTENT_SECTION_TITLE,"Slider"));
-        });
+        if (categorySliderList.get(position) != null){
+            String title = current.getTitle();
+            String image = current.getLandscapeImage();
+            String description = current.getDescription().toString();
+            String uuid = current.getContentUrl();
+            if (image != null) Picasso.get().load(current.getImage()).into(holder.binding.categoriesSliderImage);
+            if (title != null) holder.binding.sliderTitle.setText(title);
+            if (description != null) holder.binding.sliderDesc.setText(description);
+            holder.binding.getRoot().setOnClickListener(v -> {
+                if (uuid != null && !uuid.isEmpty()) context.startActivity(new Intent(context, PlayerActivity.class).putExtra(Constants.CONTENT_UUID, uuid).putExtra(Constants.CONTENT_SECTION_TITLE,"Slider"));
+            });
+        }
+
     }
 
     @Override

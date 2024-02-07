@@ -1,17 +1,22 @@
 package com.durbar.bangabandhuplay.data.model.category.root.single;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class SelectedCategoryItem {
 
 
+    @Nullable
     @SerializedName("id")
     @Expose
     private Integer id;
+    @Nullable
     @SerializedName("ott_content")
     @Expose
     private OttContent__1 ottContent;
+    @Nullable
     @SerializedName("is_featured")
     @Expose
     private Integer isFeatured;

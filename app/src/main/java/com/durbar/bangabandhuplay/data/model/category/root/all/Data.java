@@ -3,29 +3,32 @@ package com.durbar.bangabandhuplay.data.model.category.root.all;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import javax.annotation.Nullable;
+
 public class Data {
+    @Nullable
     @SerializedName("id")
     @Expose
     private Integer id;
-    @SerializedName("title")
+    @Nullable@SerializedName("title")
     @Expose
     private String title;
-    @SerializedName("slug")
+    @Nullable@SerializedName("slug")
     @Expose
     private String slug;
-    @SerializedName("image")
+    @Nullable@SerializedName("image")
     @Expose
     private String image;
-    @SerializedName("order")
+    @Nullable@SerializedName("order")
     @Expose
     private Integer order;
-    @SerializedName("seo_title")
+    @Nullable@SerializedName("seo_title")
     @Expose
     private String seoTitle;
-    @SerializedName("seo_description")
+    @Nullable@SerializedName("seo_description")
     @Expose
     private String seoDescription;
-    @SerializedName("status")
+    @Nullable@SerializedName("status")
     @Expose
     private String status;
 

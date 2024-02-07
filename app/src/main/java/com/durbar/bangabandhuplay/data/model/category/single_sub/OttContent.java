@@ -1,150 +1,200 @@
 package com.durbar.bangabandhuplay.data.model.category.single_sub;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class OttContent {
+    @Nullable
     @SerializedName("id")
     @Expose
     public Integer id;
+    @Nullable
     @SerializedName("uuid")
     @Expose
     public String uuid;
+    @Nullable
     @SerializedName("title")
     @Expose
     public String title;
+    @Nullable
     @SerializedName("short_title")
     @Expose
     public Object shortTitle;
+    @Nullable
     @SerializedName("root_category_id")
     @Expose
     public Integer rootCategoryId;
+    @Nullable
     @SerializedName("sub_category_id")
     @Expose
     public Integer subCategoryId;
+    @Nullable
     @SerializedName("sub_sub_category_id")
     @Expose
     public Object subSubCategoryId;
+    @Nullable
     @SerializedName("series_id")
     @Expose
     public Object seriesId;
+    @Nullable
     @SerializedName("content_type_id")
     @Expose
     public Object contentTypeId;
+    @Nullable
     @SerializedName("description")
     @Expose
     public Object description;
+    @Nullable
     @SerializedName("bangla_description")
     @Expose
     public Object banglaDescription;
+    @Nullable
     @SerializedName("year")
     @Expose
     public Object year;
+    @Nullable
     @SerializedName("runtime")
     @Expose
     public Object runtime;
+    @Nullable
     @SerializedName("youtube_url")
     @Expose
     public Object youtubeUrl;
+    @Nullable
     @SerializedName("cloud_url")
     @Expose
     public Object cloudUrl;
+    @Nullable
     @SerializedName("intro_starts")
     @Expose
     public Object introStarts;
+    @Nullable
     @SerializedName("intro_end")
     @Expose
     public Object introEnd;
+    @Nullable
     @SerializedName("next_end")
     @Expose
     public Object nextEnd;
+    @Nullable
     @SerializedName("poster")
     @Expose
     public Object poster;
+    @Nullable
     @SerializedName("backdrop")
     @Expose
     public Object backdrop;
+    @Nullable
     @SerializedName("thumbnail_portrait")
     @Expose
     public String thumbnailPortrait;
+    @Nullable
     @SerializedName("thumbnail_landscape")
     @Expose
     public String thumbnailLandscape;
+    @Nullable
     @SerializedName("tv_cover")
     @Expose
     public Object tvCover;
+    @Nullable
     @SerializedName("view_count")
     @Expose
     public Object viewCount;
+    @Nullable
     @SerializedName("release_date")
     @Expose
     public Object releaseDate;
+    @Nullable
     @SerializedName("status")
     @Expose
     public String status;
+    @Nullable
     @SerializedName("access")
     @Expose
     public String access;
+    @Nullable
     @SerializedName("order")
     @Expose
     public Integer order;
+    @Nullable
     @SerializedName("series_order")
     @Expose
     public Integer seriesOrder;
+    @Nullable
     @SerializedName("number_of_allowed_audience_per_user")
     @Expose
     public Integer numberOfAllowedAudiencePerUser;
+    @Nullable
     @SerializedName("title_bangla")
     @Expose
     public Object titleBangla;
+    @Nullable
     @SerializedName("content_type")
     @Expose
     public Object contentType;
+    @Nullable
     @SerializedName("vod_type")
     @Expose
     public String vodType;
+    @Nullable
     @SerializedName("video_type")
     @Expose
     public String videoType;
+    @Nullable
     @SerializedName("upload_date")
     @Expose
     public Object uploadDate;
+    @Nullable
     @SerializedName("imdb")
     @Expose
     public Object imdb;
+    @Nullable
     @SerializedName("saga")
     @Expose
     public Object saga;
+    @Nullable
     @SerializedName("is_original")
     @Expose
     public String isOriginal;
+    @Nullable
     @SerializedName("synopsis_english")
     @Expose
     public Object synopsisEnglish;
+    @Nullable
     @SerializedName("synopsis_bangla")
     @Expose
     public Object synopsisBangla;
+    @Nullable
     @SerializedName("genre")
     @Expose
     public String genre;
+    @Nullable
     @SerializedName("tags")
     @Expose
     public String tags;
+    @Nullable
     @SerializedName("associated_teaser")
     @Expose
     public Object associatedTeaser;
+    @Nullable
     @SerializedName("up_comming")
     @Expose
     public Object upComming;
+    @Nullable
     @SerializedName("content_owner_id")
     @Expose
     public Integer contentOwnerId;
+    @Nullable
     @SerializedName("external_id")
     @Expose
     public String externalId;
+    @Nullable
     @SerializedName("created_at")
     @Expose
     public String createdAt;
+    @Nullable
     @SerializedName("updated_at")
     @Expose
     public String updatedAt;

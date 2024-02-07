@@ -38,28 +38,27 @@ public class MoviesContentAdapter extends RecyclerView.Adapter<MoviesContentAdap
     public void onBindViewHolder(@NonNull ParentViewHolder holder, int position) {
 
         SubCategory current = subCategories.get(position);
-        String title = current.getTitle();
-        String slug = current.getSlug();
 
-        List<OttContent> ottContents = current.getOttContents();
+        if (subCategories.get(position) != null){
+            String title = current.getTitle();
+            String slug = current.getSlug();
 
+            List<OttContent> ottContents = current.getOttContents();
 
+            holder.binding.itemRv.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
+            holder.binding.itemRv.setAdapter(new MoviesChildContentAdapter(ottContents, context,title));
 
-        holder.binding.itemRv.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
-        holder.binding.itemRv.setAdapter(new MoviesChildContentAdapter(ottContents, context,title));
+            if (title != null) {
+                holder.binding.titleTv.setText(title);
+            }
 
-
-
-        if (title != null) {
-            holder.binding.titleTv.setText(title);
+            holder.binding.moreTv.setOnClickListener(view -> {
+                if (slug != null && title != null) context.startActivity(new Intent(context, MoreActivity.class).putExtra(Constants.CONTENT_SLUG, slug).putExtra(Constants.CONTENT_SECTION_TITLE, title).putExtra(Constants.CONTENT_IS_HOME, false));
+                Constants.setEditor(context,Constants.CONTENT_SLUG,slug);
+                Constants.setEditor(context,Constants.CONTENT_SECTION_TITLE,title);
+                Constants.setEditor(context,Constants.CONTENT_IS_HOME,false);
+            });
         }
-
-        holder.binding.moreTv.setOnClickListener(view -> {
-            if (slug != null && title != null) context.startActivity(new Intent(context, MoreActivity.class).putExtra(Constants.CONTENT_SLUG, slug).putExtra(Constants.CONTENT_SECTION_TITLE, title).putExtra(Constants.CONTENT_IS_HOME, false));
-            Constants.setEditor(context,Constants.CONTENT_SLUG,slug);
-            Constants.setEditor(context,Constants.CONTENT_SECTION_TITLE,title);
-            Constants.setEditor(context,Constants.CONTENT_IS_HOME,false);
-        });
 
     }
 

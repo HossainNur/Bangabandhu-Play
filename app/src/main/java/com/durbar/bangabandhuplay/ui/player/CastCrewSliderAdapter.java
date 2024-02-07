@@ -30,22 +30,26 @@ public class CastCrewSliderAdapter extends RecyclerView.Adapter<CastCrewSliderAd
     public void onBindViewHolder(@NonNull CastCrewSliderAdapter.mViewHolder holder, int position) {
 
         CastAndCrew current = castAndCrewList.get(position);
-        String name = current.getName();
-        String image = current.getImage();
-        String role = current.getPivot().getRole();
+        if (castAndCrewList.get(position) != null) {
+            String name = current.getName();
+            String image = current.getImage();
+            String role = current.getPivot().getRole();
 
-        if (name != null) holder.binding.castName.setText(name);
-        if (image != null) Picasso.get().load(image).into(holder.binding.castCrewImage);
-        if (role != null) {
+            if (name != null) holder.binding.castName.setText(name);
+            if (image != null) Picasso.get().load(image).into(holder.binding.castCrewImage);
+            if (role != null) {
 
-            if (role.contains("_")){
-                String[] parts = role.split("_");
+                if (role.contains("_")) {
+                    String[] parts = role.split("_");
 
-                for (int i = 0; i < parts.length;i++){
-                    holder.binding.castRole.setText(parts[0].substring(0, 1).toUpperCase() + parts[0].substring(1)+ " "+parts[1].substring(0, 1).toUpperCase() + parts[1].substring(1));
-                }
-            }else  holder.binding.castRole.setText(role.substring(0, 1).toUpperCase() + role.substring(1));
+                    for (int i = 0; i < parts.length; i++) {
+                        holder.binding.castRole.setText(parts[0].substring(0, 1).toUpperCase() + parts[0].substring(1) + " " + parts[1].substring(0, 1).toUpperCase() + parts[1].substring(1));
+                    }
+                } else
+                    holder.binding.castRole.setText(role.substring(0, 1).toUpperCase() + role.substring(1));
+            }
         }
+
     }
 
     @Override

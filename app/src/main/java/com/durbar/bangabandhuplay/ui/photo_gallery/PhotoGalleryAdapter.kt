@@ -31,20 +31,21 @@ class PhotoGalleryAdapter(
 
     override fun onBindViewHolder(holder: mViewHolder, position: Int) {
         val current = dataList?.get(position)
-        val image = current?.image
-        val title = current?.title
+        if (dataList?.get(position) != null){
+            val image = current?.image
+            val title = current?.title
 
-        if (image != null) {
-            holder.binding.mainProductCardThumbnailIv.clipToOutline = true
-            Picasso.get().load(image).fit().into(holder.binding.mainProductCardThumbnailIv)
-        }
+            if (image != null) {
+                holder.binding.mainProductCardThumbnailIv.clipToOutline = true
+                Picasso.get().load(image).fit().into(holder.binding.mainProductCardThumbnailIv)
+            }
 
-        holder.binding.root.setOnClickListener {
-            if (title != null && image != null) {
-                callBack?.photoGalleryDetails(title,image)
+            holder.binding.root.setOnClickListener {
+                if (title != null && image != null) {
+                    callBack?.photoGalleryDetails(title,image)
+                }
             }
         }
-
     }
 
     inner class mViewHolder(val binding: GalleryContentLayoutBinding) :

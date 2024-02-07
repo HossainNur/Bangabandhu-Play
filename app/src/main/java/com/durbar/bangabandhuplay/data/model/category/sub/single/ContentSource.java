@@ -1,12 +1,16 @@
 package com.durbar.bangabandhuplay.data.model.category.sub.single;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class ContentSource {
+    @Nullable
     @SerializedName("key")
     @Expose
     public Object key;
+    @Nullable
     @SerializedName("value")
     @Expose
     public Object value;

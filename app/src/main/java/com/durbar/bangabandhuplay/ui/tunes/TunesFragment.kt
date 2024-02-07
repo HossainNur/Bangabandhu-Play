@@ -48,26 +48,6 @@ class TunesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-       /* viewModel.getSliders().observe(requireActivity(),  {
-            originals: List<Original>? ->
-                try {
-                    if (originals != null) {
-                        slider = true
-                        isMoviesOriginalList = java.util.ArrayList<Original>()
-                        for (isHomeList in originals) {
-                            if (isHomeList.getIsHome() == 0) {
-                                (isMoviesOriginalList as java.util.ArrayList<Original>).add(isHomeList)
-                            }
-                        }
-                        images = isMoviesOriginalList as java.util.ArrayList<Original>
-                        setSlider(isMoviesOriginalList as java.util.ArrayList<Original>)
-                        hideProgressBar()
-                    }
-                } catch (e: java.lang.Exception) {
-                    e.printStackTrace()
-                }
-            })*/
-
         viewModel.sliders.observe(viewLifecycleOwner){originals ->
             try {
                 if (originals != null) {

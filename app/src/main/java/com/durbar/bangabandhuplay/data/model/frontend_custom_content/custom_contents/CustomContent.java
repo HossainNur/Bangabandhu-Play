@@ -1,20 +1,26 @@
 package com.durbar.bangabandhuplay.data.model.frontend_custom_content.custom_contents;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 public class CustomContent {
+    @Nullable
     @SerializedName("status")
     @Expose
     private final Boolean status;
+    @Nullable
     @SerializedName("message")
     @Expose
     private final String message;
+    @Nullable
     @SerializedName("data")
     @Expose
     private final List<Data> data;
+    @Nullable
     @SerializedName("errors")
     @Expose
     private final Object errors;

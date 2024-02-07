@@ -36,22 +36,25 @@ public class FamilyMemberAdapter extends RecyclerView.Adapter<FamilyMemberAdapte
     public void onBindViewHolder(@NonNull FamilyMemberAdapter.mViewHolder holder, int position) {
 
         Data current = dataList.get(position);
-        String image = current.getImage();
-        String title = current.getTitle();
-        String shortTitle = current.getShortTitle();
-        String description = current.getDescription();
+        if (dataList.get(position) != null){
+            String image = current.getImage();
+            String title = current.getTitle();
+            String shortTitle = current.getShortTitle();
+            String description = current.getDescription();
 
-        if (image != null) {
-            holder.binding.mainProductCardThumbnailIv.setClipToOutline(true);
-            Picasso.get().load(image).fit().into(holder.binding.mainProductCardThumbnailIv);
-        }
-
-        holder.binding.getRoot().setOnClickListener(v -> {
-            if (title != null && shortTitle != null && description != null && image != null){
-                callBack.familyMemberDetails(title,shortTitle,description,image);
+            if (image != null) {
+                holder.binding.mainProductCardThumbnailIv.setClipToOutline(true);
+                Picasso.get().load(image).fit().into(holder.binding.mainProductCardThumbnailIv);
             }
 
-        });
+            holder.binding.getRoot().setOnClickListener(v -> {
+                if (title != null && shortTitle != null && description != null && image != null){
+                    callBack.familyMemberDetails(title,shortTitle,description,image);
+                }
+
+            });
+        }
+
     }
 
     @Override

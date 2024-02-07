@@ -1,35 +1,45 @@
 package com.durbar.bangabandhuplay.data.model.category.root.single;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 public class SubCategory {
+    @Nullable
     @SerializedName("id")
     @Expose
     private Integer id;
+    @Nullable
     @SerializedName("title")
     @Expose
     private String title;
+    @Nullable
     @SerializedName("slug")
     @Expose
     private String slug;
+    @Nullable
     @SerializedName("order")
     @Expose
     private Integer order;
+    @Nullable
     @SerializedName("seo_title")
     @Expose
     private String seoTitle;
+    @Nullable
     @SerializedName("seo_description")
     @Expose
     private String seoDescription;
+    @Nullable
     @SerializedName("status")
     @Expose
     private String status;
+    @Nullable
     @SerializedName("ott_contents")
     @Expose
-    private List<OttContent> ottContents ;
+    private List<OttContent> ottContents;
 
     public SubCategory(Integer id, String title, String slug, Integer order, String seoTitle, String seoDescription, String status, List<OttContent> ottContents) {
         this.id = id;

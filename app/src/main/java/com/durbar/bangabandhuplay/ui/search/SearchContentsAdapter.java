@@ -32,21 +32,22 @@ public class SearchContentsAdapter extends RecyclerView.Adapter<SearchContentsAd
     public void onBindViewHolder(@NonNull SearchContentsAdapter.mViewHolder holder, int position) {
         Data current = dataList.get(position);
         holder.binding.searchImage.setClipToOutline(true);
-        String image = current.getThumbnailLandscape();
-        String title = current.getTitle();
-        String uuid = current.getUuid();
-        if (image != null){
-            Picasso.get().load(image).into(holder.binding.searchImage);
+        if (dataList.get(position) != null){
+            String image = current.getThumbnailLandscape();
+            String title = current.getTitle();
+            String uuid = current.getUuid();
+            if (image != null){
+                Picasso.get().load(image).into(holder.binding.searchImage);
+            }
+
+            if (title != null){
+                holder.binding.searchContentName.setText(title);
+            }
+
+            holder.binding.getRoot().setOnClickListener(v -> {
+                if (uuid != null && !uuid.isEmpty()) context.startActivity(new Intent(context, PlayerActivity.class).putExtra(Constants.CONTENT_UUID,uuid).putExtra(Constants.CONTENT_SECTION_TITLE,"Search Item"));
+            });
         }
-
-        if (title != null){
-            holder.binding.searchContentName.setText(title);
-        }
-
-        holder.binding.getRoot().setOnClickListener(v -> {
-            if (uuid != null && !uuid.isEmpty()) context.startActivity(new Intent(context, PlayerActivity.class).putExtra(Constants.CONTENT_UUID,uuid).putExtra(Constants.CONTENT_SECTION_TITLE,"Search Item"));
-        });
-
     }
 
     @Override

@@ -1,5 +1,4 @@
 package com.durbar.bangabandhuplay.data.model.photo_gallery
-
 import com.google.gson.annotations.SerializedName
 
 data class Data(

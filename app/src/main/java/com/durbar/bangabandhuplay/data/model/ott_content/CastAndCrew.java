@@ -1,39 +1,52 @@
 package com.durbar.bangabandhuplay.data.model.ott_content;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class CastAndCrew {
+    @Nullable
     @SerializedName("id")
     @Expose
     public Integer id;
+    @Nullable
     @SerializedName("name")
     @Expose
     public String name;
+    @Nullable
     @SerializedName("about")
     @Expose
     public String about;
+    @Nullable
     @SerializedName("dob")
     @Expose
     public String dob;
+    @Nullable
     @SerializedName("image")
     @Expose
     public String image;
+    @Nullable
     @SerializedName("nationality")
     @Expose
     public String nationality;
+    @Nullable
     @SerializedName("upcomming")
     @Expose
     public String upcomming;
+    @Nullable
     @SerializedName("previous")
     @Expose
     public String previous;
+    @Nullable
     @SerializedName("created_at")
     @Expose
     public String createdAt;
+    @Nullable
     @SerializedName("updated_at")
     @Expose
     public String updatedAt;
+    @Nullable
     @SerializedName("pivot")
     @Expose
     public Pivot pivot;

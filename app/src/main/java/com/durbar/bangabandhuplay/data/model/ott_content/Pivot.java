@@ -1,15 +1,20 @@
 package com.durbar.bangabandhuplay.data.model.ott_content;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Pivot {
+    @Nullable
     @SerializedName("ott_content_id")
     @Expose
     public Integer ottContentId;
+    @Nullable
     @SerializedName("cast_and_crew_id")
     @Expose
     public Integer castAndCrewId;
+    @Nullable
     @SerializedName("role")
     @Expose
     public String role;

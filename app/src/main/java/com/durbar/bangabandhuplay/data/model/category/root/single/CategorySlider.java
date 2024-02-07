@@ -1,48 +1,64 @@
 package com.durbar.bangabandhuplay.data.model.category.root.single;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class CategorySlider {
+    @Nullable
     @SerializedName("id")
     @Expose
     public Integer id;
+    @Nullable
     @SerializedName("title")
     @Expose
     public String title;
+    @Nullable
     @SerializedName("description")
     @Expose
     public String description;
+    @Nullable
     @SerializedName("bottom_title")
     @Expose
     public String bottomTitle;
+    @Nullable
     @SerializedName("root_category_id")
     @Expose
     public Integer rootCategoryId;
+    @Nullable
     @SerializedName("slug")
     @Expose
     public String slug;
+    @Nullable
     @SerializedName("image")
     @Expose
     public String image;
+    @Nullable
     @SerializedName("landscape_image")
     @Expose
     public String landscapeImage;
+    @Nullable
     @SerializedName("content_url")
     @Expose
     public String contentUrl;
+    @Nullable
     @SerializedName("status")
     @Expose
     public String status;
+    @Nullable
     @SerializedName("is_home")
     @Expose
     public Integer isHome;
+    @Nullable
     @SerializedName("order")
     @Expose
     public Integer order;
+    @Nullable
     @SerializedName("created_at")
     @Expose
     public String createdAt;
+    @Nullable
     @SerializedName("updated_at")
     @Expose
     public String updatedAt;

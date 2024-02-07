@@ -38,13 +38,15 @@ public class GetRelatedContentsAdapter extends RecyclerView.Adapter<GetRelatedCo
 
         SingleContentRelatedContent current = singleContentRelatedContentList.get(position);
         holder.binding.mainProductCardThumbnailIv.setClipToOutline(true);
-        String image = current.getThumbnailPortrait();
-        String uuid = current.getUuid();
-        if (image != null) Picasso.get().load(image).fit().into(holder.binding.mainProductCardThumbnailIv);
+        if (singleContentRelatedContentList.get(position) != null){
+            String image = current.getThumbnailPortrait();
+            String uuid = current.getUuid();
+            if (image != null) Picasso.get().load(image).fit().into(holder.binding.mainProductCardThumbnailIv);
 
-        holder.binding.getRoot().setOnClickListener(view -> {
-            if (uuid != null && !uuid.isEmpty()) context.startActivity(new Intent(context, PlayerActivity.class).putExtra(Constants.CONTENT_UUID, uuid).putExtra(Constants.CONTENT_SECTION_TITLE,title));
-        });
+            holder.binding.getRoot().setOnClickListener(view -> {
+                if (uuid != null && !uuid.isEmpty()) context.startActivity(new Intent(context, PlayerActivity.class).putExtra(Constants.CONTENT_UUID, uuid).putExtra(Constants.CONTENT_SECTION_TITLE,title));
+            });
+        }
     }
 
     @Override

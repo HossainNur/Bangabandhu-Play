@@ -1,116 +1,154 @@
 package com.durbar.bangabandhuplay.data.model.ott_content;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 public class ContentData {
+    @Nullable
     @SerializedName("id")
     @Expose
     public Integer id;
+    @Nullable
     @SerializedName("uuid")
     @Expose
     public String uuid;
+    @Nullable
     @SerializedName("access")
     @Expose
     public String access;
+    @Nullable
     @SerializedName("title")
     @Expose
     public String title;
+    @Nullable
     @SerializedName("short_title")
     @Expose
     public Object shortTitle;
+    @Nullable
     @SerializedName("root_category_id")
     @Expose
     public Integer rootCategoryId;
+    @Nullable
     @SerializedName("sub_category_id")
     @Expose
     public Object subCategoryId;
+    @Nullable
     @SerializedName("sub_sub_category_id")
     @Expose
     public Object subSubCategoryId;
+    @Nullable
     @SerializedName("series_id")
     @Expose
     public Object seriesId;
+    @Nullable
     @SerializedName("content_type_id")
     @Expose
     public Object contentTypeId;
+    @Nullable
     @SerializedName("description")
     @Expose
     public Object description;
+    @Nullable
     @SerializedName("year")
     @Expose
     public String year;
+    @Nullable
     @SerializedName("runtime")
     @Expose
     public String runtime;
+    @Nullable
     @SerializedName("youtube_url")
     @Expose
     public Object youtubeUrl;
+    @Nullable
     @SerializedName("cloud_url")
     @Expose
     public Object cloudUrl;
+    @Nullable
     @SerializedName("poster")
     @Expose
     public Object poster;
+    @Nullable
     @SerializedName("backdrop")
     @Expose
     public Object backdrop;
+    @Nullable
     @SerializedName("view_count")
     @Expose
     public Object viewCount;
+    @Nullable
     @SerializedName("release_date")
     @Expose
     public String releaseDate;
+    @Nullable
     @SerializedName("status")
     @Expose
     public String status;
+    @Nullable
     @SerializedName("order")
     @Expose
     public Integer order;
+    @Nullable
     @SerializedName("content_meta")
     @Expose
     public List<Object> contentMeta;
+    @Nullable
     @SerializedName("series_info")
     @Expose
     public Object seriesInfo;
+    @Nullable
     @SerializedName("content_source")
     @Expose
     public List<ContentSource> contentSource;
+    @Nullable
     @SerializedName("average_review_count")
     @Expose
     public Integer averageReviewCount;
+    @Nullable
     @SerializedName("reviews")
     @Expose
     public List<Object> reviews;
+    @Nullable
     @SerializedName("cast_and_crews")
     @Expose
     public List<CastAndCrew> castAndCrews;
+    @Nullable
     @SerializedName("synopsis_english")
     @Expose
     public String synopsisEnglish;
+    @Nullable
     @SerializedName("synopsis_bangla")
     @Expose
     public Object synopsisBangla;
+    @Nullable
     @SerializedName("thumbnail_portrait")
     @Expose
     public String thumbnailPortrait;
+    @Nullable
     @SerializedName("thumbnail_landscape")
     @Expose
     public String thumbnailLandscape;
+    @Nullable
     @SerializedName("imdb")
     @Expose
     public String imdb;
+    @Nullable
     @SerializedName("saga")
     @Expose
     public String saga;
+    @Nullable
     @SerializedName("genre")
     @Expose
     public String genre;
+    @Nullable
     @SerializedName("is_original")
     @Expose
     public String isOriginal;
+    @Nullable
     @SerializedName("video_type")
     @Expose
     public String videoType;

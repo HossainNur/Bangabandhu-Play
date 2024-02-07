@@ -43,19 +43,21 @@ public class MoreHomeAdapter extends RecyclerView.Adapter<MoreHomeAdapter.mViewH
         OttContent current = contentList.get(position).getOttContent();
 
         holder.binding.mainProductCardThumbnailIv.setClipToOutline(true);
-        //image
-        String image = current.getThumbnailPortrait();
-        String uuid = current.getUuid();
-        if (image != null) {
-            Picasso.get().load(image).fit().into(holder.binding.mainProductCardThumbnailIv);
-        }
-        holder.binding.getRoot().setOnClickListener(v -> {
-            if (uuid != null && !uuid.isEmpty()) context.startActivity(new Intent(context, PlayerActivity.class).putExtra(Constants.CONTENT_UUID,uuid).putExtra(Constants.CONTENT_SECTION_TITLE,title).putExtra(Constants.CONTENT_IS_MORE,true));
-            Constants.IS_MORE_CONTENT = true;
-            Constants.IS_MORE_HOME = true;
-        });
+        if (contentList.get(position).getOttContent() != null){
+            //image
+            String image = current.getThumbnailPortrait();
+            String uuid = current.getUuid();
+            if (image != null) {
+                Picasso.get().load(image).fit().into(holder.binding.mainProductCardThumbnailIv);
+            }
+            holder.binding.getRoot().setOnClickListener(v -> {
+                if (uuid != null && !uuid.isEmpty()) context.startActivity(new Intent(context, PlayerActivity.class).putExtra(Constants.CONTENT_UUID,uuid).putExtra(Constants.CONTENT_SECTION_TITLE,title).putExtra(Constants.CONTENT_IS_MORE,true));
+                Constants.IS_MORE_CONTENT = true;
+                Constants.IS_MORE_HOME = true;
+            });
 
-        holder.binding.mainProductCardThumbnailIv.startAnimation(AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.fall_down));
+            holder.binding.mainProductCardThumbnailIv.startAnimation(AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.fall_down));
+        }
     }
 
     @Override

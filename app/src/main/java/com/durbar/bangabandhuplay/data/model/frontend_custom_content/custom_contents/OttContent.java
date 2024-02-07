@@ -1,30 +1,40 @@
 package com.durbar.bangabandhuplay.data.model.frontend_custom_content.custom_contents;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class OttContent {
+    @Nullable
     @SerializedName("id")
     @Expose
     public Integer id;
+    @Nullable
     @SerializedName("title")
     @Expose
     public String title;
+    @Nullable
     @SerializedName("uuid")
     @Expose
     public String uuid;
+    @Nullable
     @SerializedName("poster")
     @Expose
     public Object poster;
+    @Nullable
     @SerializedName("access")
     @Expose
     public String access;
+    @Nullable
     @SerializedName("runtime")
     @Expose
     public Object runtime;
+    @Nullable
     @SerializedName("thumbnail_portrait")
     @Expose
     public String thumbnailPortrait;
+    @Nullable
     @SerializedName("thumbnail_landscape")
     @Expose
     public String thumbnailLandscape;

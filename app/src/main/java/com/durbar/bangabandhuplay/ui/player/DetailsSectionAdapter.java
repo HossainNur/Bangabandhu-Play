@@ -27,9 +27,9 @@ public class DetailsSectionAdapter extends RecyclerView.Adapter<DetailsSectionAd
     public void onBindViewHolder(@NonNull DetailsSectionAdapter.mViewHolder holder, int position) {
 
         String details = detailsList.get(position);
-        if (details != null) holder.binding.tvDetails.setText(details);
-
-
+        if (detailsList.get(position) != null){
+            if (details != null) holder.binding.tvDetails.setText(details);
+        }
     }
 
     @Override

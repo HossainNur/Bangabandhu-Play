@@ -5,55 +5,74 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 public class Data {
+    @Nullable
     @SerializedName("id")
     @Expose
     public Integer id;
+    @Nullable
     @SerializedName("uuid")
     @Expose
     public String uuid;
+    @Nullable
     @SerializedName("title")
     @Expose
     public String title;
+    @Nullable
     @SerializedName("short_title")
     @Expose
     public Object shortTitle;
+    @Nullable
     @SerializedName("access")
     @Expose
     public String access;
+    @Nullable
     @SerializedName("youtube_url")
     @Expose
     public Object youtubeUrl;
+    @Nullable
     @SerializedName("cloud_url")
     @Expose
     public Object cloudUrl;
+    @Nullable
     @SerializedName("poster")
     @Expose
     public Object poster;
+    @Nullable
     @SerializedName("view_count")
     @Expose
     public Object viewCount;
+    @Nullable
     @SerializedName("release_date")
     @Expose
     public String releaseDate;
+    @Nullable
     @SerializedName("status")
     @Expose
     public String status;
+    @Nullable
     @SerializedName("order")
     @Expose
     public Integer order;
+    @Nullable
     @SerializedName("runtime")
     @Expose
     public Object runtime;
+    @Nullable
     @SerializedName("content_source")
     @Expose
     public List<ContentSource> contentSource;
+    @Nullable
     @SerializedName("average_review_count")
     @Expose
     public Integer averageReviewCount;
+    @Nullable
     @SerializedName("thumbnail_portrait")
     @Expose
     public String thumbnailPortrait;
+    @Nullable
     @SerializedName("thumbnail_landscape")
     @Expose
     public String thumbnailLandscape;

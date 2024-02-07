@@ -15,6 +15,7 @@ import com.durbar.bangabandhuplay.ui.player.PlayerActivity;
 import com.durbar.bangabandhuplay.data.model.category.root.single.OttContent;
 import com.durbar.bangabandhuplay.utils.Constants;
 import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 
@@ -24,7 +25,7 @@ public class MoviesChildContentAdapter extends RecyclerView.Adapter<MoviesChildC
     private Context context;
     private String title;
 
-    public MoviesChildContentAdapter(List<OttContent> contentList,Context context,String title) {
+    public MoviesChildContentAdapter(List<OttContent> contentList, Context context, String title) {
         this.contentList = contentList;
         this.context = context;
         this.title = title;
@@ -40,20 +41,24 @@ public class MoviesChildContentAdapter extends RecyclerView.Adapter<MoviesChildC
     public void onBindViewHolder(@NonNull ChildViewHolder holder, int position) {
         OttContent current = contentList.get(position);
 
-        String image = current.getThumbnailPortrait();
-        String uuid = current.getUuid();
-
         holder.binding.mainProductCardThumbnailIv.setClipToOutline(true);
 
-        if (image != null){
-            Picasso.get().load(image).into(holder.binding.mainProductCardThumbnailIv);
+        if (contentList.get(position) != null) {
+            String image = current.getThumbnailPortrait();
+            String uuid = current.getUuid();
+
+            if (image != null) {
+                Picasso.get().load(image).into(holder.binding.mainProductCardThumbnailIv);
+            }
+
+            holder.binding.getRoot().setOnClickListener(view -> {
+                if (uuid != null && !uuid.isEmpty())
+                    context.startActivity(new Intent(context, PlayerActivity.class).putExtra(Constants.CONTENT_UUID, uuid).putExtra(Constants.CONTENT_SECTION_TITLE, title));
+            });
+
+            holder.binding.contentImage.startAnimation(AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.slide_up_animation));
         }
 
-        holder.binding.getRoot().setOnClickListener(view -> {
-            if (uuid != null && !uuid.isEmpty()) context.startActivity(new Intent(context, PlayerActivity.class).putExtra(Constants.CONTENT_UUID,uuid).putExtra(Constants.CONTENT_SECTION_TITLE,title));
-        });
-
-        holder.binding.contentImage.startAnimation(AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.slide_up_animation));
     }
 
     @Override

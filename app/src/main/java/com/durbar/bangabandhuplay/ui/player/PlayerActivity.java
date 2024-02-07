@@ -54,7 +54,6 @@ public class PlayerActivity extends AppCompatActivity {
     private ConstraintLayout contentTopSection;
     private TextView moviesTitle;
     private boolean isShowingTrackSelectionDialog;
-    private NavController navController;
     boolean isFullScreen = false, isLock = false, ottContent = false, relatedContent = false,isMore;
 
     @Override
@@ -94,6 +93,7 @@ public class PlayerActivity extends AppCompatActivity {
                     String releaseDate = singleOttContent.getData().getContentData().getReleaseDate();
                     String genre = singleOttContent.getData().getContentData().getGenre();
                     String runTime = singleOttContent.getData().getContentData().getRuntime();
+                    String year = singleOttContent.getData().getContentData().getYear();
                     List<ContentSource> contentSourceList = singleOttContent.getData().getContentData().getContentSource();
                     if (title != null) {
                         binding.moviesTitle.setText(title);
@@ -341,9 +341,6 @@ public class PlayerActivity extends AppCompatActivity {
                 intent.putExtra(Constants.CONTENT_IS_HOME,true);
                 startActivity(intent);
                 finish();
-                Constants.setEditor(this,Constants.CONTENT_ID,null);
-                Constants.setEditor(this,Constants.CONTENT_SECTION_TITLE,null);
-                Constants.setEditor(this,Constants.CONTENT_IS_HOME,null);
             }else {
                 Intent intent = new Intent(this, MoreActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -352,11 +349,9 @@ public class PlayerActivity extends AppCompatActivity {
                 intent.putExtra(Constants.CONTENT_SLUG, slug);
                 intent.putExtra(Constants.CONTENT_IS_HOME,false);
                 startActivity(intent);
-                Constants.setEditor(this,Constants.CONTENT_SLUG,null);
-                Constants.setEditor(this,Constants.CONTENT_SECTION_TITLE,null);
-                Constants.setEditor(this,Constants.CONTENT_IS_HOME,null);
-
+                finish();
             }
+            Constants.IS_MORE_CONTENT = false;
 
         }else {
             Intent intent = new Intent(this, MainActivity.class);

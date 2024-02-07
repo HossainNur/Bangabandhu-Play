@@ -39,26 +39,27 @@ public class ParentItemAdapter extends RecyclerView.Adapter<ParentItemAdapter.Pa
 
         Data current = dataList.get(position);
 
-        String title = current.getContentTypeTitle();
-        String id = current.getId().toString();
-        List<FrontendCustomContent> frontendCustomContents = current.getFrontendCustomContent();
+        if (dataList.get(position) != null) {
+            String title = current.getContentTypeTitle();
+            String id = current.getId().toString();
+            List<FrontendCustomContent> frontendCustomContents = current.getFrontendCustomContent();
 
-        holder.binding.itemRv.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
-        holder.binding.itemRv.setAdapter(new ChildItemAdapter(frontendCustomContents, context,title));
+            holder.binding.itemRv.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
+            holder.binding.itemRv.setAdapter(new ChildItemAdapter(frontendCustomContents, context, title));
 
 
+            if (title != null) {
+                holder.binding.titleTv.setText(title);
+            }
 
-
-        if (title != null) {
-            holder.binding.titleTv.setText(title);
+            holder.binding.moreTv.setOnClickListener(view -> {
+                if (id != null && title != null)
+                    context.startActivity(new Intent(context, MoreActivity.class).putExtra(Constants.CONTENT_ID, id).putExtra(Constants.CONTENT_SECTION_TITLE, title).putExtra(Constants.CONTENT_IS_HOME, true));
+                Constants.setEditor(context, Constants.CONTENT_ID, id);
+                Constants.setEditor(context, Constants.CONTENT_SECTION_TITLE, title);
+                Constants.setEditor(context, Constants.CONTENT_IS_HOME, true);
+            });
         }
-
-        holder.binding.moreTv.setOnClickListener(view -> {
-            if (id != null && title != null) context.startActivity(new Intent(context, MoreActivity.class).putExtra(Constants.CONTENT_ID, id).putExtra(Constants.CONTENT_SECTION_TITLE, title).putExtra(Constants.CONTENT_IS_HOME,true));
-            Constants.setEditor(context,Constants.CONTENT_ID,id);
-            Constants.setEditor(context,Constants.CONTENT_SECTION_TITLE,title);
-            Constants.setEditor(context,Constants.CONTENT_IS_HOME,true);
-        });
 
     }
 

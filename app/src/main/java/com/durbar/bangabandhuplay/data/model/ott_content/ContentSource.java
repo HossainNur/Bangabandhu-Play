@@ -1,24 +1,32 @@
 package com.durbar.bangabandhuplay.data.model.ott_content;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class ContentSource {
+    @Nullable
     @SerializedName("id")
     @Expose
     public Integer id;
+    @Nullable
     @SerializedName("ott_content_id")
     @Expose
     public Integer ottContentId;
+    @Nullable
     @SerializedName("content_source")
     @Expose
     public String contentSource;
+    @Nullable
     @SerializedName("fps")
     @Expose
     public Object fps;
+    @Nullable
     @SerializedName("source_format")
     @Expose
     public Object sourceFormat;
+    @Nullable
     @SerializedName("source_type")
     @Expose
     public String sourceType;
