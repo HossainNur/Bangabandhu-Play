@@ -31,6 +31,7 @@ object Constants {
     var IS_MORE_HOME = false
     var END_CALL_PRESSED = false
     const val CHANNEL_PROFILE_LIVE_BROADCASTING = 1
+    var IS_TUNES = false
 
     //set string value to shared pref
     fun setEditor(context: Context, key: String?, value: String?) {

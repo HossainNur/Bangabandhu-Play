@@ -23,6 +23,7 @@ import com.durbar.bangabandhuplay.databinding.FragmentTunesBinding
 import com.durbar.bangabandhuplay.ui.movies.MoviesContentAdapter
 import com.durbar.bangabandhuplay.ui.movies.MoviesSliderAdapter
 import com.durbar.bangabandhuplay.ui.movies.MoviesViewModel
+import com.durbar.bangabandhuplay.utils.checkInternet
 
 
 class TunesFragment : Fragment() {
@@ -46,32 +47,11 @@ class TunesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-       /* viewModel.getSliders().observe(requireActivity(),  {
-            originals: List<Original>? ->
-                try {
-                    if (originals != null) {
-                        slider = true
-                        isMoviesOriginalList = java.util.ArrayList<Original>()
-                        for (isHomeList in originals) {
-                            if (isHomeList.getIsHome() == 0) {
-                                (isMoviesOriginalList as java.util.ArrayList<Original>).add(isHomeList)
-                            }
-                        }
-                        images = isMoviesOriginalList as java.util.ArrayList<Original>
-                        setSlider(isMoviesOriginalList as java.util.ArrayList<Original>)
-                        hideProgressBar()
-                    }
-                } catch (e: java.lang.Exception) {
-                    e.printStackTrace()
-                }
-            })*/
+        requireContext().checkInternet()
 
         viewModel.sliders.observe(viewLifecycleOwner){originals ->
             try {
                 if (originals != null) {
-                    slider = true
                     isMoviesOriginalList = java.util.ArrayList<Original>()
                     for (isHomeList in originals) {
                         if (isHomeList.isHome == 0) {
@@ -80,7 +60,7 @@ class TunesFragment : Fragment() {
                     }
                     images = isMoviesOriginalList as java.util.ArrayList<Original>
                     setSlider(isMoviesOriginalList as java.util.ArrayList<Original>)
-                    hideProgressBar()
+                 //   hideProgressBar()
                 }
             }catch (e: java.lang.Exception){
                 e.printStackTrace()
@@ -101,7 +81,6 @@ class TunesFragment : Fragment() {
                         binding.tunesSliderVp.visibility = View.GONE
                     }*/
 
-                    moviesSection = true
                     val subCategories: MutableList<SubCategory> = ArrayList()
                     for (c in data[0].subCategories!!) {
                         if (c.ottContents != null && !c.ottContents.isEmpty()) {
@@ -109,7 +88,7 @@ class TunesFragment : Fragment() {
                         }
                     }
                     binding.tunesRv.setLayoutManager(LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false))
-                    binding.tunesRv.adapter = MoviesContentAdapter(subCategories,requireActivity())
+                    binding.tunesRv.adapter = MoviesContentAdapter(subCategories,requireActivity(), true)
                 }
 
             }catch (e:Exception){
@@ -163,12 +142,12 @@ class TunesFragment : Fragment() {
         })*/
     }
 
-    private fun hideProgressBar() {
+ /*   private fun hideProgressBar() {
         if (slider && moviesSection) {
             binding.tunesContainer.setVisibility(View.VISIBLE)
             binding.progressBar.setVisibility(View.GONE)
         }
-    }
+    }*/
 
     val sliderRunnable = Runnable {
         if (binding != null) {

@@ -13,6 +13,7 @@ import com.durbar.bangabandhuplay.R
 import com.durbar.bangabandhuplay.data.model.family_member.Data
 import com.durbar.bangabandhuplay.databinding.FragmentFamilyMemberBinding
 import com.durbar.bangabandhuplay.utils.NavigationHelper
+import com.durbar.bangabandhuplay.utils.checkInternet
 
 class FamilyMemberFragment : Fragment(), FamilyMemberAdapter.CallBack {
     private var binding: FragmentFamilyMemberBinding? = null
@@ -32,6 +33,7 @@ class FamilyMemberFragment : Fragment(), FamilyMemberAdapter.CallBack {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireContext().checkInternet()
         navController = findNavController(view)
         viewModel!!.fetchFamilyMemberPhotos().observe(requireActivity()) { data ->
             try {

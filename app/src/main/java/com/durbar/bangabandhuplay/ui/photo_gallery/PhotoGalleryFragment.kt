@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.durbar.bangabandhuplay.R
 import com.durbar.bangabandhuplay.databinding.FragmentPhotoGalleryBinding
+import com.durbar.bangabandhuplay.utils.checkInternet
 import com.squareup.picasso.Picasso
 
 
@@ -30,6 +31,7 @@ class PhotoGalleryFragment : Fragment(), PhotoGalleryAdapter.CallBack {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireContext().checkInternet()
 
         viewModel.fetchGalleryPhotos().observe(viewLifecycleOwner) { data ->
             try {

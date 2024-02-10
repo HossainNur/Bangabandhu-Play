@@ -17,6 +17,7 @@ import com.durbar.bangabandhuplay.databinding.ActivityVideoBinding
 import com.durbar.bangabandhuplay.utils.Constants.APP_ID
 import com.durbar.bangabandhuplay.utils.Constants.END_CALL_PRESSED
 import com.durbar.bangabandhuplay.utils.Constants.TOKEN
+import com.durbar.bangabandhuplay.utils.checkInternet
 import io.agora.rtc.Constants
 import io.agora.rtc.IRtcEngineEventHandler
 import io.agora.rtc.RtcEngine
@@ -36,6 +37,8 @@ class VideoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityVideoBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        this.checkInternet()
 
         userRole = intent.getIntExtra("UserRole", -1)
         channelName = intent.getStringExtra("channel_name")

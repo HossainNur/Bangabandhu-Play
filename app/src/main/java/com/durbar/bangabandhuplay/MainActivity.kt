@@ -1,6 +1,7 @@
 package com.durbar.bangabandhuplay
 
 import android.Manifest
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.PorterDuff
@@ -37,6 +38,7 @@ import com.durbar.bangabandhuplay.ui.search.SearchResultActivity
 import com.durbar.bangabandhuplay.utils.Constants
 import com.durbar.bangabandhuplay.utils.Constants.END_CALL_PRESSED
 import com.durbar.bangabandhuplay.utils.NavigationHelper
+import com.durbar.bangabandhuplay.utils.NetworkUtils
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
@@ -73,6 +75,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         // notification
         handlePushNotification()
+
+
 
         actionBarDrawerToggle = ActionBarDrawerToggle(
             this,
@@ -311,7 +315,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         handler.postDelayed(Runnable {
             handler.postDelayed(runnable!!, delay.toLong())
-            fetchActiveLive()
+          //  fetchActiveLive()
         }.also { runnable = it }, delay.toLong())
         super.onResume()
 

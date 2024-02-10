@@ -14,6 +14,7 @@ import com.durbar.bangabandhuplay.data.model.frontend_custom_content.custom_cont
 import com.durbar.bangabandhuplay.databinding.ActivityMoreBinding
 import com.durbar.bangabandhuplay.ui.search.SearchResultActivity
 import com.durbar.bangabandhuplay.utils.Constants
+import com.durbar.bangabandhuplay.utils.checkInternet
 
 class MoreActivity : AppCompatActivity() {
     private var binding: ActivityMoreBinding? = null
@@ -29,6 +30,7 @@ class MoreActivity : AppCompatActivity() {
         binding = ActivityMoreBinding.inflate(layoutInflater)
         viewModel = ViewModelProvider(this).get(MoreHomeViewModel::class.java)
         setContentView(binding!!.root)
+        this.checkInternet()
         id = intent.getStringExtra(Constants.CONTENT_ID)
         title = intent.getStringExtra(Constants.CONTENT_SECTION_TITLE)
         slug = intent.getStringExtra(Constants.CONTENT_SLUG)

@@ -15,19 +15,19 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.durbar.bangabandhuplay.MainActivity
 import com.durbar.bangabandhuplay.R
-import com.durbar.bangabandhuplay.data.model.get_related_contents.SingleContentRelatedContent
-import com.durbar.bangabandhuplay.data.model.ott_content.SingleOttContent
 import com.durbar.bangabandhuplay.databinding.ActivityPlayerBinding
 import com.durbar.bangabandhuplay.ui.more.MoreActivity
+import com.durbar.bangabandhuplay.ui.tunes.TunesFragment
 import com.durbar.bangabandhuplay.utils.Constants
 import com.durbar.bangabandhuplay.utils.TrackSelectionDialog
+import com.durbar.bangabandhuplay.utils.checkInternet
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
@@ -36,6 +36,7 @@ import com.google.gson.Gson
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+
 
 class PlayerActivity : AppCompatActivity() {
     private var binding: ActivityPlayerBinding? = null
@@ -68,6 +69,7 @@ class PlayerActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(PlayerViewModel::class.java)
         uuid = intent.getStringExtra(Constants.CONTENT_UUID)
         setContentView(binding!!.root)
+        this.checkInternet()
         title = intent.getStringExtra(Constants.CONTENT_SECTION_TITLE)
         isMore = intent.getBooleanExtra(Constants.CONTENT_IS_MORE, false)
         setSupportActionBar(binding!!.toolbar)
@@ -89,7 +91,7 @@ class PlayerActivity : AppCompatActivity() {
                     ottContent = true
                     val title = singleOttContent.data.contentData.title.orEmpty()
                     val description = singleOttContent.data.contentData.synopsisEnglish.orEmpty()
-                    val releaseDate = singleOttContent.data.contentData.releaseDate.orEmpty()
+                    val releaseDate = singleOttContent.data.contentData.releaseDate?:""
                     val genre = singleOttContent.data.contentData.genre.orEmpty()
                     val runTime = singleOttContent.data.contentData.runtime.orEmpty()
                     val contentSourceList =
@@ -175,7 +177,15 @@ class PlayerActivity : AppCompatActivity() {
                         binding!!.rvMoreLikeThis.layoutManager =
                             LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
                         binding!!.rvMoreLikeThis.adapter =
-                            GetRelatedContentsAdapter(singleContentRelatedContents, this, title!!)
+                            GetRelatedContentsAdapter(singleContentRelatedContents){ buuid->
+                                if (!uuid.isNullOrEmpty()){
+                                    finish()
+                                    startActivity(Intent(this, PlayerActivity::class.java)
+                                        .putExtra(Constants.CONTENT_UUID, uuid)
+                                        .putExtra(Constants.CONTENT_SECTION_TITLE, title)
+                                    )
+                                }
+                            }
                         hideProgressBar()
                     }
                 } catch (e: Exception) {
@@ -341,7 +351,6 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        Constants.IS_FROM_PLAYER = true
         if (Constants.IS_MORE_CONTENT) {
             val id = Constants.getSharedPref(this, Constants.CONTENT_ID)
             val slug = Constants.getSharedPref(this, Constants.CONTENT_SLUG)
@@ -366,7 +375,20 @@ class PlayerActivity : AppCompatActivity() {
                 finish()
             }
             Constants.IS_MORE_CONTENT = false
-        } else {
+        }else if (Constants.IS_TUNES){
+
+            val fragmentTransaction = supportFragmentManager.beginTransaction()
+            val tunesFragment = TunesFragment()
+
+            fragmentTransaction.replace(R.id.player_container, tunesFragment)
+            fragmentTransaction.addToBackStack(null) // Add this line if you want to allow the user to navigate back to the previous fragment
+            fragmentTransaction.commit()
+            finish()
+
+
+        }
+        else {
+            Constants.IS_FROM_PLAYER = true
             val intent = Intent(this, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)

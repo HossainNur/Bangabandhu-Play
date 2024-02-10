@@ -16,7 +16,7 @@ import com.squareup.picasso.Picasso
 class MoviesChildContentAdapter(
     private val contentList: List<OttContent>,
     private val context: Context,
-    private val title: String
+    private val title: String,
 ) : RecyclerView.Adapter<MoviesChildContentAdapter.ChildViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChildViewHolder {

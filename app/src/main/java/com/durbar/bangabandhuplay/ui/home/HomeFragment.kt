@@ -1,5 +1,6 @@
 package com.durbar.bangabandhuplay.ui.home
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
@@ -17,6 +18,8 @@ import com.durbar.bangabandhuplay.data.model.sliders.Original
 import com.durbar.bangabandhuplay.databinding.FragmentHomeBinding
 import com.durbar.bangabandhuplay.utils.Constants
 import com.durbar.bangabandhuplay.utils.NavigationHelper
+import com.durbar.bangabandhuplay.utils.NetworkUtils
+import com.durbar.bangabandhuplay.utils.checkInternet
 
 class HomeFragment : Fragment() {
     private var binding: FragmentHomeBinding? = null
@@ -41,6 +44,9 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        requireContext().checkInternet()
+
         homeViewModel!!.sliders.observe(requireActivity()) { originals: List<Original>? ->
             try {
                 if (originals != null) {

@@ -24,6 +24,7 @@ import com.durbar.bangabandhuplay.ui.movies.MoviesSliderAdapter
 import com.durbar.bangabandhuplay.ui.movies.MoviesViewModel
 import com.durbar.bangabandhuplay.utils.Constants
 import com.durbar.bangabandhuplay.utils.NavigationHelper
+import com.durbar.bangabandhuplay.utils.checkInternet
 
 class TvShowsFragment : Fragment() {
     private var binding: FragmentTvShowsBinding? = null
@@ -54,6 +55,7 @@ class TvShowsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireContext().checkInternet()
         viewModel!!.sliders.observe(requireActivity()) { originals: List<Original>? ->
             try {
                 if (originals != null) {
@@ -86,7 +88,7 @@ class TvShowsFragment : Fragment() {
                         binding!!.documentaryParentRecyclerview.layoutManager =
                             LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
                         moviesContentAdapter =
-                            MoviesContentAdapter(subCategories, requireActivity())
+                            MoviesContentAdapter(subCategories, requireActivity(), false)
                         binding!!.documentaryParentRecyclerview.adapter = moviesContentAdapter
                         hideProgressBar()
                     }

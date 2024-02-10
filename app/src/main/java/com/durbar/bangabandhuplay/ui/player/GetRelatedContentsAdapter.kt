@@ -12,8 +12,7 @@ import com.squareup.picasso.Picasso
 
 class GetRelatedContentsAdapter(
     private val singleContentRelatedContentList: List<SingleContentRelatedContent>,
-    private val context: Context,
-    private val title: String
+    private val callback: (String)-> Unit
 ) : RecyclerView.Adapter<GetRelatedContentsAdapter.mViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): mViewHolder {
@@ -36,11 +35,7 @@ class GetRelatedContentsAdapter(
 
         holder.binding.root.setOnClickListener {
             if (!uuid.isNullOrEmpty()) {
-                context.startActivity(
-                    Intent(context, PlayerActivity::class.java)
-                        .putExtra(Constants.CONTENT_UUID, uuid)
-                        .putExtra(Constants.CONTENT_SECTION_TITLE, title)
-                )
+                callback(uuid)
             }
         }
     }

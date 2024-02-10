@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.durbar.bangabandhuplay.R
 import com.durbar.bangabandhuplay.data.model.search_content.SearchResultRes
 import com.durbar.bangabandhuplay.databinding.ActivitySearchResultBinding
+import com.durbar.bangabandhuplay.utils.checkInternet
 
 class SearchResultActivity() : AppCompatActivity() {
     private var binding: ActivitySearchResultBinding? = null
@@ -23,6 +24,8 @@ class SearchResultActivity() : AppCompatActivity() {
         )
         viewModel = ViewModelProvider(this).get(SearchContentsViewModel::class.java)
         setContentView(binding!!.root)
+        this.checkInternet()
+
         setSupportActionBar(binding!!.toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_ios_24)

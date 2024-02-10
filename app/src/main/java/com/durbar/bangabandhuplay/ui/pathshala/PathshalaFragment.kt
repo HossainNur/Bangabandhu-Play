@@ -13,6 +13,7 @@ import com.durbar.bangabandhuplay.data.ApiService
 import com.durbar.bangabandhuplay.data.model.pathshala.PathshalaResponse
 import com.durbar.bangabandhuplay.databinding.FragmentPathshalaBinding
 import com.durbar.bangabandhuplay.utils.Constants
+import com.durbar.bangabandhuplay.utils.checkInternet
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,6 +36,7 @@ class PathshalaFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireContext().checkInternet()
 
         binding.progressBar.visibility = View.VISIBLE
 

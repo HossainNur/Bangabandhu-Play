@@ -13,7 +13,7 @@ import com.durbar.bangabandhuplay.databinding.SectionRecyclerViewLayoutBinding
 import com.durbar.bangabandhuplay.ui.more.MoreActivity
 import com.durbar.bangabandhuplay.utils.Constants
 
-class MoviesContentAdapter(private val subCategories: List<SubCategory>, private val context: Context) :
+class MoviesContentAdapter(private val subCategories: List<SubCategory>, private val context: Context, private var isTunes: Boolean) :
     RecyclerView.Adapter<MoviesContentAdapter.ParentViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParentViewHolder {
@@ -50,6 +50,12 @@ class MoviesContentAdapter(private val subCategories: List<SubCategory>, private
                 Constants.setEditor(context, Constants.CONTENT_SECTION_TITLE, title)
                 Constants.setEditor(context, Constants.CONTENT_IS_HOME, false)
             }
+        }
+        if (isTunes){
+            Constants.IS_TUNES = true
+        }else{
+            Constants.IS_TUNES = false
+
         }
     }
 

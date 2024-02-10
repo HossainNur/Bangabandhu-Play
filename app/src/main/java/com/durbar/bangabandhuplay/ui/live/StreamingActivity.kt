@@ -12,6 +12,7 @@ import com.durbar.bangabandhuplay.MainActivity
 import com.durbar.bangabandhuplay.R
 import com.durbar.bangabandhuplay.data.model.live.Data
 import com.durbar.bangabandhuplay.databinding.ActivityStreamingBinding
+import com.durbar.bangabandhuplay.utils.checkInternet
 
 class StreamingActivity : AppCompatActivity() {
     private var binding: ActivityStreamingBinding? = null
@@ -20,6 +21,7 @@ class StreamingActivity : AppCompatActivity() {
     private var from_Notification:String = ""  // notification purpose
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        this.checkInternet()
         binding = ActivityStreamingBinding.inflate(
             layoutInflater
         )
