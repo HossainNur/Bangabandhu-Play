@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
     private var channelName : String? = null
     private var handler: Handler = Handler()
     private var runnable: Runnable? = null
-    private var delay = 3000
+    private var delay = 5000
 
     private val requestNotificationPermission =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted->
@@ -315,7 +315,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         handler.postDelayed(Runnable {
             handler.postDelayed(runnable!!, delay.toLong())
-          //  fetchActiveLive()
+            fetchActiveLive()
         }.also { runnable = it }, delay.toLong())
         super.onResume()
 

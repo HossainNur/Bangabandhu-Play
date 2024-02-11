@@ -15,7 +15,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -176,8 +175,7 @@ class PlayerActivity : AppCompatActivity() {
                         relatedContent = true
                         binding!!.rvMoreLikeThis.layoutManager =
                             LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-                        binding!!.rvMoreLikeThis.adapter =
-                            GetRelatedContentsAdapter(singleContentRelatedContents){ buuid->
+                        binding!!.rvMoreLikeThis.adapter = GetRelatedContentsAdapter(singleContentRelatedContents){ uuid->
                                 if (!uuid.isNullOrEmpty()){
                                     finish()
                                     startActivity(Intent(this, PlayerActivity::class.java)
