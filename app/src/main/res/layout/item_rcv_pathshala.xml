@@ -20,7 +20,7 @@
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_30sdp"
         android:text="ha ha hahghghghghgh"
         android:textSize="10sp"
         android:maxLines="2"
@@ -28,18 +28,12 @@
         android:textColor="@color/white"
         android:elevation="100dp"
         android:textStyle="bold"
+        android:ellipsize="end"
+        android:background="@drawable/pathshala_gradient"
         app:layout_constraintStart_toStartOf="@id/iv_Pdf"
         app:layout_constraintEnd_toEndOf="@id/iv_Pdf"
         app:layout_constraintBottom_toBottomOf="@id/iv_Pdf"
-        android:layout_marginBottom="5dp"/>
+        />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:visibility="visible"
-        android:background="@drawable/pathshala_gradient"
-        app:layout_constraintStart_toStartOf="@id/iv_Pdf"
-        app:layout_constraintBottom_toBottomOf="@id/iv_Pdf"
-        app:layout_constraintEnd_toEndOf="@id/iv_Pdf" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
