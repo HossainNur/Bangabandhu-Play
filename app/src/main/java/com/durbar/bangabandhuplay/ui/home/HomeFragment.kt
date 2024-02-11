@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
@@ -67,7 +68,7 @@ class HomeFragment : Fragment() {
         homeViewModel!!.frontendSection.observe(requireActivity()) { data ->
             try {
                 if (data != null && !data.isEmpty()) {
-                    frontendSection = true
+              /*      frontendSection = true
                     val dataList: MutableList<Data> = ArrayList()
                     for (d in data) {
                         if (d.frontendCustomContent != null) {
@@ -78,6 +79,14 @@ class HomeFragment : Fragment() {
                         LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
                     adapter = ParentItemAdapter(dataList, requireActivity())
                     binding!!.homeParentRecyclerView.adapter = adapter
+                    hideProgressBar()*/
+
+                    frontendSection = true
+                    val concatAdapter = ConcatAdapter()
+                    data.forEach {
+                        concatAdapter.addAdapter(CommonAdapter(it))
+                    }
+                    binding!!.homeParentRecyclerView.adapter = concatAdapter
                     hideProgressBar()
                 }
             } catch (e: Exception) {

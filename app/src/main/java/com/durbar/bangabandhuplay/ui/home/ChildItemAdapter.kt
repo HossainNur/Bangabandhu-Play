@@ -2,6 +2,7 @@ package com.durbar.bangabandhuplay.ui.home
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
@@ -44,6 +45,8 @@ class ChildItemAdapter(
 
             holder.binding.root.setOnClickListener {
                 if (uuid != null && uuid.isNotEmpty()) {
+                    Log.d("concat", "onBindViewHolder child old uuid: ${Constants.CONTENT_UUID}")
+                    Log.d("concat", "onBindViewHolder child old CONTENT_SECTION_TITLE: ${Constants.CONTENT_SECTION_TITLE}")
                     context.startActivity(
                         Intent(context, PlayerActivity::class.java)
                             .putExtra(Constants.CONTENT_UUID, uuid)

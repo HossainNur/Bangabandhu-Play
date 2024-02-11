@@ -29,5 +29,5 @@ data class Data(
     val updatedAt: String? = null,
 
     @field:SerializedName("frontend_custom_content_limited_data")
-    val frontendCustomContent: List<FrontendCustomContent>? = listOf()
+    val frontendCustomContent: List<FrontendCustomContent> = listOf()
 )
