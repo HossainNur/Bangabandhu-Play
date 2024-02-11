@@ -103,7 +103,7 @@ public class MoviesFragment extends Fragment {
                         }
                     }
                     binding.moviesParentRecyclerview.setLayoutManager(new LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false));
-                    moviesContentAdapter = new MoviesContentAdapter(subCategories, requireActivity());
+                    moviesContentAdapter = new MoviesContentAdapter(subCategories, requireActivity(),false);
                     binding.moviesParentRecyclerview.setAdapter(moviesContentAdapter);
                     hideProgressBar();
                 }

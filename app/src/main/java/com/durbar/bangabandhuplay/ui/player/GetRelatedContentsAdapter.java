@@ -19,12 +19,13 @@ public class GetRelatedContentsAdapter extends RecyclerView.Adapter<GetRelatedCo
     private List<SingleContentRelatedContent> singleContentRelatedContentList;
     private Context context;
     private String title;
-    private boolean isMore;
+    private CallBack callBack;
 
-    public GetRelatedContentsAdapter(List<SingleContentRelatedContent> singleContentRelatedContentList, Context context,String title) {
+    public GetRelatedContentsAdapter(List<SingleContentRelatedContent> singleContentRelatedContentList, Context context,String title,CallBack callBack) {
         this.singleContentRelatedContentList = singleContentRelatedContentList;
         this.context = context;
         this.title = title;
+        this.callBack = callBack;
     }
 
     @NonNull
@@ -44,7 +45,13 @@ public class GetRelatedContentsAdapter extends RecyclerView.Adapter<GetRelatedCo
             if (image != null) Picasso.get().load(image).fit().into(holder.binding.mainProductCardThumbnailIv);
 
             holder.binding.getRoot().setOnClickListener(view -> {
-                if (uuid != null && !uuid.isEmpty()) context.startActivity(new Intent(context, PlayerActivity.class).putExtra(Constants.CONTENT_UUID, uuid).putExtra(Constants.CONTENT_SECTION_TITLE,title));
+
+                if (uuid != null && !uuid.isEmpty())
+                    if (callBack != null){
+                        callBack.passContentData(uuid);
+                        //context.startActivity(new Intent(context, PlayerActivity.class).putExtra(Constants.CONTENT_UUID, uuid).putExtra(Constants.CONTENT_SECTION_TITLE,title));
+                    }
+
             });
         }
     }
@@ -60,5 +67,9 @@ public class GetRelatedContentsAdapter extends RecyclerView.Adapter<GetRelatedCo
             super(itemView.getRoot());
             binding = itemView;
         }
+    }
+
+    public interface CallBack{
+        void passContentData(String uuid);
     }
 }

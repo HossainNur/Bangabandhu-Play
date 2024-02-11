@@ -51,7 +51,6 @@ class TunesFragment : Fragment() {
         viewModel.sliders.observe(viewLifecycleOwner){originals ->
             try {
                 if (originals != null) {
-                    slider = true
                     isMoviesOriginalList = java.util.ArrayList<Original>()
                     for (isHomeList in originals) {
                         if (isHomeList.getIsHome() == 0) {
@@ -60,7 +59,7 @@ class TunesFragment : Fragment() {
                     }
                     images = isMoviesOriginalList as java.util.ArrayList<Original>
                     setSlider(isMoviesOriginalList as java.util.ArrayList<Original>)
-                    hideProgressBar()
+                    //hideProgressBar()
                 }
             }catch (e: java.lang.Exception){
                 e.printStackTrace()
@@ -81,7 +80,6 @@ class TunesFragment : Fragment() {
                         binding.tunesSliderVp.visibility = View.GONE
                     }*/
 
-                    moviesSection = true
                     val subCategories: MutableList<SubCategory> = ArrayList()
                     for (c in data[0].subCategories) {
                         if (c.ottContents != null && !c.ottContents.isEmpty()) {
@@ -89,7 +87,7 @@ class TunesFragment : Fragment() {
                         }
                     }
                     binding.tunesRv.setLayoutManager(LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false))
-                    binding.tunesRv.adapter = MoviesContentAdapter(subCategories,requireActivity())
+                    binding.tunesRv.adapter = MoviesContentAdapter(subCategories,requireActivity(),true)
                 }
 
             }catch (e:Exception){
@@ -120,35 +118,15 @@ class TunesFragment : Fragment() {
             }
         })
 
-        /*binding.indicatorContainerLl.removeAllViews()
-        for (i in originals.indices) {
-            val item = TextView(requireActivity())
-            item.background = resources.getDrawable(R.drawable.slider_indicator_background)
-            item.id = i
-            val params = LinearLayout.LayoutParams(15, 15)
-            params.setMargins(5, 0, 5, 0)
-            //item.setLayoutParams(new ViewGroup.LayoutParams(30,30));
-            item.layoutParams = params
-            binding.indicatorContainerLl.addView(item)
-        }
-        binding.tunesSliderVp.registerOnPageChangeCallback(object : OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                binding.indicatorContainerLl.getChildAt(prev1).background =
-                    resources.getDrawable(R.drawable.slider_indicator_background)
-                binding.indicatorContainerLl.getChildAt(position).background =
-                    resources.getDrawable(R.drawable.slider_indicatior_back)
-                prev1 = position
-            }
-        })*/
+
     }
 
-    private fun hideProgressBar() {
+   /* private fun hideProgressBar() {
         if (slider && moviesSection) {
             binding.tunesContainer.setVisibility(View.VISIBLE)
             binding.progressBar.setVisibility(View.GONE)
         }
-    }
+    }*/
 
     val sliderRunnable = Runnable {
         if (binding != null) {

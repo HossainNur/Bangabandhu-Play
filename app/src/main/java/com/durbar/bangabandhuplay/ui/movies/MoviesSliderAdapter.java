@@ -40,7 +40,7 @@ public class MoviesSliderAdapter extends RecyclerView.Adapter<MoviesSliderAdapte
             String uuid = current.getContentUrl();
 
             if (image != null)
-                Picasso.get().load(current.getImage()).into(holder.binding.moviesSliderImage);
+                Picasso.get().load(image).into(holder.binding.moviesSliderImage);
 
             holder.binding.getRoot().setOnClickListener(v -> {
                 if (uuid != null && !uuid.isEmpty())

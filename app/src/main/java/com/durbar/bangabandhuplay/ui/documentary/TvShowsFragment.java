@@ -93,7 +93,7 @@ public class TvShowsFragment extends Fragment {
                         }
                     }
                     binding.documentaryParentRecyclerview.setLayoutManager(new LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false));
-                    moviesContentAdapter = new MoviesContentAdapter(subCategories, requireActivity());
+                    moviesContentAdapter = new MoviesContentAdapter(subCategories, requireActivity(),false);
                     binding.documentaryParentRecyclerview.setAdapter(moviesContentAdapter);
                     hideProgressBar();
                 }

@@ -21,11 +21,13 @@ import java.util.List;
 public class MoviesContentAdapter extends RecyclerView.Adapter<MoviesContentAdapter.ParentViewHolder> {
     private List<SubCategory> subCategories;
     private Context context;
+    private boolean isTunes;
 
 
-    public MoviesContentAdapter(List<SubCategory> subCategories, Context context) {
+    public MoviesContentAdapter(List<SubCategory> subCategories, Context context,boolean isTunes) {
         this.subCategories = subCategories;
         this.context = context;
+        this.isTunes = isTunes;
     }
 
     @NonNull
@@ -58,6 +60,9 @@ public class MoviesContentAdapter extends RecyclerView.Adapter<MoviesContentAdap
                 Constants.setEditor(context,Constants.CONTENT_SECTION_TITLE,title);
                 Constants.setEditor(context,Constants.CONTENT_IS_HOME,false);
             });
+            if (isTunes == true){
+                Constants.IS_TUNES = true;
+            }else Constants.IS_TUNES = false;
         }
 
     }

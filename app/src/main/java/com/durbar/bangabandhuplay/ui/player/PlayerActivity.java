@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -26,6 +28,7 @@ import com.durbar.bangabandhuplay.MainActivity;
 import com.durbar.bangabandhuplay.R;
 import com.durbar.bangabandhuplay.databinding.ActivityPlayerBinding;
 import com.durbar.bangabandhuplay.ui.more.MoreActivity;
+import com.durbar.bangabandhuplay.ui.tunes.TunesFragment;
 import com.durbar.bangabandhuplay.utils.NavigationHelper;
 import com.durbar.bangabandhuplay.utils.TrackSelectionDialog;
 import com.durbar.bangabandhuplay.data.model.ott_content.ContentSource;
@@ -42,7 +45,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class PlayerActivity extends AppCompatActivity {
+public class PlayerActivity extends AppCompatActivity implements GetRelatedContentsAdapter.CallBack{
 
     private ActivityPlayerBinding binding;
     private String title;
@@ -87,19 +90,16 @@ public class PlayerActivity extends AppCompatActivity {
         viewModel.fetchContent(uuid).observe(this, singleOttContent -> {
             try {
                 if (singleOttContent.getData().getContentData() != null) {
+
                     ottContent = true;
-                    String title = singleOttContent.getData().getContentData().getTitle();
-                    String description = singleOttContent.getData().getContentData().getSynopsisEnglish();
-                    String releaseDate = singleOttContent.getData().getContentData().getReleaseDate();
-                    String genre = singleOttContent.getData().getContentData().getGenre();
-                    String runTime = singleOttContent.getData().getContentData().getRuntime();
-                    String year = singleOttContent.getData().getContentData().getYear();
-                    List<ContentSource> contentSourceList = singleOttContent.getData().getContentData().getContentSource();
-                    if (title != null) {
-                        binding.moviesTitle.setText(title);
-                        moviesTitle.setText(title);
+                    if (singleOttContent.getData().getContentData().getTitle() != null) {
+                        binding.moviesTitle.setText(singleOttContent.getData().getContentData().getTitle());
+                        moviesTitle.setText(singleOttContent.getData().getContentData().getTitle());
                     }
-                    if (description != null) binding.moviesDescription.setText(description);
+
+                    if (singleOttContent.getData().getContentData().getYear() != null) binding.moviesYear.setText(singleOttContent.getData().getContentData().getYear());
+
+                    if (singleOttContent.getData().getContentData().getSynopsisEnglish() != null) binding.moviesDescription.setText(singleOttContent.getData().getContentData().getSynopsisEnglish());
 
                     if (singleOttContent.getData().getContentData().getCastAndCrews() != null && !singleOttContent.getData().getContentData().getCastAndCrews().isEmpty()){
                         binding.castCrewText.setVisibility(View.VISIBLE);
@@ -107,20 +107,24 @@ public class PlayerActivity extends AppCompatActivity {
                         binding.castCrewRv.setAdapter(new CastCrewSliderAdapter(singleOttContent.getData().getContentData().getCastAndCrews()));
                     }else binding.castCrewText.setVisibility(View.GONE);
 
-                    if (contentSourceList != null && !contentSourceList.isEmpty()) {
-                        for (ContentSource c : contentSourceList) {
-                            if (c.getSourceType().equalsIgnoreCase("content_path")) {
-                                videoPath = c.getContentSource();
+                    if (singleOttContent.getData().getContentData().getContentSource() != null){
+                        List<ContentSource> contentSourceList = singleOttContent.getData().getContentData().getContentSource();
+                        if (contentSourceList != null && !contentSourceList.isEmpty()) {
+                            for (ContentSource c : contentSourceList) {
+                                if (c.getSourceType().equalsIgnoreCase("content_path")) {
+                                    videoPath = c.getContentSource();
+                                }
                             }
                         }
                     }
+
 
                     if (videoPath != null && !videoPath.isEmpty()) {
                         initializePlayer(videoPath);
                     }
 
-                    if (runTime != null){
-                        long timeSec = Long.parseLong(runTime);
+                    if (singleOttContent.getData().getContentData().getRuntime() != null){
+                        long timeSec = Long.parseLong(singleOttContent.getData().getContentData().getRuntime());
                         int hours = (int) timeSec / 3600;
                         int temp = (int) timeSec - hours * 3600;
                         int mins = temp / 60;
@@ -132,10 +136,10 @@ public class PlayerActivity extends AppCompatActivity {
                         binding.tvRunTime.setText(requiredFormat);
                     }
 
-                    if (releaseDate != null) {
+                    if (singleOttContent.getData().getContentData().getReleaseDate() != null) {
                         SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                         try {
-                            Date inputDate = inputDateFormat.parse(releaseDate);
+                            Date inputDate = inputDateFormat.parse(singleOttContent.getData().getContentData().getReleaseDate());
                             SimpleDateFormat outputDateFormat = new SimpleDateFormat("MMMM dd, yyyy");
                             String outputDateStr = outputDateFormat.format(inputDate);
                             binding.tvReleaseDate.setText(outputDateStr);
@@ -144,10 +148,11 @@ public class PlayerActivity extends AppCompatActivity {
                         }
                     }
 
-                    if (genre != null) {
+
+                    if (singleOttContent.getData().getContentData().getGenre() != null) {
 
                         Gson gson = new Gson();
-                        String[] array = gson.fromJson(genre, String[].class);
+                        String[] array = gson.fromJson(singleOttContent.getData().getContentData().getGenre(), String[].class);
 
                         List<String> detailsList = new ArrayList<>();
                         for (String item : array) {
@@ -172,7 +177,7 @@ public class PlayerActivity extends AppCompatActivity {
                 if (singleContentRelatedContents != null && !singleContentRelatedContents.isEmpty()) {
                     relatedContent = true;
                     binding.rvMoreLikeThis.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-                    binding.rvMoreLikeThis.setAdapter(new GetRelatedContentsAdapter(singleContentRelatedContents, this,title));
+                    binding.rvMoreLikeThis.setAdapter(new GetRelatedContentsAdapter(singleContentRelatedContents, this,title,this));
                     hideProgressBar();
                 }
             } catch (Exception e) {
@@ -327,7 +332,7 @@ public class PlayerActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        Constants.IS_FROM_PLAYER = true;
+
         if (Constants.IS_MORE_CONTENT){
             String id = Constants.getSharedPref(this,Constants.CONTENT_ID);
             String slug = Constants.getSharedPref(this,Constants.CONTENT_SLUG);
@@ -353,7 +358,15 @@ public class PlayerActivity extends AppCompatActivity {
             }
             Constants.IS_MORE_CONTENT = false;
 
-        }else {
+        }else if (Constants.IS_TUNES){
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.player_container, new TunesFragment());
+            fragmentTransaction.addToBackStack(null); // Add this line if you want to allow the user to navigate back to the previous fragment
+            fragmentTransaction.commit();
+            finish();
+        }
+        else {
+            Constants.IS_FROM_PLAYER = true;
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -363,4 +376,11 @@ public class PlayerActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void passContentData(String uuid) {
+        if (uuid != null){
+            finish();
+            startActivity(new Intent(getApplicationContext(), PlayerActivity.class).putExtra(Constants.CONTENT_UUID, uuid).putExtra(Constants.CONTENT_SECTION_TITLE,title));
+        }
+    }
 }
