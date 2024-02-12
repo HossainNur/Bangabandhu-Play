@@ -12,6 +12,7 @@ import android.webkit.WebViewClient
 import android.widget.Toast
 import com.durbar.bangabandhuplay.R
 import com.durbar.bangabandhuplay.databinding.FragmentPdfWebViewBinding
+import com.durbar.bangabandhuplay.utils.NetworkUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -19,6 +20,7 @@ import kotlinx.coroutines.launch
 
 class PdfWebViewFragment : Fragment() {
     private lateinit var binding: FragmentPdfWebViewBinding
+    val networkUtil: NetworkUtil = NetworkUtil.getInstance(requireActivity())
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,6 +32,9 @@ class PdfWebViewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (!networkUtil.isNetworkAvailable()) {
+            NetworkUtil.showNoInternetDialog(requireActivity());
+        }
         val pdfUrl = arguments?.getString("pdfurl")
 
         if (!pdfUrl.isNullOrEmpty()) {

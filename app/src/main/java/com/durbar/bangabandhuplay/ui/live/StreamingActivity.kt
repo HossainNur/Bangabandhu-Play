@@ -12,11 +12,16 @@ import com.durbar.bangabandhuplay.MainActivity
 import com.durbar.bangabandhuplay.R
 import com.durbar.bangabandhuplay.data.model.live.Data
 import com.durbar.bangabandhuplay.databinding.ActivityStreamingBinding
+import com.durbar.bangabandhuplay.utils.NetworkUtil
+
+
+
 
 class StreamingActivity : AppCompatActivity() {
     private var binding: ActivityStreamingBinding? = null
     private var viewModel: LiveStreamingViewModel? = null
     private var userRole = 0
+    val networkUtil: NetworkUtil = NetworkUtil.getInstance(this)
     private var from_Notification:String = ""  // notification purpose
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +30,10 @@ class StreamingActivity : AppCompatActivity() {
         )
         viewModel = ViewModelProvider(this).get(LiveStreamingViewModel::class.java)
         setContentView(binding!!.root)
+
+        if (!networkUtil.isNetworkAvailable()) {
+            NetworkUtil.showNoInternetDialog(this);
+        }
 
         from_Notification = intent.getStringExtra("data")?: ""   // notification purpose
 

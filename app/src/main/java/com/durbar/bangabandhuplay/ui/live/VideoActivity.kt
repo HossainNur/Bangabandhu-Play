@@ -17,6 +17,7 @@ import com.durbar.bangabandhuplay.databinding.ActivityVideoBinding
 import com.durbar.bangabandhuplay.utils.Constants.APP_ID
 import com.durbar.bangabandhuplay.utils.Constants.END_CALL_PRESSED
 import com.durbar.bangabandhuplay.utils.Constants.TOKEN
+import com.durbar.bangabandhuplay.utils.NetworkUtil
 import io.agora.rtc.Constants
 import io.agora.rtc.IRtcEngineEventHandler
 import io.agora.rtc.RtcEngine
@@ -30,6 +31,7 @@ class VideoActivity : AppCompatActivity() {
     private var token : String? = null
     private var appId: String? = null
     private var channelName : String? = null
+    val networkUtil: NetworkUtil = NetworkUtil.getInstance(this)
     private lateinit var binding : ActivityVideoBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +43,9 @@ class VideoActivity : AppCompatActivity() {
         channelName = intent.getStringExtra("channel_name")
         appId = intent.getStringExtra("appId")
         token = intent.getStringExtra("token")
+        if (!networkUtil.isNetworkAvailable()) {
+            NetworkUtil.showNoInternetDialog(this);
+        }
         initAgoraEngineAndJoinChannel()
     }
 

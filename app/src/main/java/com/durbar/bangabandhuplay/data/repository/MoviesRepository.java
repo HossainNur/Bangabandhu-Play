@@ -48,7 +48,7 @@ public class MoviesRepository {
 
             @Override
             public void onFailure(@NonNull Call<Sliders> call, @NonNull Throwable t) {
-                Toast.makeText(application, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(application, "Failed to connect", Toast.LENGTH_SHORT).show();
                 t.printStackTrace();
             }
         });
@@ -70,7 +70,8 @@ public class MoviesRepository {
 
             @Override
             public void onFailure(Call<SingleRootCategory> call, Throwable t) {
-                Toast.makeText(application, "Failed - "+t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(application, "Failed to connect", Toast.LENGTH_SHORT).show();
+                t.printStackTrace();
             }
         });
 

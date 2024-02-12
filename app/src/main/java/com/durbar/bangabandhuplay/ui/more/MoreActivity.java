@@ -15,6 +15,7 @@ import com.durbar.bangabandhuplay.R;
 import com.durbar.bangabandhuplay.databinding.ActivityMoreBinding;
 import com.durbar.bangabandhuplay.ui.search.SearchResultActivity;
 import com.durbar.bangabandhuplay.utils.Constants;
+import com.durbar.bangabandhuplay.utils.NetworkUtil;
 
 public class MoreActivity extends AppCompatActivity {
 
@@ -22,12 +23,14 @@ public class MoreActivity extends AppCompatActivity {
     private String id = null, title = null, slug = null;
     private MoreHomeViewModel viewModel;
     private boolean moreSection = false, isHome,isMore = true;
+    private NetworkUtil networkUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMoreBinding.inflate(getLayoutInflater());
         viewModel = new ViewModelProvider(this).get(MoreHomeViewModel.class);
+        networkUtil = NetworkUtil.getInstance(this);
         setContentView(binding.getRoot());
 
         id = getIntent().getStringExtra(Constants.CONTENT_ID);
@@ -39,6 +42,10 @@ public class MoreActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.baseline_arrow_back_ios_24);
         getSupportActionBar().setTitle(title);
+
+        if (!networkUtil.isNetworkAvailable()) {
+            NetworkUtil.showNoInternetDialog(this);
+        }
 
 
         if (isHome) {

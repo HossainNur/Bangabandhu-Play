@@ -28,6 +28,7 @@ import com.durbar.bangabandhuplay.databinding.FragmentMoviesBinding;
 import com.durbar.bangabandhuplay.ui.tunes.TunesSliderAdapter;
 import com.durbar.bangabandhuplay.utils.Constants;
 import com.durbar.bangabandhuplay.utils.NavigationHelper;
+import com.durbar.bangabandhuplay.utils.NetworkUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,8 @@ public class MoviesFragment extends Fragment {
     private boolean inc = true;
     private int prev1 = 0;
     private boolean slider = false, moviesSection = false;
+    private NetworkUtil networkUtil;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,12 +59,17 @@ public class MoviesFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentMoviesBinding.inflate(inflater, container, false);
         moviesViewModel = new ViewModelProvider(this).get(MoviesViewModel.class);
+        networkUtil = NetworkUtil.getInstance(requireActivity());
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        if (!networkUtil.isNetworkAvailable()) {
+            NetworkUtil.showNoInternetDialog(requireActivity());
+        }
 
         moviesViewModel.getSliders().observe(requireActivity(), originals -> {
             try {

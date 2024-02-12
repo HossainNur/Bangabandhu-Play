@@ -1,6 +1,8 @@
 package com.durbar.bangabandhuplay.data.repository;
 
+import android.app.AlertDialog;
 import android.app.Application;
+import android.content.DialogInterface;
 import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
@@ -9,6 +11,7 @@ import com.durbar.bangabandhuplay.data.Api;
 import com.durbar.bangabandhuplay.data.ApiService;
 import com.durbar.bangabandhuplay.data.model.family_member.Data;
 import com.durbar.bangabandhuplay.data.model.family_member.FamilyMemberResponse;
+import com.durbar.bangabandhuplay.utils.NetworkUtil;
 
 import java.util.List;
 
@@ -20,11 +23,13 @@ public class FamilyMemberRepository {
     private Application application;
     private ApiService apiService;
     private MutableLiveData<List<Data>> dataList;
+    private NetworkUtil networkUtil;
 
     public FamilyMemberRepository(Application application) {
         this.application = application;
         apiService = Api.getInstance().getApiService();
         dataList = new MutableLiveData<>();
+        networkUtil = NetworkUtil.getInstance(application);
     }
 
     public MutableLiveData<List<Data>> fetchFamilyMemberPhotos(){
@@ -41,7 +46,7 @@ public class FamilyMemberRepository {
 
             @Override
             public void onFailure(Call<FamilyMemberResponse> call, Throwable t) {
-                Toast.makeText(application, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(application, "Failed to connect", Toast.LENGTH_SHORT).show();
                 t.printStackTrace();
             }
         });

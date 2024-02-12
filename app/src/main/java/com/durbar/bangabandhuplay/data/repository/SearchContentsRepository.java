@@ -35,7 +35,7 @@ public class SearchContentsRepository {
 
             @Override
             public void onFailure(Call<SearchResultRes> call, Throwable t) {
-                Toast.makeText(application, "Failed - "+t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(application, "Failed to connect", Toast.LENGTH_SHORT).show();
             }
         });
 

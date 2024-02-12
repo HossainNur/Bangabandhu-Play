@@ -13,24 +13,31 @@ import android.view.View;
 
 import com.durbar.bangabandhuplay.R;
 import com.durbar.bangabandhuplay.databinding.ActivitySearchResultBinding;
+import com.durbar.bangabandhuplay.utils.NetworkUtil;
 
 public class SearchResultActivity extends AppCompatActivity {
 
     private ActivitySearchResultBinding binding;
     private SearchContentsViewModel viewModel;
     private static int SPLASH_TIME_OUT = 2000;
+    private NetworkUtil networkUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivitySearchResultBinding.inflate(getLayoutInflater());
         viewModel = new ViewModelProvider(this).get(SearchContentsViewModel.class);
+        networkUtil = NetworkUtil.getInstance(this);
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.baseline_arrow_back_ios_24);
         getSupportActionBar().setTitle(R.string.search);
+
+        if (!networkUtil.isNetworkAvailable()) {
+            NetworkUtil.showNoInternetDialog(this);
+        }
 
         binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

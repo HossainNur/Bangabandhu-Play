@@ -21,6 +21,7 @@ import com.durbar.bangabandhuplay.R;
 import com.durbar.bangabandhuplay.databinding.FragmentFamilyMemberDeatilsBinding;
 import com.durbar.bangabandhuplay.ui.search.SearchResultActivity;
 import com.durbar.bangabandhuplay.utils.NavigationHelper;
+import com.durbar.bangabandhuplay.utils.NetworkUtil;
 import com.google.android.material.appbar.AppBarLayout;
 import com.squareup.picasso.Picasso;
 
@@ -31,6 +32,7 @@ public class FamilyMemberDetailsFragment extends Fragment {
     private FragmentFamilyMemberDeatilsBinding binding;
     private NavController navController;
     private String htmlDescription;
+    private NetworkUtil networkUtil;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class FamilyMemberDetailsFragment extends Fragment {
         shortTitle = NavigationHelper.getINSTANCE().getShortTitle();
         description = NavigationHelper.getINSTANCE().getDescription();
         appBarLayout = NavigationHelper.getINSTANCE().getAppBarLayout();
+        networkUtil = NetworkUtil.getInstance(requireActivity());
         return binding.getRoot();
     }
 
@@ -49,6 +52,9 @@ public class FamilyMemberDetailsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         navController = Navigation.findNavController(view);
+        if (!networkUtil.isNetworkAvailable()) {
+            NetworkUtil.showNoInternetDialog(requireActivity());
+        }
         if (title != null) binding.familyDetailsTitle.setText(title);
         if (shortTitle != null) binding.familyDetailsShortTitle.setText(shortTitle);
         if (image != null) Picasso.get().load(image).fit().into(binding.familyDetailsImage);

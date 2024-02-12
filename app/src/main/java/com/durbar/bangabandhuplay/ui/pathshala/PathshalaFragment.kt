@@ -13,6 +13,7 @@ import com.durbar.bangabandhuplay.data.ApiService
 import com.durbar.bangabandhuplay.data.model.pathshala.PathshalaResponse
 import com.durbar.bangabandhuplay.databinding.FragmentPathshalaBinding
 import com.durbar.bangabandhuplay.utils.Constants
+import com.durbar.bangabandhuplay.utils.NetworkUtil
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,12 +24,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 class PathshalaFragment : Fragment() {
     private lateinit var binding: FragmentPathshalaBinding
     private lateinit var viewModel: PathshalaViewModel
+    private var networkUtil: NetworkUtil? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentPathshalaBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(PathshalaViewModel::class.java)
+        networkUtil = NetworkUtil.getInstance(requireActivity())
         return binding.root
 
     }
@@ -36,6 +39,9 @@ class PathshalaFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (networkUtil?.isNetworkAvailable() == false) {
+            NetworkUtil.showNoInternetDialog(requireActivity());
+        }
         binding.progressBar.visibility = View.VISIBLE
 
         viewModel.fetchPdfs().observe(viewLifecycleOwner) {pathshala ->

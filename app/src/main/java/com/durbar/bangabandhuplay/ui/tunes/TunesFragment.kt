@@ -23,6 +23,7 @@ import com.durbar.bangabandhuplay.databinding.FragmentTunesBinding
 import com.durbar.bangabandhuplay.ui.movies.MoviesContentAdapter
 import com.durbar.bangabandhuplay.ui.movies.MoviesSliderAdapter
 import com.durbar.bangabandhuplay.ui.movies.MoviesViewModel
+import com.durbar.bangabandhuplay.utils.NetworkUtil
 
 
 class TunesFragment : Fragment() {
@@ -37,16 +38,20 @@ class TunesFragment : Fragment() {
     private var isMoviesOriginalList: List<Original>? = null
     private var images: List<Original> = java.util.ArrayList()
     private var categorySliderList: List<CategorySlider> = java.util.ArrayList()
+    private var networkUtil: NetworkUtil? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         binding = FragmentTunesBinding.inflate(layoutInflater)
         viewModel = ViewModelProvider(this).get(MoviesViewModel::class.java)
+        networkUtil = NetworkUtil.getInstance(requireActivity())
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        if (networkUtil?.isNetworkAvailable() == false) {
+            NetworkUtil.showNoInternetDialog(requireActivity());
+        }
 
         viewModel.sliders.observe(viewLifecycleOwner){originals ->
             try {

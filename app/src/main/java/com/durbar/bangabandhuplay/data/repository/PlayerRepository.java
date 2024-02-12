@@ -52,7 +52,7 @@ public class PlayerRepository {
 
             @Override
             public void onFailure(Call<SingleOttContent> call, Throwable t) {
-                Toast.makeText(application, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(application, "Failed to connect", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -75,7 +75,7 @@ public class PlayerRepository {
             }
             @Override
             public void onFailure(Call<GetRelatedContent> call, Throwable t) {
-                Toast.makeText(application, "Failed - "+t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(application, "Failed to connect", Toast.LENGTH_SHORT).show();
             }
         });
 

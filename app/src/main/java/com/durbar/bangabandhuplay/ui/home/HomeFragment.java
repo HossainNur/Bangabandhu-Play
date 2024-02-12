@@ -22,6 +22,7 @@ import com.durbar.bangabandhuplay.data.model.frontend_custom_content.custom_cont
 import com.durbar.bangabandhuplay.databinding.FragmentHomeBinding;
 import com.durbar.bangabandhuplay.utils.Constants;
 import com.durbar.bangabandhuplay.utils.NavigationHelper;
+import com.durbar.bangabandhuplay.utils.NetworkUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,10 +38,12 @@ public class HomeFragment extends Fragment {
     private boolean inc = true;
     private ParentItemAdapter adapter;
     private boolean slider = false, frontendSection = false;
+    private NetworkUtil networkUtil;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        networkUtil = NetworkUtil.getInstance(requireActivity());
         return binding.getRoot();
     }
 
@@ -48,7 +51,9 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
+        if (!networkUtil.isNetworkAvailable()) {
+            NetworkUtil.showNoInternetDialog(requireActivity());
+        }
         homeViewModel.getSliders().observe(requireActivity(), originals -> {
             try {
                 if (originals != null) {

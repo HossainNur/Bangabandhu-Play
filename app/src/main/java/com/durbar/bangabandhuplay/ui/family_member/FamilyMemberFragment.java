@@ -21,18 +21,21 @@ import android.widget.Toast;
 import com.durbar.bangabandhuplay.R;
 import com.durbar.bangabandhuplay.databinding.FragmentFamilyMemberBinding;
 import com.durbar.bangabandhuplay.utils.NavigationHelper;
+import com.durbar.bangabandhuplay.utils.NetworkUtil;
 
 public class FamilyMemberFragment extends Fragment implements FamilyMemberAdapter.CallBack{
     private FragmentFamilyMemberBinding binding;
     private FamilyMemberViewModel viewModel;
     private NavController navController;
     private boolean familyMember = false;
+    private NetworkUtil networkUtil;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentFamilyMemberBinding.inflate(inflater,container,false);
         viewModel =  new ViewModelProvider(this).get(FamilyMemberViewModel.class);
+        networkUtil = NetworkUtil.getInstance(requireActivity());
         return binding.getRoot();
     }
 
@@ -41,6 +44,11 @@ public class FamilyMemberFragment extends Fragment implements FamilyMemberAdapte
         super.onViewCreated(view, savedInstanceState);
 
         navController = Navigation.findNavController(view);
+
+        if (!networkUtil.isNetworkAvailable()) {
+            NetworkUtil.showNoInternetDialog(requireActivity());
+        }
+
         viewModel.fetchFamilyMemberPhotos().observe(requireActivity(),data -> {
             try {
                 if (data != null && !data.isEmpty()){

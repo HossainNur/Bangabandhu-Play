@@ -30,6 +30,7 @@ import com.durbar.bangabandhuplay.databinding.ActivityPlayerBinding;
 import com.durbar.bangabandhuplay.ui.more.MoreActivity;
 import com.durbar.bangabandhuplay.ui.tunes.TunesFragment;
 import com.durbar.bangabandhuplay.utils.NavigationHelper;
+import com.durbar.bangabandhuplay.utils.NetworkUtil;
 import com.durbar.bangabandhuplay.utils.TrackSelectionDialog;
 import com.durbar.bangabandhuplay.data.model.ott_content.ContentSource;
 import com.durbar.bangabandhuplay.ui.search.SearchResultActivity;
@@ -57,6 +58,7 @@ public class PlayerActivity extends AppCompatActivity implements GetRelatedConte
     private ConstraintLayout contentTopSection;
     private TextView moviesTitle;
     private boolean isShowingTrackSelectionDialog;
+    private NetworkUtil networkUtil;
     boolean isFullScreen = false, isLock = false, ottContent = false, relatedContent = false,isMore;
 
     @Override
@@ -65,6 +67,7 @@ public class PlayerActivity extends AppCompatActivity implements GetRelatedConte
         binding = ActivityPlayerBinding.inflate(getLayoutInflater());
         viewModel = new ViewModelProvider(this).get(PlayerViewModel.class);
         uuid = getIntent().getStringExtra(Constants.CONTENT_UUID);
+        networkUtil = NetworkUtil.getInstance(this);
         setContentView(binding.getRoot());
 
         title = getIntent().getStringExtra(Constants.CONTENT_SECTION_TITLE);
@@ -74,6 +77,9 @@ public class PlayerActivity extends AppCompatActivity implements GetRelatedConte
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.baseline_arrow_back_ios_24);
         getSupportActionBar().setTitle(title);
 
+        if (!networkUtil.isNetworkAvailable()) {
+            NetworkUtil.showNoInternetDialog(this);
+        }
 
         playerView = findViewById(R.id.video_player);
         btnFullScreen = findViewById(R.id.bt_fullscreen);

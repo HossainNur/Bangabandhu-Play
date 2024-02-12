@@ -43,7 +43,8 @@ public class PathshalaRepositoryJava {
 
             @Override
             public void onFailure(Call<PathshalaResponse> call, Throwable t) {
-                Toast.makeText(application, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(application, "Failed to connect", Toast.LENGTH_SHORT).show();
+                t.printStackTrace();
             }
         });
 

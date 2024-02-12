@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.durbar.bangabandhuplay.R
 import com.durbar.bangabandhuplay.databinding.FragmentPhotoGalleryBinding
+import com.durbar.bangabandhuplay.utils.NetworkUtil
 import com.squareup.picasso.Picasso
 
 
@@ -19,17 +20,23 @@ class PhotoGalleryFragment : Fragment(), PhotoGalleryAdapter.CallBack {
     private lateinit var binding: FragmentPhotoGalleryBinding
     private lateinit var viewModel: PhotoGalleryViewModel
     private var photoGallery : Boolean = false
+    private var networkUtil: NetworkUtil? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentPhotoGalleryBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(PhotoGalleryViewModel::class.java)
+        networkUtil = NetworkUtil.getInstance(requireActivity())
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (networkUtil?.isNetworkAvailable() == false) {
+            NetworkUtil.showNoInternetDialog(requireActivity());
+        }
 
         viewModel.fetchGalleryPhotos().observe(viewLifecycleOwner) { data ->
             try {

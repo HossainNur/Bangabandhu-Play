@@ -44,7 +44,7 @@ public class MoreHomeRepository {
 
             @Override
             public void onFailure(Call<CustomContentBySlug> call, Throwable t) {
-                Toast.makeText(application, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(application, "Failed to connect", Toast.LENGTH_SHORT).show();
                 t.printStackTrace();
             }
         });
@@ -65,7 +65,7 @@ public class MoreHomeRepository {
 
             @Override
             public void onFailure(Call<SingleSubCategoryRes> call, Throwable t) {
-                Toast.makeText(application, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(application, "Failed to connect", Toast.LENGTH_SHORT).show();
                 t.printStackTrace();
             }
         });
