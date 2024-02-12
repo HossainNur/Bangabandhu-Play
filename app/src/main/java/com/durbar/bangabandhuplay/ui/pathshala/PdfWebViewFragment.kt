@@ -13,6 +13,7 @@ import android.webkit.WebViewClient
 import android.widget.Toast
 import com.durbar.bangabandhuplay.R
 import com.durbar.bangabandhuplay.databinding.FragmentPdfWebViewBinding
+import com.durbar.bangabandhuplay.utils.checkInternet
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -26,6 +27,7 @@ class PdfWebViewFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentPdfWebViewBinding.inflate(inflater, container, false)
+        requireContext().checkInternet()
         return binding.root
     }
 
