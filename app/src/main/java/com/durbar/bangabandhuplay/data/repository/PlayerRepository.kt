@@ -40,7 +40,8 @@ class PlayerRepository(private val application: Application) {
             }
 
             override fun onFailure(call: Call<SingleOttContent?>, t: Throwable) {
-                Toast.makeText(application, t.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(application, "Failed to connect", Toast.LENGTH_SHORT).show()
+                t.printStackTrace()
             }
         })
         return content
@@ -66,7 +67,8 @@ class PlayerRepository(private val application: Application) {
             }
 
             override fun onFailure(call: Call<GetRelatedContent?>, t: Throwable) {
-                Toast.makeText(application, "Failed - " + t.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(application, "Failed to connect", Toast.LENGTH_SHORT).show()
+                t.printStackTrace()
             }
         })
         return relatedContent

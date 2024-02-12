@@ -60,7 +60,7 @@ class CategoryItemAdapter(private val list: List<Ebook> ) : RecyclerView.Adapter
             Picasso.get().load(image).fit().into(holder.binding.ivPdf)
         }
 
-        holder.binding.tvTitle.text = title?: ""
+        //holder.binding.tvTitle.text = title?: ""
 
         holder.binding.root.setOnClickListener {
             // callbackUrl(pdf)

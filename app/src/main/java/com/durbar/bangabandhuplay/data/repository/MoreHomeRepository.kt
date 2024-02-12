@@ -42,8 +42,8 @@ class MoreHomeRepository(private val application: Application) {
                 }            }
 
             override fun onFailure(call: Call<CustomContentBySlug?>, t: Throwable) {
-                Toast.makeText(application, t.message, Toast.LENGTH_SHORT).show()
-                t.printStackTrace()            }
+                Toast.makeText(application, "Failed to connect", Toast.LENGTH_SHORT).show()
+                t.printStackTrace()          }
         })
         return contentHome
     }
@@ -66,7 +66,7 @@ class MoreHomeRepository(private val application: Application) {
                 }            }
 
             override fun onFailure(call: Call<SingleSubCategoryRes?>, t: Throwable) {
-                Toast.makeText(application, t.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(application, "Failed to connect", Toast.LENGTH_SHORT).show()
                 t.printStackTrace()            }
         })
         return singleSubCategory

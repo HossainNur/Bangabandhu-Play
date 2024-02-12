@@ -88,16 +88,20 @@ class PlayerActivity : AppCompatActivity() {
             try {
                 if (singleOttContent?.data?.contentData != null) {
                     ottContent = true
-                    val title = singleOttContent.data.contentData.title.orEmpty()
-                    val description = singleOttContent.data.contentData.synopsisEnglish.orEmpty()
+                    val title = singleOttContent.data.contentData.title?:""
+                    val description = singleOttContent.data.contentData.synopsisEnglish?:""
                     val releaseDate = singleOttContent.data.contentData.releaseDate?:""
-                    val genre = singleOttContent.data.contentData.genre.orEmpty()
-                    val runTime = singleOttContent.data.contentData.runtime.orEmpty()
+                    val genre = singleOttContent.data.contentData.genre?:""
+                    val runTime = singleOttContent.data.contentData.runtime?:""
+                    val year = singleOttContent.data.contentData.year?:""
                     val contentSourceList =
                         singleOttContent.data.contentData.contentSource.orEmpty()
                     if (title.isNotEmpty()) {
                         binding?.moviesTitle?.text = title
                         moviesTitle?.text = title
+                    }
+                    if (year.isNotEmpty()){
+                        binding?.moviesYear?.text = year
                     }
                     if (description.isNotEmpty()) binding?.moviesDescription?.text = description
 

@@ -35,8 +35,8 @@ class FamilyMemberRepository(private val application: Application) {
                 }            }
 
             override fun onFailure(call: Call<FamilyMemberResponse?>, t: Throwable) {
-                Toast.makeText(application, t.message, Toast.LENGTH_SHORT).show()
-                t.printStackTrace()            }
+                Toast.makeText(application, "Failed to connect", Toast.LENGTH_SHORT).show()
+                t.printStackTrace()           }
         })
         return dataList
     }
