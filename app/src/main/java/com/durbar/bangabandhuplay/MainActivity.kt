@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
     private var channelName : String? = null
     private var handler: Handler = Handler()
     private var runnable: Runnable? = null
-    private var delay = 5000
+    private var delay = 4000
 
     private val requestNotificationPermission =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted->
