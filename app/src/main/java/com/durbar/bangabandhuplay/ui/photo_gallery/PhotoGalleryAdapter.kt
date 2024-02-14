@@ -2,10 +2,12 @@ package com.durbar.bangabandhuplay.ui.photo_gallery
 
 import android.app.Dialog
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.durbar.bangabandhuplay.R
 import com.durbar.bangabandhuplay.data.model.photo_gallery.Data
@@ -34,15 +36,21 @@ class PhotoGalleryAdapter(
         val image = current?.image
         val title = current?.title
 
+
         if (image != null) {
             holder.binding.mainProductCardThumbnailIv.clipToOutline = true
             Picasso.get().load(image).fit().into(holder.binding.mainProductCardThumbnailIv)
         }
 
         holder.binding.root.setOnClickListener {
-            if (title != null && image != null) {
+            /*if (title != null && image != null) {
                 callBack?.photoGalleryDetails(title,image)
+            }*/
+            if (dataList != null){
+                callBack?.photoGalleryDetails(dataList,position)
             }
+            //Toast.makeText(context, "Position: $position", Toast.LENGTH_SHORT).show()
+            //Log.d("PhotoGalleryAdapter", "Position: $position")
         }
 
     }
@@ -51,6 +59,7 @@ class PhotoGalleryAdapter(
         RecyclerView.ViewHolder(binding.root)
 
     interface CallBack {
-        fun photoGalleryDetails(title: String,image: String)
+        fun photoGalleryDetails(dataList: List<Data>, position: Int)
+        //fun photoGalleryDetails(title: String,image: String)
     }
 }

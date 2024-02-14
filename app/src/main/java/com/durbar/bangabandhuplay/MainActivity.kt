@@ -228,6 +228,8 @@ class MainActivity : AppCompatActivity() {
             super.onBackPressed()
         } else if ("fragment_family_member_deatils" == currentFragment[0]) {
             super.onBackPressed()
+        } else if ("fragment_photo_gallery_details" == currentFragment[0]) {
+            super.onBackPressed()
         } else if ("fragment_pdf_web_view" == currentFragment[0]) {
             super.onBackPressed()
         } else if ("fragment_photo_gallery" == currentFragment[0]) {

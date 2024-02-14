@@ -115,5 +115,10 @@
         android:name="com.durbar.bangabandhuplay.ui.pathshala.PdfViewFragment"
         android:label="fragment_pdf_view"
         tools:layout="@layout/fragment_pdf_view" />
+    <fragment
+        android:id="@+id/photoGalleryDetailsFragment"
+        android:name="com.durbar.bangabandhuplay.ui.photo_gallery.photo_gallery_details.PhotoGalleryDetailsFragment"
+        android:label="fragment_photo_gallery_details"
+        tools:layout="@layout/fragment_photo_gallery_details" />
 
 </navigation>
