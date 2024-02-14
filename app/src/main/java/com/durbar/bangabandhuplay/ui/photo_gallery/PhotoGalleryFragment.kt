@@ -31,7 +31,6 @@ class PhotoGalleryFragment : Fragment(), PhotoGalleryAdapter.CallBack {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireContext().checkInternet()
 
         viewModel.fetchGalleryPhotos().observe(viewLifecycleOwner) { data ->
             try {

@@ -24,6 +24,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
@@ -38,7 +39,8 @@ import com.durbar.bangabandhuplay.ui.search.SearchResultActivity
 import com.durbar.bangabandhuplay.utils.Constants
 import com.durbar.bangabandhuplay.utils.Constants.END_CALL_PRESSED
 import com.durbar.bangabandhuplay.utils.NavigationHelper
-import com.durbar.bangabandhuplay.utils.NetworkUtils
+import com.durbar.bangabandhuplay.utils.checkInternet
+import com.durbar.bangabandhuplay.utils.observeInternetConnection
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
@@ -73,10 +75,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         viewmodel = ViewModelProvider(this)[LiveStreamingViewModel::class.java]
         setContentView(binding.root)
+
+        this.checkInternet()
+        observeInternetConnection()
+
         // notification
         handlePushNotification()
-
-
 
         actionBarDrawerToggle = ActionBarDrawerToggle(
             this,

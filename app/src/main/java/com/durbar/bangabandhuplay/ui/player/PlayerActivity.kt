@@ -27,6 +27,7 @@ import com.durbar.bangabandhuplay.ui.tunes.TunesFragment
 import com.durbar.bangabandhuplay.utils.Constants
 import com.durbar.bangabandhuplay.utils.TrackSelectionDialog
 import com.durbar.bangabandhuplay.utils.checkInternet
+import com.durbar.bangabandhuplay.utils.observeInternetConnection
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
@@ -68,7 +69,10 @@ class PlayerActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(PlayerViewModel::class.java)
         uuid = intent.getStringExtra(Constants.CONTENT_UUID)
         setContentView(binding!!.root)
+
         this.checkInternet()
+        observeInternetConnection()
+
         title = intent.getStringExtra(Constants.CONTENT_SECTION_TITLE)
         isMore = intent.getBooleanExtra(Constants.CONTENT_IS_MORE, false)
         setSupportActionBar(binding!!.toolbar)

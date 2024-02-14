@@ -47,7 +47,6 @@ class TunesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireContext().checkInternet()
 
         viewModel.sliders.observe(viewLifecycleOwner){originals ->
             try {

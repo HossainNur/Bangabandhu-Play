@@ -46,7 +46,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        requireContext().checkInternet()
 
         homeViewModel!!.sliders.observe(requireActivity()) { originals: List<Original>? ->
             try {

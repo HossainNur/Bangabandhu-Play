@@ -54,7 +54,7 @@ class MoviesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireContext().checkInternet()
+
         moviesViewModel!!.sliders.observe(requireActivity()) { originals: List<Original>? ->
             try {
                 if (originals != null) {

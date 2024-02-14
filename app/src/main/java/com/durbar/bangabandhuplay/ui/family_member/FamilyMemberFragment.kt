@@ -33,7 +33,6 @@ class FamilyMemberFragment : Fragment(), FamilyMemberAdapter.CallBack {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireContext().checkInternet()
         navController = findNavController(view)
         viewModel!!.fetchFamilyMemberPhotos().observe(requireActivity()) { data ->
             try {
