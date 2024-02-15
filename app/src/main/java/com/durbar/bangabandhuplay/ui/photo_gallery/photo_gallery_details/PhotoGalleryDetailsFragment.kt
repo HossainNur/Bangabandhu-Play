@@ -1,5 +1,6 @@
 package com.durbar.bangabandhuplay.ui.photo_gallery.photo_gallery_details
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,7 +18,7 @@ import com.durbar.bangabandhuplay.databinding.FragmentPhotoGalleryDetailsBinding
 import com.durbar.bangabandhuplay.ui.photo_gallery.PhotoGalleryAdapter
 import com.durbar.bangabandhuplay.ui.photo_gallery.PhotoGalleryViewModel
 
-class PhotoGalleryDetailsFragment : Fragment(),PhotoGalleryDetailsSliderAdapter.CallBack {
+class PhotoGalleryDetailsFragment : Fragment() {
 
     private lateinit var binding : FragmentPhotoGalleryDetailsBinding
     private lateinit var viewModel: PhotoGalleryViewModel
@@ -28,6 +29,7 @@ class PhotoGalleryDetailsFragment : Fragment(),PhotoGalleryDetailsSliderAdapter.
         viewModel = ViewModelProvider(this).get(PhotoGalleryViewModel::class.java)
         return binding.root
     }
+    @SuppressLint("SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -50,23 +52,24 @@ class PhotoGalleryDetailsFragment : Fragment(),PhotoGalleryDetailsSliderAdapter.
     }
 
     private fun setSlider(data: List<Data>,position: Int) {
-        binding.photoGallerySliderVp.adapter = PhotoGalleryDetailsSliderAdapter(data,this)
+
+        val callBacLeft : (Int) -> Unit ={
+            if (binding.photoGallerySliderVp.currentItem > 0) {
+                binding.photoGallerySliderVp.currentItem = binding.photoGallerySliderVp.currentItem - 1
+            }
+        }
+        val callBackRight : (Int) -> Unit = {
+            if (binding.photoGallerySliderVp.currentItem < dataList!!.size - 1) {
+                binding.photoGallerySliderVp.currentItem = binding.photoGallerySliderVp.currentItem + 1
+            }
+        }
+
+        binding.photoGallerySliderVp.adapter = PhotoGalleryDetailsSliderAdapter(data, callBacLeft, callBackRight)
+
         binding.photoGallerySliderVp.clipToPadding = false
         binding.photoGallerySliderVp.clipChildren = false
         binding.photoGallerySliderVp.overScrollMode = RecyclerView.OVER_SCROLL_NEVER
         binding.photoGallerySliderVp.currentItem = position
-    }
-
-    override fun photoGalleryLeftClick(position: Int) {
-        if (binding.photoGallerySliderVp.currentItem > 0) {
-            binding.photoGallerySliderVp.currentItem = binding.photoGallerySliderVp.currentItem - 1
-        }
-    }
-
-    override fun photoGalleryRightClick(position: Int) {
-        if (binding.photoGallerySliderVp.currentItem < dataList!!.size - 1) {
-            binding.photoGallerySliderVp.currentItem = binding.photoGallerySliderVp.currentItem + 1
-        }
     }
 
 }

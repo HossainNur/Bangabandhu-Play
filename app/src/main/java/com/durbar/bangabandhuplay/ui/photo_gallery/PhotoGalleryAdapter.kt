@@ -17,7 +17,7 @@ import com.squareup.picasso.Picasso
 
 class PhotoGalleryAdapter(
     private val dataList: List<Data>?,
-    private val callBack: CallBack? = null
+    private val callBack: (Int) -> Unit
 ) : RecyclerView.Adapter<PhotoGalleryAdapter.mViewHolder>() {
 
 
@@ -43,14 +43,11 @@ class PhotoGalleryAdapter(
         }
 
         holder.binding.root.setOnClickListener {
-            /*if (title != null && image != null) {
-                callBack?.photoGalleryDetails(title,image)
-            }*/
+
             if (dataList != null){
-                callBack?.photoGalleryDetails(position)
+                callBack(position)
             }
-            //Toast.makeText(context, "Position: $position", Toast.LENGTH_SHORT).show()
-            //Log.d("PhotoGalleryAdapter", "Position: $position")
+
         }
 
     }
@@ -58,9 +55,4 @@ class PhotoGalleryAdapter(
     inner class mViewHolder(val binding: GalleryContentLayoutBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    interface CallBack {
-        //fun photoGalleryDetails(dataList: List<Data>, position: Int)
-        fun photoGalleryDetails(position: Int)
-        //fun photoGalleryDetails(title: String,image: String)
-    }
 }

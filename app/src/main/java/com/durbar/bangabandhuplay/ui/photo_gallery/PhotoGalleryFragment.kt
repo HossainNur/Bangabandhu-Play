@@ -21,7 +21,7 @@ import com.durbar.bangabandhuplay.utils.checkInternet
 import com.squareup.picasso.Picasso
 
 
-class PhotoGalleryFragment : Fragment(), PhotoGalleryAdapter.CallBack {
+class PhotoGalleryFragment : Fragment() {
     private lateinit var binding: FragmentPhotoGalleryBinding
     private lateinit var viewModel: PhotoGalleryViewModel
     private var photoGallery: Boolean = false
@@ -45,7 +45,15 @@ class PhotoGalleryFragment : Fragment(), PhotoGalleryAdapter.CallBack {
                 if (data != null && !data.isNullOrEmpty()) {
                     photoGallery = true
                     binding.photoGalleryRv.layoutManager = GridLayoutManager(requireContext(), 3)
-                    binding.photoGalleryRv.adapter = PhotoGalleryAdapter(data, this)
+                    binding.photoGalleryRv.adapter = PhotoGalleryAdapter(data){ passedPosition ->
+                        //showDialog(title, image)
+
+                        val bundle = Bundle().apply {
+                            putInt("position", passedPosition)
+                        }
+                        //navController.navigate(navController, R.id.action_photoGalleryFragment_to_photoGalleryDetailsFragment, bundle)
+                        navController.navigate(R.id.photoGalleryDetailsFragment,bundle)
+                    }
                     hideProgressBar()
                 }
             } catch (e: Exception) {
@@ -59,19 +67,6 @@ class PhotoGalleryFragment : Fragment(), PhotoGalleryAdapter.CallBack {
             binding.photoGalleryRv.visibility = View.VISIBLE
             binding.progressBar.visibility = View.GONE
         }
-    }
-
-    override fun photoGalleryDetails(position: Int) {
-        //showDialog(title, image)
-
-            val bundle = Bundle().apply {
-                putInt("position", position)
-            }
-            //navController.navigate(navController, R.id.action_photoGalleryFragment_to_photoGalleryDetailsFragment, bundle)
-            navController.navigate(R.id.photoGalleryDetailsFragment,bundle)
-
-
-
     }
 
 
