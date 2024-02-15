@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/black"
+    android:paddingTop="@dimen/_15sdp"
+    android:paddingStart="@dimen/_15sdp"
+    android:paddingEnd="@dimen/_15sdp"
+    android:paddingBottom="@dimen/_10sdp"
+    android:id="@+id/slider_one_container"
+    >
+
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/image_vp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_120sdp"
+        android:background="@drawable/viewpager_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="2dp"
+        />
+
+
+    <LinearLayout
+        android:id="@+id/indicator_container_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_vp"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:orientation="horizontal" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -33,6 +33,9 @@ class HomeFragment : Fragment() {
     private var adapter: ParentItemAdapter? = null
     private var slider = false
     private var frontendSection = false
+
+    private lateinit var customSliderParentAdapter: CustomSliderParentAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -46,7 +49,12 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        loadSlider()
 
+        loadFrontEndSections()
+    }
+
+    private fun loadSlider(){
         homeViewModel!!.sliders.observe(requireActivity()) { originals: List<Original>? ->
             try {
                 if (originals != null) {
@@ -64,10 +72,18 @@ class HomeFragment : Fragment() {
                 e.printStackTrace()
             }
         }
+    }
+
+    private fun loadFrontEndSections() {
+        val concatAdapter = ConcatAdapter()
+        loadCustomSliders()
+
         homeViewModel!!.frontendSection.observe(requireActivity()) { data ->
             try {
                 if (data != null && !data.isEmpty()) {
-              /*      frontendSection = true
+
+                    /*// normal nested adapter
+                    frontendSection = true
                     val dataList: MutableList<Data> = ArrayList()
                     for (d in data) {
                         if (d.frontendCustomContent != null) {
@@ -80,14 +96,30 @@ class HomeFragment : Fragment() {
                     binding!!.homeParentRecyclerView.adapter = adapter
                     hideProgressBar()*/
 
+
+                    // ConcatAdapter
                     frontendSection = true
-                    val concatAdapter = ConcatAdapter()
-                    data.forEach {
-                        concatAdapter.addAdapter(CommonAdapter(it))
+                    data.forEachIndexed { index, data ->
+                        if (index == data.frontendCustomContent.size-1){  // direct index number can be given
+                            concatAdapter.addAdapter(customSliderParentAdapter)
+                        }
+                        concatAdapter.addAdapter(CommonAdapter(data))
+
                     }
                     binding!!.homeParentRecyclerView.adapter = concatAdapter
                     hideProgressBar()
                 }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun loadCustomSliders(){
+        homeViewModel?.customSliders?.observe(viewLifecycleOwner){ customSliderList ->
+            try {
+                customSliderParentAdapter = customSliderList?.let { it1 -> CustomSliderParentAdapter(it1) }!!    //CustomSliderParentAdapter initialization
+
             } catch (e: Exception) {
                 e.printStackTrace()
             }

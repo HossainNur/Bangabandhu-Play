@@ -18,4 +18,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         get() = repository.fetchSlider()
     val frontendSection: MutableLiveData<List<Data>?>
         get() = repository.getFrontendSection()
+
+    val customSliders: MutableLiveData<List<com.durbar.bangabandhuplay.data.model.fronend_custom_slider.Original>?>
+        get() = repository.fetchCustomSlider()
 }
