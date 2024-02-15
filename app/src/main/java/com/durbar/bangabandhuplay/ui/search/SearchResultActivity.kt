@@ -13,6 +13,7 @@ import com.durbar.bangabandhuplay.R
 import com.durbar.bangabandhuplay.data.model.search_content.SearchResultRes
 import com.durbar.bangabandhuplay.databinding.ActivitySearchResultBinding
 import com.durbar.bangabandhuplay.utils.checkInternet
+import com.durbar.bangabandhuplay.utils.observeInternetConnection
 
 class SearchResultActivity() : AppCompatActivity() {
     private var binding: ActivitySearchResultBinding? = null
@@ -24,7 +25,9 @@ class SearchResultActivity() : AppCompatActivity() {
         )
         viewModel = ViewModelProvider(this).get(SearchContentsViewModel::class.java)
         setContentView(binding!!.root)
+
         this.checkInternet()
+        observeInternetConnection()
 
         setSupportActionBar(binding!!.toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)

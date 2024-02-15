@@ -55,7 +55,7 @@ class TvShowsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireContext().checkInternet()
+
         viewModel!!.sliders.observe(requireActivity()) { originals: List<Original>? ->
             try {
                 if (originals != null) {

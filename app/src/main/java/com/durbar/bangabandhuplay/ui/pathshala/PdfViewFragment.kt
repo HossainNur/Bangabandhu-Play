@@ -39,7 +39,7 @@ class PdfViewFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentPdfViewBinding.inflate(inflater, container, false)
-        requireContext().checkInternet()
+
         return binding.root
     }
 

@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.durbar.bangabandhuplay.data.Api
 import com.durbar.bangabandhuplay.data.ApiService
+import com.durbar.bangabandhuplay.data.model.fronend_custom_slider.FrontEndCustomSliders
 import com.durbar.bangabandhuplay.data.model.frontend_custom_content.custom_contents.CustomContent
 import com.durbar.bangabandhuplay.data.model.frontend_custom_content.custom_contents.Data
 import com.durbar.bangabandhuplay.data.model.sliders.Original
@@ -17,6 +18,7 @@ class HomeRepository(private val application: Application) {
     private val apiService: ApiService = Api.instance!!.apiService
     private val sliderList: MutableLiveData<List<Original>?> = MutableLiveData()
     private val dataList: MutableLiveData<List<Data>?> = MutableLiveData()
+    private val customSliderList: MutableLiveData<List<com.durbar.bangabandhuplay.data.model.fronend_custom_slider.Original>?> = MutableLiveData()
 
     fun fetchSlider(): MutableLiveData<List<Original>?> {
         val call: Call<Sliders> = apiService.sliders
@@ -37,6 +39,8 @@ class HomeRepository(private val application: Application) {
         return sliderList
     }
 
+
+
     fun getFrontendSection(): MutableLiveData<List<Data>?> {
         val call: Call<CustomContent> = apiService.frontendCustomContent
         call.enqueue(object : Callback<CustomContent> {
@@ -54,5 +58,26 @@ class HomeRepository(private val application: Application) {
             }
         })
         return dataList
+    }
+
+
+    fun fetchCustomSlider(): MutableLiveData<List<com.durbar.bangabandhuplay.data.model.fronend_custom_slider.Original>?> {
+        val call: Call<FrontEndCustomSliders> = apiService.frontEndCustomSliders
+        call.enqueue(object : Callback<FrontEndCustomSliders>{
+            override fun onResponse(call: Call<FrontEndCustomSliders>, response: Response<FrontEndCustomSliders>) {
+                if (response.isSuccessful && response.body() != null && response.body()?.data?.original != null) {
+                    customSliderList.value = response.body()?.data?.original
+                } else {
+                    Toast.makeText(application, response.message(), Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<FrontEndCustomSliders>, t: Throwable) {
+                Toast.makeText(application, "Failed to connect", Toast.LENGTH_SHORT).show()
+                t.printStackTrace()
+            }
+
+        })
+        return customSliderList
     }
 }

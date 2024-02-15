@@ -37,7 +37,6 @@ class PhotoGalleryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireContext().checkInternet()
 
         navController = Navigation.findNavController(view)
         viewModel.fetchGalleryPhotos().observe(viewLifecycleOwner) { data ->

@@ -4,6 +4,7 @@ import androidx.annotation.Keep;
 
 import com.durbar.bangabandhuplay.data.model.category.root.single.SingleRootCategory;
 import com.durbar.bangabandhuplay.data.model.family_member.FamilyMemberResponse;
+import com.durbar.bangabandhuplay.data.model.fronend_custom_slider.FrontEndCustomSliders;
 import com.durbar.bangabandhuplay.data.model.live.LiveStreamingResponse;
 import com.durbar.bangabandhuplay.data.model.pathshala.PathshalaResponse;
 import com.durbar.bangabandhuplay.data.model.photo_gallery.PhotoGalleryResponse;
@@ -56,6 +57,10 @@ import retrofit2.http.Query;
 
     @GET("category-wise-ebook")
     Call<PathshalaResponse> getPathsahlaPdf();
+
+
+    @GET("frontend/custom/sliders")
+    Call<FrontEndCustomSliders> getFrontEndCustomSliders();
 
 }
 
