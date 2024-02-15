@@ -48,6 +48,26 @@
 
     </androidx.core.widget.NestedScrollView>
 
+    <ImageView
+        android:id="@+id/iv_left"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/arrow_left_yellow_icon_foreground"
+        app:layout_constraintBottom_toBottomOf="@+id/guide_line_center"
+        />
+
+    <ImageView
+        android:id="@+id/iv_right"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/arrow_right_yellow_icon_foreground"
+        app:layout_constraintBottom_toBottomOf="@+id/guide_line_center"
+        />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

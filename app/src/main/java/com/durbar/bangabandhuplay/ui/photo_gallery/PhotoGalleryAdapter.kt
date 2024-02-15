@@ -47,7 +47,7 @@ class PhotoGalleryAdapter(
                 callBack?.photoGalleryDetails(title,image)
             }*/
             if (dataList != null){
-                callBack?.photoGalleryDetails(dataList,position)
+                callBack?.photoGalleryDetails(position)
             }
             //Toast.makeText(context, "Position: $position", Toast.LENGTH_SHORT).show()
             //Log.d("PhotoGalleryAdapter", "Position: $position")
@@ -59,7 +59,8 @@ class PhotoGalleryAdapter(
         RecyclerView.ViewHolder(binding.root)
 
     interface CallBack {
-        fun photoGalleryDetails(dataList: List<Data>, position: Int)
+        //fun photoGalleryDetails(dataList: List<Data>, position: Int)
+        fun photoGalleryDetails(position: Int)
         //fun photoGalleryDetails(title: String,image: String)
     }
 }

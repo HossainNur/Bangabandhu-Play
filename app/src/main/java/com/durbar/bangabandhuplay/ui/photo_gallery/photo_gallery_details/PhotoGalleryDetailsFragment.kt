@@ -17,10 +17,11 @@ import com.durbar.bangabandhuplay.databinding.FragmentPhotoGalleryDetailsBinding
 import com.durbar.bangabandhuplay.ui.photo_gallery.PhotoGalleryAdapter
 import com.durbar.bangabandhuplay.ui.photo_gallery.PhotoGalleryViewModel
 
-class PhotoGalleryDetailsFragment : Fragment() {
+class PhotoGalleryDetailsFragment : Fragment(),PhotoGalleryDetailsSliderAdapter.CallBack {
 
     private lateinit var binding : FragmentPhotoGalleryDetailsBinding
     private lateinit var viewModel: PhotoGalleryViewModel
+    private var dataList : List<Data>? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         binding = FragmentPhotoGalleryDetailsBinding.inflate(inflater,container,false)
@@ -30,11 +31,18 @@ class PhotoGalleryDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        arguments?.let {
-            val photoList = it.getParcelableArrayList<Data>("photoList")
-            val position = it.getInt("position")
-            if (photoList != null){
-                setSlider(photoList,position)
+
+        viewModel.fetchGalleryPhotos().observe(viewLifecycleOwner) { data ->
+            try {
+                if (data != null && !data.isNullOrEmpty()) {
+                    dataList = data
+                    arguments?.let {
+                        val position = it.getInt("position")
+                            setSlider(dataList!!,position)
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
 
@@ -42,11 +50,23 @@ class PhotoGalleryDetailsFragment : Fragment() {
     }
 
     private fun setSlider(data: List<Data>,position: Int) {
-        binding.photoGallerySliderVp.adapter = PhotoGalleryDetailsSliderAdapter(data)
+        binding.photoGallerySliderVp.adapter = PhotoGalleryDetailsSliderAdapter(data,this)
         binding.photoGallerySliderVp.clipToPadding = false
         binding.photoGallerySliderVp.clipChildren = false
         binding.photoGallerySliderVp.overScrollMode = RecyclerView.OVER_SCROLL_NEVER
         binding.photoGallerySliderVp.currentItem = position
+    }
+
+    override fun photoGalleryLeftClick(position: Int) {
+        if (binding.photoGallerySliderVp.currentItem > 0) {
+            binding.photoGallerySliderVp.currentItem = binding.photoGallerySliderVp.currentItem - 1
+        }
+    }
+
+    override fun photoGalleryRightClick(position: Int) {
+        if (binding.photoGallerySliderVp.currentItem < dataList!!.size - 1) {
+            binding.photoGallerySliderVp.currentItem = binding.photoGallerySliderVp.currentItem + 1
+        }
     }
 
 }

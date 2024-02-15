@@ -61,18 +61,16 @@ class PhotoGalleryFragment : Fragment(), PhotoGalleryAdapter.CallBack {
         }
     }
 
-    override fun photoGalleryDetails(dataList: List<Data>, position: Int) {
+    override fun photoGalleryDetails(position: Int) {
         //showDialog(title, image)
-        if (dataList != null){
 
             val bundle = Bundle().apply {
-                putParcelableArrayList("photoList", ArrayList(dataList)) // Convert to Parcelable
                 putInt("position", position)
             }
             //navController.navigate(navController, R.id.action_photoGalleryFragment_to_photoGalleryDetailsFragment, bundle)
             navController.navigate(R.id.photoGalleryDetailsFragment,bundle)
 
-        }
+
 
     }
 

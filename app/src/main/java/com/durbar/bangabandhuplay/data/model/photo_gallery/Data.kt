@@ -21,34 +21,5 @@ data class Data(
     val createdAt: String? = null,
     @field:SerializedName("updated_at") 
     val updatedAt: String? = null
-) : Parcelable {
-    constructor(parcel: Parcel) : this(
-        parcel.readValue(Int::class.java.classLoader) as? Int,
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString()
-    ) {
-    }
+)
 
-    override fun describeContents(): Int {
-        TODO("Not yet implemented")
-    }
-
-    override fun writeToParcel(dest: Parcel, flags: Int) {
-        TODO("Not yet implemented")
-    }
-
-    companion object CREATOR : Parcelable.Creator<Data> {
-        override fun createFromParcel(parcel: Parcel): Data {
-            return Data(parcel)
-        }
-
-        override fun newArray(size: Int): Array<Data?> {
-            return arrayOfNulls(size)
-        }
-    }
-}
