@@ -29,7 +29,7 @@ class PhotoGalleryDetailsFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(PhotoGalleryViewModel::class.java)
         return binding.root
     }
-    @SuppressLint("SuspiciousIndentation")
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
