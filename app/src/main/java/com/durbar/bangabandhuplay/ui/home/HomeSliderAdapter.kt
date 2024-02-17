@@ -43,7 +43,7 @@ class HomeSliderAdapter(private val images: List<Original>, private val context:
                 context.startActivity(
                     Intent(context, PlayerActivity::class.java)
                         .putExtra(Constants.CONTENT_UUID, uuid)
-                        .putExtra(Constants.CONTENT_SECTION_TITLE, "Home")
+                        .putExtra(Constants.CONTENT_SECTION_TITLE, "Slider")
                 )
             }
             Constants.IS_MORE_CONTENT = false

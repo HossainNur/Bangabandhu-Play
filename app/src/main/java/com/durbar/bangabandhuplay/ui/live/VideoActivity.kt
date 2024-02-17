@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.Toast
@@ -39,6 +40,7 @@ class VideoActivity : AppCompatActivity() {
         binding = ActivityVideoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         this.checkInternet()
         observeInternetConnection()
 

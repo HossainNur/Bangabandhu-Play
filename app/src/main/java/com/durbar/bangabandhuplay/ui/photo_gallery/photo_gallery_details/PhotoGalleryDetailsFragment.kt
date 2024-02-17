@@ -40,6 +40,8 @@ class PhotoGalleryDetailsFragment : Fragment() {
                     dataList = data
                     arguments?.let {
                         val position = it.getInt("position")
+
+                        if (position > -1)
                             setSlider(dataList!!,position)
                     }
                 }

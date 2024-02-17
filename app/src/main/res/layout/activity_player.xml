@@ -154,6 +154,21 @@
                     app:layout_constraintTop_toBottomOf="@+id/cast_crew_rv" />
 
                 <LinearLayout
+                    android:id="@+id/details_line"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    app:layout_constraintStart_toStartOf="@+id/details_text"
+                    app:layout_constraintEnd_toEndOf="@+id/details_text"
+                    app:layout_constraintTop_toBottomOf="@+id/details_text">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:background="@color/yellow" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/first_line"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -279,11 +294,26 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/release_text_view" />
 
+                <LinearLayout
+                    android:id="@+id/four_line"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    app:layout_constraintStart_toStartOf="@+id/tv_more_like_this"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_more_like_this"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_more_like_this">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:background="@color/yellow" />
+                </LinearLayout>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_more_like_this"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_more_like_this" />

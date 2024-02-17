@@ -13,6 +13,7 @@ import android.os.Process
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.Toast
@@ -75,6 +76,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         viewmodel = ViewModelProvider(this)[LiveStreamingViewModel::class.java]
         setContentView(binding.root)
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
         this.checkInternet()
         observeInternetConnection()

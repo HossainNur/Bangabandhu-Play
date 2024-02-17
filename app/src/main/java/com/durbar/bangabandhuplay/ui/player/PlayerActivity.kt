@@ -69,6 +69,7 @@ class PlayerActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(PlayerViewModel::class.java)
         uuid = intent.getStringExtra(Constants.CONTENT_UUID)
         setContentView(binding!!.root)
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
         this.checkInternet()
         observeInternetConnection()
@@ -97,17 +98,16 @@ class PlayerActivity : AppCompatActivity() {
                     val releaseDate = singleOttContent.data.contentData.releaseDate?:""
                     val genre = singleOttContent.data.contentData.genre?:""
                     val runTime = singleOttContent.data.contentData.runtime?:""
-                    val year = singleOttContent.data.contentData.year?:""
                     val contentSourceList =
                         singleOttContent.data.contentData.contentSource.orEmpty()
                     if (title.isNotEmpty()) {
                         binding?.moviesTitle?.text = title
                         moviesTitle?.text = title
                     }
-                    if (year.isNotEmpty()){
-                        binding?.moviesYear?.text = year
-                    }
-                    if (description.isNotEmpty()) binding?.moviesDescription?.text = description
+
+                    if (description.isNotEmpty()) binding?.moviesDescription?.text = description.trim()
+                    else binding?.moviesDescription?.visibility = View.GONE
+
 
                     if (singleOttContent.data.contentData.castAndCrews != null &&
                         singleOttContent.data.contentData.castAndCrews.isNotEmpty()
@@ -142,7 +142,7 @@ class PlayerActivity : AppCompatActivity() {
                         val requiredFormat = "$hours h $mins m $secs s"
                         // content runtime
                         binding?.tvRunTime?.text = requiredFormat
-                    }
+                    }else binding?.tvRunTime?.text = "Unavailable"
 
                     if (releaseDate.isNotEmpty()) {
                         val inputDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
@@ -152,10 +152,15 @@ class PlayerActivity : AppCompatActivity() {
                                 SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault())
                             val outputDateStr: String = outputDateFormat.format(inputDate)
                             binding?.tvReleaseDate?.text = outputDateStr
+                            val outputYearFormat =
+                                SimpleDateFormat("yyyy", Locale.getDefault())
+                            val outputReleaseYear: String = outputYearFormat.format(inputDate)?:""
+                            binding!!.moviesYear.text = outputReleaseYear
+
                         } catch (e: Exception) {
                             e.printStackTrace()
                         }
-                    }
+                    }else  binding?.tvReleaseDate?.text = "Unavailable"
 
                     if (genre.isNotEmpty()) {
                         val gson = Gson()
