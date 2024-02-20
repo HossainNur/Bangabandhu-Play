@@ -10,6 +10,7 @@ object Constants {
 
     //Retrofit BASE URL
     const val BASE_URL = "http://159.223.86.243/api/v1/app/"
+    //const val BASE_URL = "http://47.128.146.169/api/v1/app/"
     const val BASE_URL_LIVE = "https://ott.durbar.live/api/v1/web/"
     const val CONTENT_SLUG = "CONTENT_SLUG"
     const val CONTENT_ID = "CONTENT_ID"

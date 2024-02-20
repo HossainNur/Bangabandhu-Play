@@ -13,18 +13,14 @@ android {
         applicationId "com.durbar.bangabandhuplay"
         minSdk 21
         targetSdk 33
-        versionCode 24
-        versionName "0.0.24"
+        versionCode 25
+        versionName "0.0.25"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
-        debug {
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
+
         release {
             minifyEnabled true
             shrinkResources true
