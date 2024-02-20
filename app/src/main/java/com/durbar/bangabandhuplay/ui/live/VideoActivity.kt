@@ -92,7 +92,16 @@ class VideoActivity : AppCompatActivity() {
         }
 
         override fun onUserOffline(uid: Int, reason: Int) {
-            runOnUiThread { onRemoteUserLeft() }
+            runOnUiThread {
+                onRemoteUserLeft()
+
+                if (mRtcEngine != null) {
+                    mRtcEngine!!.leaveChannel()
+                    RtcEngine.destroy()
+                    mRtcEngine = null
+                }
+                finish()
+            }
         }
 
         override fun onJoinChannelSuccess(channel: String?, uid: Int, elapsed: Int) {
