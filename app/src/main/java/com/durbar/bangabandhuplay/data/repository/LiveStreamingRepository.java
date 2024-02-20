@@ -42,7 +42,7 @@ public class LiveStreamingRepository {
 
             @Override
             public void onFailure(Call<LiveStreamingResponse> call, Throwable t) {
-                Toast.makeText(application, "Failed to connect", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(application, "Failed to connect", Toast.LENGTH_SHORT).show();
                 t.printStackTrace();
             }
         });

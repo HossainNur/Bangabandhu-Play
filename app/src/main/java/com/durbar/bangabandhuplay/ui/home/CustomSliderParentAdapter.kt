@@ -42,7 +42,7 @@ class CustomSliderParentAdapter(private val frontEndCustomSlider: List<Original>
                val item = TextView(holder.binding.sliderOneContainer.context)
                item.background = ContextCompat.getDrawable(holder.itemView.context, R.drawable.rounded_back_light_grey)
                item.id = i
-               val params = LinearLayout.LayoutParams(30, 30)
+               val params = LinearLayout.LayoutParams(15, 15)
                params.setMargins(5, 0, 5, 0)
                //item.setLayoutParams(new ViewGroup.LayoutParams(30,30));
                item.layoutParams = params
