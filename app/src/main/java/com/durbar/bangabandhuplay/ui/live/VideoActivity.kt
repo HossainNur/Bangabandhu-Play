@@ -34,16 +34,11 @@ class VideoActivity : AppCompatActivity() {
     private var token : String? = null
     private var appId: String? = null
     private var channelName : String? = null
-    private var handler: Handler = Handler()
-    private var runnable: Runnable? = null
-    private var delay = 4000
     private lateinit var binding : ActivityVideoBinding
-    private lateinit var viewmodel: LiveStreamingViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityVideoBinding.inflate(layoutInflater)
-        viewmodel = ViewModelProvider(this)[LiveStreamingViewModel::class.java]
         setContentView(binding.root)
 
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
@@ -55,15 +50,6 @@ class VideoActivity : AppCompatActivity() {
         appId = intent.getStringExtra("appId")
         token = intent.getStringExtra("token")
         initAgoraEngineAndJoinChannel()
-    }
-
-    override fun onResume() {
-        handler.postDelayed(Runnable {
-            handler.postDelayed(runnable!!, delay.toLong())
-            fetchActiveLive()
-        }.also { runnable = it }, delay.toLong())
-        super.onResume()
-
     }
 
     override fun onPause() {
@@ -107,7 +93,14 @@ class VideoActivity : AppCompatActivity() {
         }
 
         override fun onUserOffline(uid: Int, reason: Int) {
-            runOnUiThread { onRemoteUserLeft() }
+            runOnUiThread { onRemoteUserLeft()
+                if (mRtcEngine != null){
+                    mRtcEngine!!.leaveChannel()
+                    RtcEngine.destroy()
+                    mRtcEngine = null
+                }
+                finish()
+            }
         }
 
         override fun onJoinChannelSuccess(channel: String?, uid: Int, elapsed: Int) {
@@ -167,22 +160,6 @@ class VideoActivity : AppCompatActivity() {
     private fun onRemoteUserLeft(){
         val container = findViewById<View>(R.id.remote_video_view_container) as FrameLayout
         container.removeAllViews()
-    }
-
-    private fun fetchActiveLive() {
-        viewmodel.liveStreaming.observe(this) { data ->
-            try {
-                if (data != null && data.status == 1) {
-                    //Toast.makeText(this, "live active", Toast.LENGTH_SHORT).show()
-                } else {
-                    END_CALL_PRESSED = true
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
     }
 
 }
