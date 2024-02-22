@@ -26,6 +26,7 @@ object Constants {
     const val HOME_FRAGMENT = "HOME_FRAGMENT"
     const val MOVIES_FRAGMENT = "MOVIES_FRAGMENT"
     const val DOCUMENTARY_FRAGMENT = "DOCUMENTARY_FRAGMENT"
+    const val TEST_FCM = false   // make true and test notification for debug
     var IS_FROM_PLAYER = false
     var IS_MORE_CONTENT = false
     var IS_MORE_HOME = false

@@ -299,6 +299,21 @@ class MainActivity : AppCompatActivity() {
                 //Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
             }
 
+        // For debug version notification test
+        // Make Constants.TEST_FCM true, install locally and send topic as 'debug' from sender app->
+        // only local app will receive notification, playStore version will not
+        if (Constants.TEST_FCM){
+            Firebase.messaging.subscribeToTopic("debug")
+                .addOnCompleteListener { task ->
+                    var msg = "Subscribed"
+                    if (!task.isSuccessful) {
+                        msg = "Subscribe failed"
+                    }
+                    Log.d("notifi", msg)
+                    //Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+                }
+        }
+
         if (Build.VERSION.SDK_INT > 32) {
             checkNotificationPermission()
         }
