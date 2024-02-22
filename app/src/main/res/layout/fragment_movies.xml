@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/black"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.durbar.bangabandhuplay.ui.movies.MoviesFragment">
+    tools:context="live.durbar.bangabandhuapp.ui.movies.MoviesFragment">
 
 
     <androidx.core.widget.NestedScrollView

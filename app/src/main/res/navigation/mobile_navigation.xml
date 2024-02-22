@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.durbar.bangabandhuplay.ui.home.HomeFragment"
+        android:name="live.durbar.bangabandhuapp.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -26,7 +26,7 @@
 
     <fragment
         android:id="@+id/navigation_movies"
-        android:name="com.durbar.bangabandhuplay.ui.movies.MoviesFragment"
+        android:name="live.durbar.bangabandhuapp.ui.movies.MoviesFragment"
         android:label="fragment_movies"
         tools:layout="@layout/fragment_movies" >
         <action
@@ -44,7 +44,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_tvShows"
-        android:name="com.durbar.bangabandhuplay.ui.documentary.TvShowsFragment"
+        android:name="live.durbar.bangabandhuapp.ui.documentary.TvShowsFragment"
         android:label="fragment_tv_shows"
         tools:layout="@layout/fragment_tv_shows" >
         <action
@@ -62,7 +62,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_setting"
-        android:name="com.durbar.bangabandhuplay.SettingFragment"
+        android:name="live.durbar.bangabandhuapp.SettingFragment"
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting" >
         <action
@@ -80,44 +80,44 @@
     </fragment>
     <fragment
         android:id="@+id/familyMemberFragment"
-        android:name="com.durbar.bangabandhuplay.ui.family_member.FamilyMemberFragment"
+        android:name="live.durbar.bangabandhuapp.ui.family_member.FamilyMemberFragment"
         android:label="fragment_family_member"
         tools:layout="@layout/fragment_family_member" />
     <fragment
         android:id="@+id/photoGalleryFragment"
-        android:name="com.durbar.bangabandhuplay.ui.photo_gallery.PhotoGalleryFragment"
+        android:name="live.durbar.bangabandhuapp.ui.photo_gallery.PhotoGalleryFragment"
         android:label="fragment_photo_gallery"
         tools:layout="@layout/fragment_photo_gallery" />
 
     <fragment
         android:id="@+id/familyMemberDeatilsFragment"
-        android:name="com.durbar.bangabandhuplay.ui.family_member.family_member_details.FamilyMemberDetailsFragment"
+        android:name="live.durbar.bangabandhuapp.ui.family_member.family_member_details.FamilyMemberDetailsFragment"
         android:label="fragment_family_member_deatils"
         tools:layout="@layout/fragment_family_member_deatils" />
 
     <fragment
         android:id="@+id/pathshala"
-        android:name="com.durbar.bangabandhuplay.ui.pathshala.PathshalaFragment"
+        android:name="live.durbar.bangabandhuapp.ui.pathshala.PathshalaFragment"
         android:label="fragment_pathshala"
         tools:layout="@layout/fragment_pathshala" />
     <fragment
         android:id="@+id/tunes"
-        android:name="com.durbar.bangabandhuplay.ui.tunes.TunesFragment"
+        android:name="live.durbar.bangabandhuapp.ui.tunes.TunesFragment"
         android:label="fragment_tunes"
         tools:layout="@layout/fragment_tunes" />
     <fragment
         android:id="@+id/pdfWebViewFragment"
-        android:name="com.durbar.bangabandhuplay.ui.pathshala.PdfWebViewFragment"
+        android:name="live.durbar.bangabandhuapp.ui.pathshala.PdfWebViewFragment"
         android:label="fragment_pdf_web_view"
         tools:layout="@layout/fragment_pdf_web_view" />
     <fragment
         android:id="@+id/pdfViewFragment"
-        android:name="com.durbar.bangabandhuplay.ui.pathshala.PdfViewFragment"
+        android:name="live.durbar.bangabandhuapp.ui.pathshala.PdfViewFragment"
         android:label="fragment_pdf_view"
         tools:layout="@layout/fragment_pdf_view" />
     <fragment
         android:id="@+id/photoGalleryDetailsFragment"
-        android:name="com.durbar.bangabandhuplay.ui.photo_gallery.photo_gallery_details.PhotoGalleryDetailsFragment"
+        android:name="live.durbar.bangabandhuapp.ui.photo_gallery.photo_gallery_details.PhotoGalleryDetailsFragment"
         android:label="fragment_photo_gallery_details"
         tools:layout="@layout/fragment_photo_gallery_details" />
 

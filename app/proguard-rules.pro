@@ -57,12 +57,12 @@
 }
 ##---------------End: proguard configuration for Gson  ----------
 
--keep class com.durbar.bangabandhuplay.data.model.**
+-keep class live.durbar.bangabandhuapp.data.model.**
 
 # Keep the Retrofit service interfaces
--keep interface com.durbar.bangabandhuplay.data.ApiService.** { *; }
+-keep interface live.durbar.bangabandhuapp.data.ApiService.** { *; }
 
--keep class com.durbar.bangabandhuplay.data.repository.**
+-keep class live.durbar.bangabandhuapp.data.repository.**
 
 # Keep Picasso classes and methods
 -keep class com.squareup.picasso.** { *; }
@@ -75,11 +75,11 @@
     *;
 }
 
--keep class com.durbar.bangabandhuplay.ui.live.VideoActivity
--keepclassmembers class com.durbar.bangabandhuplay.ui.live.VideoActivity {
+-keep class live.durbar.bangabandhuapp.ui.live.VideoActivity
+-keepclassmembers class live.durbar.bangabandhuapp.ui.live.VideoActivity {
     *;
 }
--keepclassmembers class com.durbar.bangabandhuplay.MainActivity {
+-keepclassmembers class live.durbar.bangabandhuapp.MainActivity {
     *;
 }
 
@@ -89,10 +89,10 @@
 # Add other rules as needed
 
 # Keep the entire Api class and its members
--keep class com.durbar.bangabandhuplay.data.Api { *; }
+-keep class live.durbar.bangabandhuapp.data.Api { *; }
 
 # Keep the ApiService interface
--keep interface com.durbar.bangabandhuplay.data.ApiService { *; }
+-keep interface live.durbar.bangabandhuapp.data.ApiService { *; }
 
 # Keep the GsonConverterFactory class
 -keep class retrofit2.converter.gson.GsonConverterFactory { *; }

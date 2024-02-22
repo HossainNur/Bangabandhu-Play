@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/player_container"
     android:background="@color/black"
-    tools:context="com.durbar.bangabandhuplay.ui.player.PlayerActivity">
+    tools:context="live.durbar.bangabandhuapp.ui.player.PlayerActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/content_section_container"
