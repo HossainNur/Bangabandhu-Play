@@ -62,6 +62,8 @@ class MainActivity : AppCompatActivity() {
     private var token : String? = null
     private var appId: String? = null
     private var channelName : String? = null
+    private var channelId : Int? = 0
+    private var prevChannelId : Int? = -1
     private var handler: Handler = Handler()
     private var runnable: Runnable? = null
     private var delay = 4000
@@ -145,25 +147,8 @@ class MainActivity : AppCompatActivity() {
 
         checkCurrentBottomNav()
 
-        if (END_CALL_PRESSED){
-            binding.liveStreamingContainer.visibility = View.GONE
-            liveClose = true
-            if (mRtcEngine != null) {
-                mRtcEngine!!.leaveChannel();
-                RtcEngine.destroy();
-                mRtcEngine = null;
-            }
-        }
-
         binding.liveStreamingClose.setOnClickListener {
-            binding.liveStreamingContainer.visibility = View.GONE
-            liveClose = true
-            if (mRtcEngine != null) {
-                mRtcEngine!!.leaveChannel();
-                RtcEngine.destroy();
-                mRtcEngine = null;
-            }
-            END_CALL_PRESSED = true
+            liveClose =true
         }
 
         binding.remoteVideoViewContainer.setOnClickListener {
@@ -364,12 +349,28 @@ class MainActivity : AppCompatActivity() {
                     token = data.token
                     appId = data.appId
                     userRole = 0
+                    channelId = data.id
 
                     if (channelName != null && token != null && appId != null) {
-                        if (!liveClose) {
+
+                        if (channelId != prevChannelId){
+                            prevChannelId = channelId
+                            liveClose = false
                             binding.liveStreamingContainer.visibility = View.VISIBLE
                             initAgoraEngineAndJoinChannel()
+                        }else if (!liveClose) {
+                            binding.liveStreamingContainer.visibility = View.VISIBLE
+                            initAgoraEngineAndJoinChannel()
+                        }else if (liveClose){
+                            binding.liveStreamingContainer.visibility = View.GONE
+                            if (mRtcEngine != null) {
+                                mRtcEngine!!.leaveChannel();
+                                RtcEngine.destroy();
+                                mRtcEngine = null;
+                            }
                         }
+
+
                     }
                 } else {
                     binding.liveStreamingContainer.visibility = View.GONE

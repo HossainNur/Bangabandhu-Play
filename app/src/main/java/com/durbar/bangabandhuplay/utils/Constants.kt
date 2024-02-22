@@ -9,7 +9,9 @@ object Constants {
     const val MY_PREF_NAME = "OTT_SHARED_PREF"
 
     //Retrofit BASE URL
-    const val BASE_URL = "http://159.223.86.243/api/v1/app/"
+   // const val BASE_URL = "http://159.223.86.243/api/v1/app/"       // live
+    const val BASE_URL = "http://13.250.125.189/api/v1/app/"  // debug test
+
     const val BASE_URL_LIVE = "https://ott.durbar.live/api/v1/web/"
     const val CONTENT_SLUG = "CONTENT_SLUG"
     const val CONTENT_ID = "CONTENT_ID"
