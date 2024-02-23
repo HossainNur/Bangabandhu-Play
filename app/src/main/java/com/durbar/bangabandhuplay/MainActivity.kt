@@ -388,7 +388,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun onUserOffline(uid: Int, reason: Int) {
-            runOnUiThread { onRemoteUserLeft() }
+            runOnUiThread {
+               // onRemoteUserLeft()
+            }
         }
 
         override fun onJoinChannelSuccess(channel: String?, uid: Int, elapsed: Int) {

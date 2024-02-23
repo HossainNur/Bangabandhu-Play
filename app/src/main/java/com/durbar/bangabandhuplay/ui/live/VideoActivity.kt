@@ -93,13 +93,15 @@ class VideoActivity : AppCompatActivity() {
         }
 
         override fun onUserOffline(uid: Int, reason: Int) {
-            runOnUiThread { onRemoteUserLeft()
+            runOnUiThread {
+             //   onRemoteUserLeft()
                 if (mRtcEngine != null){
                     mRtcEngine!!.leaveChannel()
                     RtcEngine.destroy()
                     mRtcEngine = null
                 }
                 finish()
+                startActivity(Intent(this@VideoActivity, MainActivity::class.java))
             }
         }
 
@@ -148,6 +150,7 @@ class VideoActivity : AppCompatActivity() {
     }
     private fun joinChannel(){
         mRtcEngine!!.joinChannel(token, channelName, null, 0)
+
     }
     private fun setupRemoteVideo(uid: Int){
         val container = findViewById<View>(R.id.remote_video_view_container) as FrameLayout
