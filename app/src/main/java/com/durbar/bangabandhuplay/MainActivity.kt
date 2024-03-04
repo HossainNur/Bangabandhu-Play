@@ -30,6 +30,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.durbar.bangabandhuplay.R.id
@@ -122,7 +123,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         //NAVIGATION DRAWER ITEM SELECTED LISTENER
-        binding.navDrawer.setNavigationItemSelectedListener { item: MenuItem ->
+       /* binding.navDrawer.setNavigationItemSelectedListener { item: MenuItem ->
             if (item.itemId == id.familyMemberFragment) {
                 navController!!.navigate(id.familyMemberFragment)
                 NavigationHelper.instanceNavHelper?.appBarLayout = binding.appTopBarLayout
@@ -141,7 +142,38 @@ class MainActivity : AppCompatActivity() {
             }
             binding.drawerLayout.closeDrawer(GravityCompat.START)
             true
+        }*/
+
+        binding.navDrawer.setNavigationItemSelectedListener { item: MenuItem ->
+            when (item.itemId) {
+                id.familyMemberFragment -> {
+                    navController!!.popBackStack(navController!!.graph.startDestinationId, false)
+                    NavigationHelper.instanceNavHelper?.appBarLayout = binding.appTopBarLayout
+                    unCheckableBottomNavigation()
+                }
+                id.live ->{
+                    startActivity(Intent(applicationContext, StreamingActivity::class.java))
+                }
+                id.pathshala -> {
+                    navController!!.popBackStack(navController!!.graph.startDestinationId, false)
+                    unCheckableBottomNavigation()
+                }
+                id.tunes ->{
+                    navController!!.popBackStack(navController!!.graph.startDestinationId, false)
+                    unCheckableBottomNavigation()
+                }
+                id.photoGalleryFragment ->{
+                    navController!!.popBackStack(navController!!.graph.startDestinationId, false)
+                    unCheckableBottomNavigation()
+                }
+            }
+            // Navigate to the selected destination
+            navController!!.navigate(item.itemId)
+
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+            true
         }
+
         binding.navView.setOnNavigationItemSelectedListener { item ->
             if (item.itemId == id.navigation_home) {
                 navController!!.navigate(id.navigation_home)
