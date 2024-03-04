@@ -2,6 +2,7 @@ package com.durbar.bangabandhuplay.ui.live
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.RadioButton
 import android.widget.RadioGroup
@@ -31,6 +32,11 @@ class StreamingActivity : AppCompatActivity() {
         )
         viewModel = ViewModelProvider(this).get(LiveStreamingViewModel::class.java)
         setContentView(binding!!.root)
+
+        setSupportActionBar(binding!!.toolbar)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_ios_24)
+        supportActionBar!!.title = "Live"
 
         from_Notification = intent.getStringExtra("data")?: ""   // notification purpose
 
@@ -67,5 +73,11 @@ class StreamingActivity : AppCompatActivity() {
                 e.printStackTrace()
             }
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        onBackPressed()
+        finish()
+        return super.onOptionsItemSelected(item)
     }
 }

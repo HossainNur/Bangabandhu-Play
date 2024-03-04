@@ -34,7 +34,7 @@ class TunesFragment : Fragment() {
     private var inc = true
     private var prev1 = 0
     private var slider = false
-    private var moviesSection : Boolean = false
+    private var tunesSection = false
     private var isMoviesOriginalList: List<Original>? = null
     private var images: List<Original> = java.util.ArrayList()
     private var categorySliderList: List<CategorySlider> = java.util.ArrayList()
@@ -51,6 +51,7 @@ class TunesFragment : Fragment() {
         viewModel.sliders.observe(viewLifecycleOwner){originals ->
             try {
                 if (originals != null) {
+                    slider = true
                     isMoviesOriginalList = java.util.ArrayList<Original>()
                     for (isHomeList in originals) {
                         if (isHomeList.isHome == 0) {
@@ -59,7 +60,7 @@ class TunesFragment : Fragment() {
                     }
                     images = isMoviesOriginalList as java.util.ArrayList<Original>
                     setSlider(isMoviesOriginalList as java.util.ArrayList<Original>)
-                 //   hideProgressBar()
+                    hideProgressBar()
                 }
             }catch (e: java.lang.Exception){
                 e.printStackTrace()
@@ -79,7 +80,7 @@ class TunesFragment : Fragment() {
                     }else{
                         binding.tunesSliderVp.visibility = View.GONE
                     }*/
-
+                    tunesSection = true
                     val subCategories: MutableList<SubCategory> = ArrayList()
                     for (c in data[0].subCategories!!) {
                         if (c.ottContents != null && !c.ottContents.isEmpty()) {
@@ -88,11 +89,19 @@ class TunesFragment : Fragment() {
                     }
                     binding.tunesRv.setLayoutManager(LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false))
                     binding.tunesRv.adapter = MoviesContentAdapter(subCategories,requireActivity(), true)
+                    hideProgressBar()
                 }
 
             }catch (e:Exception){
                 e.printStackTrace()
             }
+        }
+    }
+
+    private fun hideProgressBar() {
+        if (slider && tunesSection) {
+            binding.tunesContainer.visibility = View.VISIBLE
+            binding.progressBar.visibility = View.GONE
         }
     }
 

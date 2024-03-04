@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.PorterDuff
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
@@ -35,9 +36,15 @@ class VideoActivity : AppCompatActivity() {
     private var channelName : String? = null
     private lateinit var binding : ActivityVideoBinding
 
+    private var handler: Handler = Handler()
+    private var runnable: Runnable? = null
+    private var delay = 4000
+    private lateinit var viewmodel: LiveStreamingViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityVideoBinding.inflate(layoutInflater)
+        viewmodel = ViewModelProvider(this)[LiveStreamingViewModel::class.java]
         setContentView(binding.root)
 
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
@@ -50,7 +57,14 @@ class VideoActivity : AppCompatActivity() {
         token = intent.getStringExtra("token")
         initAgoraEngineAndJoinChannel()
     }
+    override fun onResume() {
+        handler.postDelayed(Runnable {
+            handler.postDelayed(runnable!!, delay.toLong())
+            fetchActiveLive()
+        }.also { runnable = it }, delay.toLong())
+        super.onResume()
 
+    }
     override fun onPause() {
         super.onPause()
         if (mRtcEngine != null){
@@ -93,14 +107,14 @@ class VideoActivity : AppCompatActivity() {
 
         override fun onUserOffline(uid: Int, reason: Int) {
             runOnUiThread {
-                onRemoteUserLeft()
-
-                if (mRtcEngine != null) {
+             //   onRemoteUserLeft()
+               /* if (mRtcEngine != null){
                     mRtcEngine!!.leaveChannel()
                     RtcEngine.destroy()
                     mRtcEngine = null
                 }
                 finish()
+                startActivity(Intent(this@VideoActivity, MainActivity::class.java))*/
             }
         }
 
@@ -123,8 +137,8 @@ class VideoActivity : AppCompatActivity() {
     }
 
     fun onEndCalledClicked(view: View) {
-        END_CALL_PRESSED = true
-        startActivity(Intent(this, MainActivity::class.java))
+       // END_CALL_PRESSED = true
+       // startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
 
@@ -149,6 +163,7 @@ class VideoActivity : AppCompatActivity() {
     }
     private fun joinChannel(){
         mRtcEngine!!.joinChannel(token, channelName, null, 0)
+
     }
     private fun setupRemoteVideo(uid: Int){
         val container = findViewById<View>(R.id.remote_video_view_container) as FrameLayout
@@ -162,5 +177,19 @@ class VideoActivity : AppCompatActivity() {
         val container = findViewById<View>(R.id.remote_video_view_container) as FrameLayout
         container.removeAllViews()
     }
+    private fun fetchActiveLive() {
+        viewmodel.liveStreaming.observe(this) { data ->
+            try {
+                if (data != null && data.status == 1) {
 
+                } else {
+                  //  binding.liveStreamingContainer.visibility = View.GONE
+                    finish()
+                    startActivity(Intent(this,MainActivity::class.java))
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
 }
