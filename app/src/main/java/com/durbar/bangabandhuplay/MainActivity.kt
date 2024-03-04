@@ -123,7 +123,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         //NAVIGATION DRAWER ITEM SELECTED LISTENER
-       /* binding.navDrawer.setNavigationItemSelectedListener { item: MenuItem ->
+        binding.navDrawer.setNavigationItemSelectedListener { item: MenuItem ->
             if (item.itemId == id.familyMemberFragment) {
                 navController!!.navigate(id.familyMemberFragment)
                 NavigationHelper.instanceNavHelper?.appBarLayout = binding.appTopBarLayout
@@ -142,9 +142,9 @@ class MainActivity : AppCompatActivity() {
             }
             binding.drawerLayout.closeDrawer(GravityCompat.START)
             true
-        }*/
+        }
 
-        binding.navDrawer.setNavigationItemSelectedListener { item: MenuItem ->
+        /*binding.navDrawer.setNavigationItemSelectedListener { item: MenuItem ->
             when (item.itemId) {
                 id.familyMemberFragment -> {
                     navController!!.popBackStack(navController!!.graph.startDestinationId, false)
@@ -172,7 +172,7 @@ class MainActivity : AppCompatActivity() {
 
             binding.drawerLayout.closeDrawer(GravityCompat.START)
             true
-        }
+        }*/
 
         binding.navView.setOnNavigationItemSelectedListener { item ->
             if (item.itemId == id.navigation_home) {
