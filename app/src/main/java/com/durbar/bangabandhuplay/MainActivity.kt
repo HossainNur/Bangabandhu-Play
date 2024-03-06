@@ -82,19 +82,6 @@ class MainActivity : AppCompatActivity() {
         this.checkInternet()
         observeInternetConnection()
 
-
-        val isBannerOut = Constants.getSharedPrefBoolean(this, "REMOVE_BANNER")
-        if (isBannerOut){
-            binding.bannerContainer.visibility = View.GONE
-        }else{
-            binding.bannerContainer.visibility = View.VISIBLE
-        }
-
-        binding.bannerImageClose.setOnClickListener {
-            Constants.setEditor(this, "REMOVE_BANNER", true)
-            binding.bannerContainer.visibility = View.GONE
-        }
-
         // notification
         handlePushNotification()
 
