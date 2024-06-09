@@ -1,0 +1,72 @@
+package com.durbar.bangabandhuplay.ui.movies;
+
+import android.content.Context;
+import android.content.Intent;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.durbar.bangabandhuplay.data.model.category.root.single.SubCategory;
+import com.durbar.bangabandhuplay.data.model.category.root.single.OttContent;
+import com.durbar.bangabandhuplay.databinding.SectionRecyclerViewLayoutBinding;
+import com.durbar.bangabandhuplay.ui.more.MoreActivity;
+import com.durbar.bangabandhuplay.utils.Constants;
+
+import java.util.List;
+
+public class MoviesContentAdapter extends RecyclerView.Adapter<MoviesContentAdapter.ParentViewHolder> {
+    private List<SubCategory> subCategories;
+    private Context context;
+
+
+    public MoviesContentAdapter(List<SubCategory> subCategories, Context context) {
+        this.subCategories = subCategories;
+        this.context = context;
+    }
+
+    @NonNull
+    @Override
+    public ParentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ParentViewHolder(SectionRecyclerViewLayoutBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ParentViewHolder holder, int position) {
+
+        SubCategory current = subCategories.get(position);
+
+        List<OttContent> ottContents = current.getOttContents();
+
+        holder.binding.itemRv.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
+        holder.binding.itemRv.setAdapter(new MoviesChildContentAdapter(ottContents, context));
+
+        String title = current.getTitle();
+        String slug = current.getSlug();
+
+        if (title != null) {
+            holder.binding.titleTv.setText(title);
+        }
+
+        holder.binding.moreTv.setOnClickListener(view -> {
+            if (slug != null && title != null) context.startActivity(new Intent(context, MoreActivity.class).putExtra(Constants.CONTENT_SLUG, slug).putExtra(Constants.CONTENT_SECTION_TITLE, title).putExtra(Constants.CONTENT_IS_HOME, false));
+        });
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return subCategories != null ? subCategories.size() : 0;
+    }
+
+    class ParentViewHolder extends RecyclerView.ViewHolder {
+        SectionRecyclerViewLayoutBinding binding;
+
+        ParentViewHolder(SectionRecyclerViewLayoutBinding itemView) {
+            super(itemView.getRoot());
+            binding = itemView;
+        }
+    }
+}

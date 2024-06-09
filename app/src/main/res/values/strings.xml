@@ -8,5 +8,24 @@
     <string name="recently_added">Recently Added</string>
     <string name="video_thumbnail">Video Thumbnail</string>
     <string name="play">play</string>
-    <string name="slider_description">When the love of his life is compelled to wed another, a gifted yet volatile young surgeon spirals into self-destruction. His brilliance in the operating room is matched only by the chaos of his personal life.</string>
+    <string name="cast_crew">Cast &amp; Crew</string>
+    <string name="details">Details</string>
+    <string name="run_time">Run time</string>
+    <string name="release_date">Release date</string>
+    <string name="bangabandhu_play">Bangabandhu Play</string>
+    <string name="family_member">Family member\'s</string>
+    <string name="photo_gallery">Photo Gallery</string>
+    <string name="family_details">Family Member Details</string>
+    <string name="slider_description">When the love of his life is compelled to wed another, a gifted yet volatile young surgeon spirals into self-destruction.</string>
+    <string name="movies">Dhaka Attack</string>
+    <string name="year">2023</string>
+    <string name="search">Search</string>
+    <string name="track_selection_title">Video Quality</string>
+    <string name="exo_track_selection_title_video">Video</string>
+    <!-- The title of a track selection view for audio tracks. [CHAR LIMIT=20] -->
+    <string name="exo_track_selection_title_audio">Audio</string>
+    <!-- The title of a track selection view for text (i.e. subtitle or caption) tracks. [CHAR LIMIT=20] -->
+    <string name="exo_track_selection_title_text">Text</string>
+    <string name="nav_open">Open</string>
+    <string name="nav_close">Close</string>
 </resources>

@@ -1,0 +1,44 @@
+package com.durbar.bangabandhuplay.data.model.search_content;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
+public class SearchResultRes {
+    @SerializedName("status")
+    @Expose
+    public Boolean status;
+    @SerializedName("message")
+    @Expose
+    public String message;
+    @SerializedName("data")
+    @Expose
+    public List<Data> data;
+    @SerializedName("errors")
+    @Expose
+    public Object errors;
+
+    public SearchResultRes(Boolean status, String message, List<Data> data, Object errors) {
+        this.status = status;
+        this.message = message;
+        this.data = data;
+        this.errors = errors;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public List<Data> getData() {
+        return data;
+    }
+
+    public Object getErrors() {
+        return errors;
+    }
+}

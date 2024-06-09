@@ -9,4 +9,10 @@
     <color name="white">#FFFFFFFF</color>
     <color name="yellow">#FFBF00</color>
     <color name="gray">#808080</color>
+    <color name="light_gray">#C4C4C4</color>
+    <color name="search_gray">#CCCCCC</color>
+    <color name="red">#FF0000</color>
+    <color name="bottom_nav_color">#303030</color>
+    <color name="bottom_navigation_selected_color">#FF5722</color> <!-- Selected item color -->
+    <color name="bottom_navigation_unselected_color">#757575</color>
 </resources>
